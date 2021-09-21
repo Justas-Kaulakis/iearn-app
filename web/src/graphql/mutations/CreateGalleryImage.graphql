@@ -1,0 +1,3 @@
+mutation CreateGalleryImage($input: GalleryInput!) {
+  createGalleryImage(input: $input)
+}

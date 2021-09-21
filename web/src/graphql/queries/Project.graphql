@@ -1,0 +1,14 @@
+query Project($id: Int!) {
+  project(id: $id) {
+    error
+    project {
+      id
+      title
+      description
+      body
+      imageUrl
+      isPublished
+      publishedAt
+    }
+  }
+}

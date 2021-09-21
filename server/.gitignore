@@ -1,0 +1,6 @@
+dist
+node_modules
+.env
+api/images/gallery/*
+api/images/member/*
+api/images/project/*

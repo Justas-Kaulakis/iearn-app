@@ -1,0 +1,7 @@
+fragment ProjectResponse on Project {
+  id
+  title
+  description
+  imageUrl
+  isPublished
+}

@@ -1,0 +1,3 @@
+mutation DeleteGalleryImage($id: Int!) {
+  deleteGalleryImage(id: $id)
+}

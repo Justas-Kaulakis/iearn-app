@@ -1,0 +1,6 @@
+fragment TableMember on Member {
+  id
+  fullName
+  description
+  imageUrl
+}

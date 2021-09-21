@@ -1,0 +1,6 @@
+query Contacts {
+  contacts {
+    id
+    contact
+  }
+}

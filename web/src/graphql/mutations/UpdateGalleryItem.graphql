@@ -1,0 +1,3 @@
+mutation UpdateGalleryImage($id: Int!, $input: GalleryInput!) {
+  updateGalleryImage(id: $id, input: $input)
+}

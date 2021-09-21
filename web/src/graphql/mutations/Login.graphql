@@ -1,0 +1,8 @@
+mutation Login($options: AdminLogInput!) {
+  login(options: $options) {
+    errors {
+      field
+      message
+    }
+  }
+}

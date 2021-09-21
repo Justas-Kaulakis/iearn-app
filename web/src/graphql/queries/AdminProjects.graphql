@@ -1,0 +1,10 @@
+query AdminProjects {
+  adminProjects {
+    id
+    title
+    description
+    imageUrl
+    isPublished
+    publishedAt
+  }
+}

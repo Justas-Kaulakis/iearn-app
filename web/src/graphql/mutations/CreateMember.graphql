@@ -1,0 +1,9 @@
+mutation CreateMember($input: MemberInput!) {
+  createMember(input: $input) {
+    id
+    fullName
+    imageUrl
+    description
+    createdAt
+  }
+}

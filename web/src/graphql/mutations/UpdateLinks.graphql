@@ -1,0 +1,3 @@
+mutation UpdateLinks($id: Int!, $input: SocialLinksInput!) {
+  updateLinks(id: $id, input: $input)
+}

@@ -1,0 +1,9 @@
+query SocialLinks {
+  socialLinks {
+    id
+    instagram
+    facebook
+    youtube
+    iearnGlobal
+  }
+}

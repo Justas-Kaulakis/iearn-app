@@ -1,0 +1,3 @@
+mutation UpdateContacts($contacts: [MyContact!]!) {
+  updateContacts(contacts: $contacts)
+}
