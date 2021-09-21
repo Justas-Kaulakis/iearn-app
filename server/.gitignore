@@ -4,3 +4,5 @@ node_modules
 api/images/gallery/*
 api/images/member/*
 api/images/project/*
+
+!api/images/**/.keep
