@@ -3,6 +3,7 @@ import Member from "./Member";
 import { v4 as uuidv4 } from "uuid";
 import Slider, { Settings as SliderSettings } from "react-slick";
 import { useMembersQuery } from "../generated/graphql";
+import { FaChevronLeft } from "react-icons/fa";
 
 const visiNariai = [
   {
@@ -71,13 +72,14 @@ const Members = () => {
     slidesToScroll: 5,
     useTransform: true,
     cssEase: "ease-out",
+    // prevArrow: <PrevArrow />,
+    // nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
     responsive: [
       {
         breakpoint: 1200,
         settings: {
-          arrows: false,
           draggable: true,
           slidesToShow: 4,
           slidesToScroll: 4,
@@ -89,7 +91,6 @@ const Members = () => {
         breakpoint: 850,
         settings: {
           rows: 2,
-          arrows: false,
           draggable: true,
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -100,7 +101,6 @@ const Members = () => {
       {
         breakpoint: 600,
         settings: {
-          arrows: false,
           draggable: true,
           rows: 2,
           slidesToShow: 2,

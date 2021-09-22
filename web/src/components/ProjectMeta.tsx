@@ -10,7 +10,7 @@ const ProjectMeta: FC<ProjectMetaProps> = ({ project }) => {
   return (
     <>
       <Head>
-        <title>{project.title || "iEARN - Projetas"}</title>
+        <title>{project?.title || "iEARN - Projetas"}</title>
         <link
           rel="shortcut icon"
           type="image/svg + xml"
@@ -18,9 +18,9 @@ const ProjectMeta: FC<ProjectMetaProps> = ({ project }) => {
         />
         <meta property="og:url" content={link} />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={project.title} />
-        <meta property="og:description" content={project.description} />
-        <meta property="og:image" content={project.imageUrl} />
+        <meta property="og:title" content={project?.title} />
+        <meta property="og:description" content={project?.description} />
+        <meta property="og:image" content={project?.imageUrl} />
       </Head>
     </>
   );

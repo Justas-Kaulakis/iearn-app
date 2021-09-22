@@ -24,10 +24,7 @@ import {
 import { GetServerSideProps, NextPage } from "next";
 import Error from "next/error";
 
-interface redaguotiProps {
-  projectId: number;
-}
-const redaguoti: NextPage<redaguotiProps> = ({}) => {
+const Redaguoti: NextPage<{}> = ({}) => {
   const formW = 300;
   const maxEditW = 600;
   const callbackEditor = useRef<any>();
@@ -136,5 +133,5 @@ const redaguoti: NextPage<redaguotiProps> = ({}) => {
 };
 
 export default withUrqlClient(createUrqlClient, { ssr: false })(
-  redaguoti as any
+  Redaguoti as any
 );

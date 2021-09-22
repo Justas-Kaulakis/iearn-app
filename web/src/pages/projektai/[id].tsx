@@ -9,10 +9,15 @@ import { createUrqlClient } from "../../utils/createUrqlClient";
 import parse from "html-react-parser";
 import Head from "next/head";
 import ProjectMeta from "../../components/ProjectMeta";
+import { NextPage } from "next";
 
 interface ProjectPageProps {}
 
-const ProjectPage: FC<ProjectPageProps> = ({}) => {
+export function getServerSideProps() {
+  return { props: {} };
+}
+
+const ProjectPage: NextPage<{}> = ({}) => {
   const router = useRouter();
   const projectId =
     typeof router.query.id === "string" ? parseInt(router.query.id) : "Bad";
@@ -27,7 +32,12 @@ const ProjectPage: FC<ProjectPageProps> = ({}) => {
     console.log("Error: ", error);
   }
   if (error || data?.project?.error) {
-    return <Error statusCode={404} title={data?.project?.error} />;
+    return (
+      <Error
+        statusCode={404}
+        title={data?.project?.error || "Puslapis nerastas"}
+      />
+    );
   }
   const { project } = data?.project || { project: null };
   let body: string;
@@ -38,10 +48,10 @@ const ProjectPage: FC<ProjectPageProps> = ({}) => {
     <>
       <Layout active="projektai">
         <div className="article-box">
-          {!project ? null : (
+          {!project || fetching ? null : (
             <>
               <div className="intro">
-                <h1>{project?.title}</h1>
+                <h1>{project.title}</h1>
                 <p className="date-published">{project.publishedAt}</p>
                 <hr />
               </div>

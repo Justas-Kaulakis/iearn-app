@@ -25,7 +25,7 @@ import InputField from "./InputField";
 import Popup from "./Popup";
 
 interface EditGalleryPictureModalProps {
-  item?: { id: number; imageUrl: string; description: string };
+  item?: { id: number; imageUrl: string; description?: string };
   create?: boolean;
   redoQuery: (opts?: Partial<OperationContext>) => void;
 }

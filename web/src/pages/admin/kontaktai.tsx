@@ -31,7 +31,7 @@ interface ContactFormTypes {
   contact4: string;
 }
 
-const kontaktai: FC<kontaktaiProps> = ({}) => {
+const Kontaktai: FC<kontaktaiProps> = ({}) => {
   const inputSize = "sm";
   const [{ data: links, fetching: fLinks, error: lError }] =
     useSocialLinksQuery();
@@ -207,4 +207,4 @@ const kontaktai: FC<kontaktaiProps> = ({}) => {
   );
 };
 
-export default withUrqlClient(createUrqlClient, { ssr: false })(kontaktai);
+export default withUrqlClient(createUrqlClient, { ssr: false })(Kontaktai);

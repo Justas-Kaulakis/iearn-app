@@ -9,7 +9,7 @@ import EditGalleryPictureModal from "../../components/EditGalleryPictureModal";
 import { useGalleryImagesQuery } from "../../generated/graphql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 
-const galerija: FC = ({}) => {
+const Galerija: FC = ({}) => {
   const [{ data, fetching, error }, redoQuery] = useGalleryImagesQuery();
 
   if (error) {
@@ -77,4 +77,4 @@ const galerija: FC = ({}) => {
   );
 };
 
-export default withUrqlClient(createUrqlClient, { ssr: false })(galerija);
+export default withUrqlClient(createUrqlClient, { ssr: false })(Galerija);

@@ -18,7 +18,7 @@ const Editor = dynamic(() => import("../../../components/Editor"), {
 
 interface redaguotiProps {}
 
-const redaguoti: NextPage<redaguotiProps> = ({}) => {
+const Redaguoti: NextPage<redaguotiProps> = ({}) => {
   const [, createProject] = useCreateProjectMutation();
   const router = useRouter();
 
@@ -76,4 +76,4 @@ const redaguoti: NextPage<redaguotiProps> = ({}) => {
   );
 };
 
-export default withUrqlClient(createUrqlClient)(redaguoti);
+export default withUrqlClient(createUrqlClient)(Redaguoti);
