@@ -27,29 +27,3 @@ export class PictureResolver {
     );
   }
 }
-
-// '{"query":"mutation AddPicture($picture: Upload!) {\n  addPicture(picture: $picture)\n}"}'
-
-('{"query":"query Member($id: Int!) {\n  member(id: $id) {\n    id\n    fullName\n    description\n    createdAt\n  }\n}"}');
-//,"variables":{"id":1}}'
-
-`
-\
-curl 'http://localhost:4000/graphql' \
--H 'Accept-Encoding: gzip, deflate, br' \
--H 'Content-Type: application/json' \
--H 'Accept: application/json' \
--H 'Connection: keep-alive' \
--H 'DNT: 1' \
--H 'Origin: http://localhost:4000' \
-  --data-binary '{"query":"mutation AddPicture($picture: Upload!) {\n  addPicture(picture: $picture)\n}"}' --compressed
-
-
-  curl 'localhost:4000/graphql' \
-  -F operations='{ "query": "mutation ($picture: Upload!) { singleUpload(picture: $picture) }", "variables": { "picture": null } }' \
-  -F map='{ "0": ["variables.picture"] }' \
-  -F 0=@test.txt
-
-  curl http://localhost:4000/graphql -F operations='{ "query": "mutation ($picture: Upload!) { addPicture(picture: $picture) }", "variables": { "picture": null } }' -F map='{ "0": ["variables.picture"] }' -F 0=@test.txt
-
-`;
