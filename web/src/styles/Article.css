@@ -46,3 +46,19 @@
   max-width: min(80vw, 500px);
   margin: 0 auto;
 }
+
+.article-box .media-embed {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+
+.article-box .media-embed iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}

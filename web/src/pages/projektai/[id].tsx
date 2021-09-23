@@ -11,13 +11,13 @@ import Head from "next/head";
 import ProjectMeta from "../../components/ProjectMeta";
 import { NextPage } from "next";
 
-interface ProjectPageProps {}
+interface ProjectPageProps { }
 
 export function getServerSideProps() {
   return { props: {} };
 }
 
-const ProjectPage: NextPage<{}> = ({}) => {
+const ProjectPage: NextPage<{}> = ({ }) => {
   const router = useRouter();
   const projectId =
     typeof router.query.id === "string" ? parseInt(router.query.id) : "Bad";
@@ -27,6 +27,12 @@ const ProjectPage: NextPage<{}> = ({}) => {
       id: projectId as number,
     },
   });
+
+  function youtube_parser(url: string): string | boolean {
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return (match && match[7].length == 11) ? match[7] : false;
+  }
 
   if (error) {
     console.log("Error: ", error);
@@ -41,8 +47,35 @@ const ProjectPage: NextPage<{}> = ({}) => {
   }
   const { project } = data?.project || { project: null };
   let body: string;
+  let parsedBody: string | JSX.Element | JSX.Element[];
   if (project) {
     body = project.body.replace(/&nbsp;/g, " ");
+
+    parsedBody = parse(body, {
+      replace: (node: any) => {
+        if (!node?.attribs || node.type !== "tag" || node.name !== "oembed")
+          return;
+
+        if (!node?.attribs?.url) return <></>;
+        console.log(node);
+        const id = youtube_parser(node?.attribs?.url);
+        if (!id) return;
+
+        return (
+          <div className="media-embed">
+            <iframe
+              width="853"
+              height="480"
+              src={`https://www.youtube.com/embed/${id}`}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="Embedded youtube"
+            />
+          </div>
+        );
+      }
+    });
   }
   return (
     <>
@@ -55,7 +88,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
                 <p className="date-published">{project.publishedAt}</p>
                 <hr />
               </div>
-              <article className="body">{parse(body)}</article>
+              <article className="body">{parsedBody}</article>
             </>
           )}
         </div>
