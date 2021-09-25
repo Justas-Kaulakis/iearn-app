@@ -13,7 +13,6 @@ import {
 } from "type-graphql";
 import { FileUpload, GraphQLUpload } from "graphql-upload";
 import { processUpload } from "../utils/processUpload";
-import { SERVER_URL } from "../constants";
 import { getConnection } from "typeorm";
 import { deleteFile } from "../utils/deleteFile";
 
@@ -31,7 +30,9 @@ class MemberInput {
 export class MemberResolver {
   @FieldResolver(() => String)
   imageUrl(@Root() { imageUrl }: Member) {
-    return imageUrl ? `${SERVER_URL}/api/images/member/${imageUrl}` : "";
+    return imageUrl
+      ? `http://localhost:${process.env.SERVER_PORT}/api/images/member/${imageUrl}`
+      : "";
   }
 
   @Query(() => Member, { nullable: true })

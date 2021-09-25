@@ -234,7 +234,7 @@
 /* Import ROBOTO font-styles */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-.ck.ck-editor__main .ck-content {
+.ck-content {
   height: calc(100vh - 8.7em);
   font-family: "Roboto", sans-serif;
 }
@@ -243,30 +243,11 @@
   Overwriting the chakra-ui theme provider 
   with the default heading styling
 */
-.ck.ck-editor__main .ck-content h2 {
-  display: block;
-  font-size: 1.5em;
-  margin-top: 0.83em;
-  margin-bottom: 0.83em;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
-}
-.ck.ck-editor__main .ck-content h3 {
-  display: block;
-  font-size: 1.17em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
-}
-
-.ck.ck-editor__main .ck-content h4 {
-  display: block;
-  margin-top: 1.33em;
-  margin-bottom: 1.33em;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
+.ck-content h2,
+.ck-content h3,
+.ck-content h4,
+.ck-content ol,
+.ck-content ul,
+.ck-content li {
+  all: revert;
 }

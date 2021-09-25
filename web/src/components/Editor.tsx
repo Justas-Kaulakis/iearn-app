@@ -54,8 +54,11 @@ const Editor: FC<EditorProps> = ({
       }}
       data={data}
       config={{
+        mediaEmbed: {
+          previewsInData: true,
+        },
         simpleUpload: {
-          uploadUrl: `http://localhost:4000/api/projects/upload?id=${id}`,
+          uploadUrl: `${process.env.NEXT_PUBLIC_BE_URL_BASE}/api/projects/upload?id=${id}`,
           withCredentials: true,
         },
         toolbar: {
@@ -81,10 +84,33 @@ const Editor: FC<EditorProps> = ({
           ],
         },
         image: {
-          toolbar: ["toggleImageCaption", "imageTextAlternative"],
-          styles: {
-            options: ["alignLeft", "alignRight"],
-          },
+          resizeOptions: [
+            {
+              name: "resizeImage:original",
+              value: null,
+              icon: "original",
+            },
+            {
+              name: "resizeImage:50",
+              value: "50",
+              icon: "medium",
+            },
+            {
+              name: "resizeImage:70",
+              value: "70",
+              icon: "medium",
+            },
+            {
+              name: "resizeImage:30",
+              value: "30",
+              icon: "medium",
+            },
+          ],
+          toolbar: [
+            "resizeImage",
+            "toggleImageCaption",
+            "imageTextAlternative",
+          ],
         },
         indentBlock: {
           offset: 1,

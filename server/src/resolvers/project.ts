@@ -15,7 +15,6 @@ import {
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { Project } from "../entities/Project";
-import { SERVER_URL } from "../constants";
 import { ProjectImage } from "../entities/ProjectImage";
 import { deleteFile } from "../utils/deleteFile";
 import { MyContext } from "src/types";
@@ -63,11 +62,13 @@ class BodyImage {
 export class ProjectResolver {
   @FieldResolver(() => String)
   imageUrl(@Root() { imageUrl }: Project) {
-    return imageUrl ? `${SERVER_URL}/api/images/project/${imageUrl}` : "";
+    return imageUrl
+      ? `http://localhost:${process.env.SERVER_PORT}/api/images/project/${imageUrl}`
+      : "";
   }
   @FieldResolver(() => String)
   publishedAt(@Root() { publishedAt }: Project) {
-    return publishedAt?.toLocaleDateString();
+    return publishedAt?.toLocaleDateString("lt-LT");
   }
 
   @FieldResolver(() => [BodyImage])

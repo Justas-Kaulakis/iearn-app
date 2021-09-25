@@ -3015,6 +3015,9 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
+"ckeditor5-custom-build@file:./ckeditor5-custom":
+  version "0.0.1"
+
 "ckeditor5-custom@file:./ckeditor5-custom":
   version "0.0.1"
 

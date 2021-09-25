@@ -12,7 +12,6 @@ import {
 } from "type-graphql";
 import { FileUpload, GraphQLUpload } from "graphql-upload";
 import { processUpload } from "../utils/processUpload";
-import { SERVER_URL } from "../constants";
 import { Project } from "../entities/Project";
 
 @InputType()
@@ -27,7 +26,9 @@ class GalleryInput {
 export class GalleryResolver {
   @FieldResolver(() => String)
   imageUrl(@Root() { imageUrl }: Project) {
-    return imageUrl ? `${SERVER_URL}/api/images/gallery/${imageUrl}` : "";
+    return imageUrl
+      ? `http://localhost:${process.env.SERVER_PORT}/api/images/gallery/${imageUrl}`
+      : "";
   }
 
   @Query(() => [GalleryImage], { nullable: true })

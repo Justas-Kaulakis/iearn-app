@@ -43,8 +43,9 @@
   width: 100%;
 }
 .article-box .body img {
+  display: inline-flex;
   max-width: min(80vw, 500px);
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .article-box .media-embed {
@@ -53,7 +54,6 @@
   position: relative;
   height: 0;
 }
-
 
 .article-box .media-embed iframe {
   left: 0;
