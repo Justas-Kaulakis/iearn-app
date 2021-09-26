@@ -8,7 +8,21 @@ import { createUrqlClient } from "../../utils/createUrqlClient";
 import parse from "html-react-parser";
 import ProjectMeta from "../../components/ProjectMeta";
 import { NextPage } from "next";
-
+import {
+  FacebookShareButton,
+  FacebookShareCount,
+  FacebookIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  EmailShareButton,
+  EmailIcon,
+} from "react-share";
+import { HStack } from "@chakra-ui/layout";
+import { Button } from "@chakra-ui/button";
+import { FaFacebook, FaTwitter } from "react-icons/fa";
+import { ChakraProvider } from "@chakra-ui/react";
+import { stopAnimation } from "framer-motion/types/render/utils/animation";
+import MediaShare from "../../components/MediaShare";
 interface ProjectPageProps {}
 
 export function getServerSideProps() {
@@ -37,6 +51,9 @@ const ProjectPage: NextPage<{}> = ({}) => {
       />
     );
   }
+  if (!data?.project?.authorized) {
+    return <Error statusCode={401} title="Apribotas priėjimas" />;
+  }
   const { project } = data?.project || { project: null };
   let body: string;
   let parsedBody: string | JSX.Element | JSX.Element[];
@@ -44,6 +61,8 @@ const ProjectPage: NextPage<{}> = ({}) => {
     //body = project.body.replace(/&nbsp;/g, " ");
     body = project.body;
   }
+  const shareUrl = `${process.env.NEXT_PUBLIC_FE_URL_BASE}/projektai/${project?.id}`;
+  // const shareUrl = "https://www.youtube.com/watch?v=78oUN6QTKxI";
   return (
     <>
       <Layout active="projektai">
@@ -52,7 +71,16 @@ const ProjectPage: NextPage<{}> = ({}) => {
             <>
               <div className="intro">
                 <h1>{project.title}</h1>
-                <p className="date-published">{project.publishedAt}</p>
+                <div className="article-meta">
+                  <MediaShare
+                    title={project.title}
+                    url={shareUrl}
+                    disabled={!project.isPublished}
+                  />
+                  <time dateTime={project.publishedAt}>
+                    {project.publishedAt}
+                  </time>
+                </div>
                 <hr />
               </div>
               <article className="body">{parse(body)}</article>

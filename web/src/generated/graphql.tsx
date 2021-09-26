@@ -200,7 +200,7 @@ export type Project = {
   isPublished: Scalars['Boolean'];
   wasPublished: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
-  publishedAt?: Maybe<Scalars['DateTime']>;
+  publishedAt?: Maybe<Scalars['String']>;
   bodyImages: Array<BodyImage>;
 };
 
@@ -216,6 +216,7 @@ export type ProjectRes = {
   __typename?: 'ProjectRes';
   error?: Maybe<Scalars['String']>;
   project?: Maybe<Project>;
+  authorized: Scalars['Boolean'];
 };
 
 export type ProjectsRes = {
@@ -494,7 +495,7 @@ export type ProjectQuery = (
   { __typename?: 'Query' }
   & { project?: Maybe<(
     { __typename?: 'ProjectRes' }
-    & Pick<ProjectRes, 'error'>
+    & Pick<ProjectRes, 'error' | 'authorized'>
     & { project?: Maybe<(
       { __typename?: 'Project' }
       & Pick<Project, 'id' | 'title' | 'description' | 'body' | 'imageUrl' | 'isPublished' | 'publishedAt'>
@@ -764,6 +765,7 @@ export const ProjectDocument = gql`
     query Project($id: Int!) {
   project(id: $id) {
     error
+    authorized
     project {
       id
       title

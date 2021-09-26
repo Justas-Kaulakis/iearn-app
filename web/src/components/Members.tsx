@@ -1,9 +1,7 @@
 import React from "react";
 import Member from "./Member";
-import { v4 as uuidv4 } from "uuid";
 import Slider, { Settings as SliderSettings } from "react-slick";
 import { useMembersQuery } from "../generated/graphql";
-import { FaChevronLeft } from "react-icons/fa";
 
 const visiNariai = [
   {

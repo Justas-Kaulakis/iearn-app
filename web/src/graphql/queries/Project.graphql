@@ -1,6 +1,7 @@
 query Project($id: Int!) {
   project(id: $id) {
     error
+    authorized
     project {
       id
       title

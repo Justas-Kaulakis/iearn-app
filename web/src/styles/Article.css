@@ -3,8 +3,8 @@
 
 .article-box {
   font-family: Georgia, "Times New Roman", Times, serif;
-  /* min-height: calc(100vh - 3em); */
-
+  min-height: calc(100vh - 3em - 10em);
+  /* height: 100%; */
   padding-top: 3em;
   margin: 0 auto;
   padding-bottom: 2em;
@@ -22,18 +22,46 @@
 .article-box .intro {
   padding: 0 1em;
 }
+.article-box .intro .article-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -1em;
+}
+.article-box .intro .share-media button {
+  position: relative;
+  bottom: 0;
+  transition: bottom ease-out 0.2s;
+}
+.article-box .intro .share-media button:hover {
+  bottom: 10px;
+}
 
-.article-box .intro .date-published {
-  text-align: end;
-  font-size: small;
-  margin-top: -0.5em;
+@keyframes go-up {
+  from {
+    bottom: 0;
+    animation-timing-function: ease-out;
+  }
+  to {
+    bottom: 10px;
+  }
+}
+
+.article-box .intro time {
+  height: min-content;
+  margin-top: auto;
+  /* font-size: small; */
+  /* margin-top: -0.5em; */
 }
 .article-box .body {
+  font-family: "Roboto", "sans-serif";
   line-height: 1.5em;
   background-color: white;
   padding: 0 1em;
 }
 @media only screen and (max-width: 620px) {
+  .article-box {
+    padding-top: 0.1em;
+  }
   .article-box .body {
     background-color: transparent;
   }

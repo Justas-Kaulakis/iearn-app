@@ -93,7 +93,7 @@ const PostEditForm: FC<PostEditFormProps> = ({
                 required={isNew}
                 component={DropzoneField}
                 imageUrl={data.imageUrl}
-                dim={{ x: 300, y: 300 }}
+                dim={{ x: 400, y: 400 }}
               />
             </Box>
             {isNew ? null : (

@@ -39,6 +39,8 @@ class ProjectRes {
   error?: string;
   @Field(() => Project, { nullable: true })
   project?: Project;
+  @Field()
+  authorized?: boolean;
 }
 @ObjectType()
 class ProjectsRes {
@@ -84,15 +86,24 @@ export class ProjectResolver {
   }
 
   @Query(() => ProjectRes, { nullable: true })
-  async project(@Arg("id", () => Int) id: number): Promise<ProjectRes> {
+  async project(
+    @Arg("id", () => Int) id: number,
+    @Ctx() { req }: MyContext
+  ): Promise<ProjectRes> {
     const project = await Project.findOne(id);
     if (project === undefined) {
       return {
         error: "Projektas nerastas",
       };
     }
+    let authorized = true;
+    if (!project.isPublished) {
+      if (!req.session.adminId) authorized = false;
+    }
+
     return {
       project,
+      authorized,
     };
   }
   @Query(() => ProjectsRes)
