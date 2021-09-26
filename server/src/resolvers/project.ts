@@ -39,7 +39,7 @@ class ProjectRes {
   error?: string;
   @Field(() => Project, { nullable: true })
   project?: Project;
-  @Field()
+  @Field({ nullable: true })
   authorized?: boolean;
 }
 @ObjectType()
@@ -99,6 +99,11 @@ export class ProjectResolver {
     let authorized = true;
     if (!project.isPublished) {
       if (!req.session.adminId) authorized = false;
+    }
+    if (!authorized) {
+      return {
+        error: "Apribotas Priėjimas",
+      };
     }
 
     return {

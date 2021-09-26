@@ -51,12 +51,8 @@ const ProjectPage: NextPage<{}> = ({}) => {
       />
     );
   }
-  if (!data?.project?.authorized) {
-    return <Error statusCode={401} title="Apribotas priėjimas" />;
-  }
   const { project } = data?.project || { project: null };
   let body: string;
-  let parsedBody: string | JSX.Element | JSX.Element[];
   if (project) {
     //body = project.body.replace(/&nbsp;/g, " ");
     body = project.body;
