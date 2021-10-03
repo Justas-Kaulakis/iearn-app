@@ -558,6 +558,7 @@ body {
 
 .hoverCursor:hover {
   cursor: pointer;
+  background: #0000001f;
 }
 .hoverBorder:hover {
   border-bottom: white 2px solid;
