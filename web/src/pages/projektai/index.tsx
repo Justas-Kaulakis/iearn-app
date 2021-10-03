@@ -42,7 +42,8 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
     return <Heading>Loading...</Heading>;
   }
   //if(data?.projects?.projects?.size)
-  const totalPageNum = Math.max(1, data?.projects?.total / perPage);
+
+  const totalPageNum = Math.max(1, Math.ceil(data?.projects?.total / perPage));
   if (page > totalPageNum) {
     return <Error statusCode={404} />;
   }

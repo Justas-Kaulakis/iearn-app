@@ -2,26 +2,12 @@ import { withUrqlClient } from "next-urql";
 import Error from "next/error";
 import { useRouter } from "next/router";
 import React from "react";
-import { useProjectQuery } from "../../generated/graphql";
+import { useIsLoggedInQuery, useProjectQuery } from "../../generated/graphql";
 import Layout from "../../components/Layout";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 import parse from "html-react-parser";
 import ProjectMeta from "../../components/ProjectMeta";
 import { NextPage } from "next";
-import {
-  FacebookShareButton,
-  FacebookShareCount,
-  FacebookIcon,
-  WhatsappShareButton,
-  WhatsappIcon,
-  EmailShareButton,
-  EmailIcon,
-} from "react-share";
-import { HStack } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/button";
-import { FaFacebook, FaTwitter } from "react-icons/fa";
-import { ChakraProvider } from "@chakra-ui/react";
-import { stopAnimation } from "framer-motion/types/render/utils/animation";
 import MediaShare from "../../components/MediaShare";
 interface ProjectPageProps {}
 
@@ -39,6 +25,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
       id: projectId as number,
     },
   });
+  const [{ data: meData, fetching: meFetching }] = useIsLoggedInQuery();
 
   if (error) {
     console.log("Error: ", error);
@@ -51,7 +38,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
       />
     );
   }
-  const { project } = data?.project || { project: null };
+  const { project, authorized } = data?.project || { project: null };
   let body: string;
   if (project) {
     //body = project.body.replace(/&nbsp;/g, " ");
@@ -59,6 +46,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
   }
   const shareUrl = `${process.env.NEXT_PUBLIC_FE_URL_BASE}/projektai/${project?.id}`;
   // const shareUrl = "https://www.youtube.com/watch?v=78oUN6QTKxI";
+  console.log(authorized);
   return (
     <>
       <Layout active="projektai">
@@ -68,11 +56,26 @@ const ProjectPage: NextPage<{}> = ({}) => {
               <div className="intro">
                 <h1>{project.title}</h1>
                 <div className="article-meta">
-                  <MediaShare
-                    title={project.title}
-                    url={shareUrl}
-                    disabled={!project.isPublished}
-                  />
+                  <span>
+                    <MediaShare
+                      title={project.title}
+                      url={shareUrl}
+                      disabled={!project.isPublished}
+                    />
+                    {meFetching || !meData?.isLoggedIn ? null : (
+                      <>
+                        {project?.isPublished ? (
+                          <div className="published-tag card-tag-green">
+                            Paskelbta
+                          </div>
+                        ) : (
+                          <div className="published-tag card-tag-red">
+                            Nepaskelbta
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </span>
                   <time dateTime={project.publishedAt}>
                     {project.publishedAt}
                   </time>

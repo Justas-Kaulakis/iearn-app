@@ -27,6 +27,17 @@
   justify-content: space-between;
   margin-top: -1em;
 }
+.published-tag {
+  display: inline-block;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 3px;
+  font-size: small;
+  height: fit-content;
+  margin-left: 1em;
+  margin-bottom: auto;
+}
 .article-box .intro .share-media button {
   position: relative;
   bottom: 0;
@@ -34,16 +45,6 @@
 }
 .article-box .intro .share-media button:hover {
   bottom: 10px;
-}
-
-@keyframes go-up {
-  from {
-    bottom: 0;
-    animation-timing-function: ease-out;
-  }
-  to {
-    bottom: 10px;
-  }
 }
 
 .article-box .intro time {
@@ -73,6 +74,7 @@
 .article-box .body img {
   display: inline-flex;
   max-width: min(80vw, 500px);
+  /* min-width: 340px; */
   /* margin: 0 auto; */
 }
 

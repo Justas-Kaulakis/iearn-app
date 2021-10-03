@@ -16,9 +16,10 @@ const Pagination: FC<PaginationProps> = ({
   currentPage,
   hasMore,
 }) => {
-  if (totalPageCount === 1) {
+  if (totalPageCount <= 1) {
     return null;
   }
+  console.log({ totalPageCount });
   return (
     <Flex mt="1em" justifyContent="center" width="100%">
       <Flex
@@ -31,8 +32,8 @@ const Pagination: FC<PaginationProps> = ({
         maxWidth="300px"
       >
         {currentPage === 1 ? null : (
-          <Link href="#">
-            <CLink>
+          <Link href={`${href}?page=${currentPage - 1}`}>
+            <CLink className="hoverCursor">
               <Flex height="100%" align="center">
                 <FaAngleLeft />
               </Flex>
@@ -48,14 +49,16 @@ const Pagination: FC<PaginationProps> = ({
               px="7px"
               bg={currentPage === num + 1 ? "#84a98c" : undefined}
               color={currentPage === num + 1 ? "white" : undefined}
+              borderRadius="5px"
+              marginX={1}
             >
               {num + 1}
             </CLink>
           </Link>
         ))}
         {!hasMore ? null : (
-          <Link href="#">
-            <CLink>
+          <Link href={`${href}?page=${currentPage + 1}`}>
+            <CLink className="hoverCursor">
               <Flex height="100%" align="center">
                 <FaAngleRight />
               </Flex>
