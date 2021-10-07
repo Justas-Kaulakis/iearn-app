@@ -1,13 +1,25 @@
-import { ClientOptions, dedupExchange, fetchExchange, gql } from "urql";
+import { ClientOptions, dedupExchange, Exchange } from "urql";
 import { Cache, cacheExchange } from "@urql/exchange-graphcache";
 import { multipartFetchExchange } from "@urql/exchange-multipart-fetch";
 // @ts-ignore
 import { devtoolsExchange } from "@urql/devtools";
-import {
-  IsLoggedInDocument,
-  UpdateGalleryImageMutationVariables,
-} from "../generated/graphql";
+import { IsLoggedInDocument } from "../generated/graphql";
+import { pipe, tap } from "wonka";
+import Router from "next/router";
 
+export const errorExchange: Exchange =
+  ({ forward }) =>
+  (ops$) => {
+    return pipe(
+      forward(ops$),
+      tap(({ error }) => {
+        console.log("Tapped Error: ", error);
+        if (error?.message.includes("not authenticated")) {
+          Router.replace("/admin/login");
+        }
+      })
+    );
+  };
 const invalidateProjects = (cache: Cache) => {
   // console.log("Invalidating projects: ");
   const allFields = cache.inspectFields("Query");
@@ -51,6 +63,7 @@ export const createUrqlClient = (ssrExchange: any, ctx: any): ClientOptions => {
           },
         },
       }),
+      errorExchange,
       ssrExchange,
       multipartFetchExchange,
     ],

@@ -119,7 +119,7 @@ const Redaguoti: NextPage<{}> = ({}) => {
                 },
               });
               if (error) {
-                console.error("UPDATE ERROR: ", error);
+                console.log("UPDATE ERROR: ", error);
               }
               setSaved(true);
               //router.reload();

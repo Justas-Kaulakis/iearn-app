@@ -9,10 +9,12 @@ import {
   Query,
   Resolver,
   Root,
+  UseMiddleware,
 } from "type-graphql";
 import { FileUpload, GraphQLUpload } from "graphql-upload";
 import { processUpload } from "../utils/processUpload";
 import { Project } from "../entities/Project";
+import { isAuth } from "../utils/isAuth";
 
 @InputType()
 class GalleryInput {
@@ -37,6 +39,7 @@ export class GalleryResolver {
   }
 
   @Mutation(() => Int)
+  @UseMiddleware(isAuth)
   async createGalleryImage(
     @Arg("input") { image, description }: GalleryInput
   ): Promise<number> {
@@ -56,6 +59,7 @@ export class GalleryResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
   async updateGalleryImage(
     @Arg("id", () => Int) id: number,
     @Arg("input") { image, description }: GalleryInput
@@ -80,6 +84,7 @@ export class GalleryResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
   async deleteGalleryImage(@Arg("id", () => Int) id: number): Promise<boolean> {
     await GalleryImage.delete(id);
     return true;

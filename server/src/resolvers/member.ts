@@ -10,11 +10,13 @@ import {
   Mutation,
   FieldResolver,
   Root,
+  UseMiddleware,
 } from "type-graphql";
 import { FileUpload, GraphQLUpload } from "graphql-upload";
 import { processUpload } from "../utils/processUpload";
 import { getConnection } from "typeorm";
 import { deleteFile } from "../utils/deleteFile";
+import { isAuth } from "../utils/isAuth";
 
 @InputType()
 class MemberInput {
@@ -46,6 +48,7 @@ export class MemberResolver {
   }
 
   @Mutation(() => Member)
+  @UseMiddleware(isAuth)
   async createMember(
     @Arg("input") { image, ...input }: MemberInput
   ): Promise<Member> {
@@ -68,6 +71,7 @@ export class MemberResolver {
   }
 
   @Mutation(() => Member)
+  @UseMiddleware(isAuth)
   async updateMember(
     @Arg("id", () => Int) id: number,
     @Arg("input") { image, ...input }: MemberInput
@@ -93,6 +97,7 @@ export class MemberResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
   async deleteMember(@Arg("id", () => Int) id: number): Promise<Boolean> {
     // Delete Files from filesystem
     const avatarImage = await getConnection()

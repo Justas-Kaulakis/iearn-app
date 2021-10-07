@@ -80,6 +80,7 @@ const main = async () => {
         disableTouch: true,
       }),
       cookie: {
+        //maxAge: 1000 * 10,
         maxAge: 1000 * 60 * 60 * 3, /// 3 hours
         //maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
         httpOnly: true,

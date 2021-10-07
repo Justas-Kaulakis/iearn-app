@@ -32,8 +32,11 @@ const Login: FC<LoginProps> = ({}) => {
   const router = useRouter();
 
   const [, login] = useLoginMutation();
-  const [{ data, fetching }] = useIsLoggedInQuery();
+  const [{ data, fetching }] = useIsLoggedInQuery({
+    requestPolicy: "network-only",
+  });
   if (!fetching && data?.isLoggedIn) {
+    console.log("Already logged in!", data);
     router.push("/admin/projektai");
   }
 
