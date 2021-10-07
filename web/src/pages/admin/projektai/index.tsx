@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { withUrqlClient } from "next-urql";
 import Link from "next/link";
 import React, { FC } from "react";
@@ -8,6 +8,7 @@ import AdminLayout from "../../../components/AdminLayout";
 import AdminTopBar from "../../../components/AdminTopBar";
 import { createUrqlClient } from "../../../utils/createUrqlClient";
 import { formatDate } from "../../../utils/stringToDate";
+import CreateProjectModal from "../../../components/CreateProjectModal";
 
 interface ProjektaiProps {}
 
@@ -25,14 +26,24 @@ const Projektai: FC<ProjektaiProps> = ({}) => {
         Projektų sk. - {data?.adminProjects.length}
       </AdminTopBar>
       <Box bg="#f1f1f1" className="korteles">
-        <Link href="/admin/projektai/naujas">
-          <div className="new-project hoverCursor">
-            <span>
-              <FaPlus />
-            </span>
-            <p>Sukurti naują projektą</p>
-          </div>
-        </Link>
+        <CreateProjectModal>
+          {(onOpen) => (
+            <Button
+              height="fit-content"
+              variant="link"
+              onClick={() => {
+                onOpen();
+              }}
+            >
+              <div className="new-project hoverCursor">
+                <span>
+                  <FaPlus />
+                </span>
+                <p>Sukurti naują projektą</p>
+              </div>
+            </Button>
+          )}
+        </CreateProjectModal>
         {!data?.adminProjects || fetching
           ? null
           : data?.adminProjects.map((p) => (

@@ -38,9 +38,9 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
   if (error) {
     console.log("ERROR: ", error);
   }
-  if (fetching) {
-    return <Heading>Loading...</Heading>;
-  }
+  // if (fetching) {
+  //   return <Heading>Loading...</Heading>;
+  // }
   //if(data?.projects?.projects?.size)
 
   const totalPageNum = Math.max(1, Math.ceil(data?.projects?.total / perPage));
@@ -53,9 +53,7 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
       <section className="pad projects">
         <div className="container-2">
           <h1 className="green-heading">Projektai</h1>
-          {!data?.projects?.projects ? (
-            <Heading>Projektų nėra</Heading>
-          ) : (
+          {fetching || !data?.projects?.projects ? null : (
             <div className="content">
               {data.projects?.projects?.map((p) => (
                 <Card
@@ -72,12 +70,14 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
             </div>
           )}
         </div>
-        <Pagination
-          href="/projektai"
-          currentPage={page}
-          totalPageCount={totalPageNum}
-          hasMore={data?.projects?.hasMore}
-        />
+        {fetching ? null : (
+          <Pagination
+            href="/projektai"
+            currentPage={page}
+            totalPageCount={totalPageNum}
+            hasMore={data?.projects?.hasMore}
+          />
+        )}
       </section>
     </Layout>
   );

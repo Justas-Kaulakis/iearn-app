@@ -45,7 +45,7 @@ const Redaguoti: NextPage<{}> = ({}) => {
   }
 
   if (fetching) {
-    return <Heading>Loading...</Heading>;
+    return null;
   }
   if (error || data?.project?.error) {
     return <Error statusCode={404} title={data?.project?.error} />;
