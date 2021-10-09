@@ -99,6 +99,12 @@
   .card {
     max-width: none;
     height: auto;
+    .info p {
+      -webkit-line-clamp: none;
+    }
+  }
+  .daugiau_projektu {
+    height: 3em;
   }
   .projects-container {
     padding: 0 20px;
