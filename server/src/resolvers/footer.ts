@@ -7,9 +7,11 @@ import {
   Mutation,
   Query,
   Resolver,
+  UseMiddleware,
 } from "type-graphql";
 import { Contacts } from "../entities/Contacts";
 import { getConnection } from "typeorm";
+import { isAuth } from "../utils/isAuth";
 
 @InputType()
 class SocialLinksInput {
@@ -48,6 +50,7 @@ export class SocialLinksResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
   async updateLinks(
     @Arg("id", () => Int) id: number,
     @Arg("input") input: SocialLinksInput
@@ -79,6 +82,7 @@ export class ContactsResolver {
     return Contacts.find({ take: 4, order: { id: "ASC" } }); //
   }
   @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
   updateContacts(
     @Arg("contacts", () => [MyContact]) contacts: MyContact[]
   ): boolean {

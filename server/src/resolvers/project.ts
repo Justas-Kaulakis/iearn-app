@@ -12,12 +12,14 @@ import {
   Query,
   Resolver,
   Root,
+  UseMiddleware,
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { Project } from "../entities/Project";
 import { ProjectImage } from "../entities/ProjectImage";
 import { deleteFile } from "../utils/deleteFile";
-import { MyContext } from "src/types";
+import { MyContext } from "../types";
+import { isAuth } from "../utils/isAuth";
 
 @InputType()
 class ProjectInput {
@@ -156,6 +158,7 @@ export class ProjectResolver {
   }
 
   @Mutation(() => Project)
+  @UseMiddleware(isAuth)
   async createProject(
     @Arg("input") { image, ...input }: ProjectInput
   ): Promise<Project> {
@@ -174,6 +177,7 @@ export class ProjectResolver {
   }
 
   @Mutation(() => Project)
+  @UseMiddleware(isAuth)
   async updateProject(
     @Arg("id", () => Int) id: number,
     @Arg("input") { image, ...input }: ProjectInput
@@ -216,6 +220,7 @@ export class ProjectResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
   async deleteProject(@Arg("id", () => Int) id: number): Promise<boolean> {
     // Select files to delete
     const bodyImages: Array<{ imageName: string }> = await getConnection()

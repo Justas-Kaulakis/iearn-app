@@ -10,10 +10,12 @@ import {
   ObjectType,
   Query,
   Resolver,
+  UseMiddleware,
 } from "type-graphql";
 import argon2 from "argon2";
 import { getConnection } from "typeorm";
 import { COOKIE_NAME } from "../constants";
+import { isAuth } from "../utils/isAuth";
 
 @InputType()
 export class AdminRegInput {
@@ -172,6 +174,7 @@ export class AdminResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
   logout(@Ctx() { req, res }: MyContext): Promise<boolean> {
     return new Promise((resolve) =>
       req.session.destroy((err) => {

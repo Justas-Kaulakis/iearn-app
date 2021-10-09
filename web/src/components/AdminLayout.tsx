@@ -20,10 +20,10 @@ const AdminLayout: FC<AdminLayoutProps> = ({
   pageTitle,
   bg,
 }) => {
-  const [{ data }] = useIsLoggedInQuery();
+  const [{ data, fetching }] = useIsLoggedInQuery();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(true);
-  if (!data?.isLoggedIn) {
+  if (!fetching && !data?.isLoggedIn) {
     //router.replace("/");
     return <Error statusCode={401} title="Apribotas priėjimas" />;
   }

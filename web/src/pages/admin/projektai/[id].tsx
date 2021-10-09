@@ -45,7 +45,7 @@ const Redaguoti: NextPage<{}> = ({}) => {
   }
 
   if (fetching) {
-    return <Heading>Loading...</Heading>;
+    return null;
   }
   if (error || data?.project?.error) {
     return <Error statusCode={404} title={data?.project?.error} />;
@@ -119,7 +119,7 @@ const Redaguoti: NextPage<{}> = ({}) => {
                 },
               });
               if (error) {
-                console.error("UPDATE ERROR: ", error);
+                console.log("UPDATE ERROR: ", error);
               }
               setSaved(true);
               //router.reload();

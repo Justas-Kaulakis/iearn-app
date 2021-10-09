@@ -21,7 +21,9 @@ const Header: FC<HeaderProps> = ({ active }) => {
     "istorija",
     "galerija",
   ];
-  const [{ data }] = useIsLoggedInQuery();
+  const [{ data }] = useIsLoggedInQuery({
+    requestPolicy: "network-only",
+  });
 
   //console.log(data?.isLoggedIn);
 
