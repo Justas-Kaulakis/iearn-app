@@ -7,15 +7,15 @@ import NewestProjects from "../components/NewestProjects";
 
 const Index: FC = () => {
   return (
-    <>
-      <Layout active="pagrindinis">
-        <section className="top">
-          <div className="landing-img"></div>
-        </section>
-        <NewestProjects />
-        <Members />
-      </Layout>
-    </>
+    <Layout active="pagrindinis">
+      <section className="top">
+        <div className="landing-img"></div>
+      </section>
+      <h1 className="green-heading">Naujausi Projektai</h1>
+      <NewestProjects />
+      <h1 className="green-heading">Klubo nariai</h1>
+      <Members />
+    </Layout>
   );
 };
 

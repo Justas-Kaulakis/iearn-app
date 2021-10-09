@@ -50,35 +50,31 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
   // const totalPageNum = 50;
   return (
     <Layout active="projektai">
-      <section className="pad projects">
-        <div className="container-2">
-          <h1 className="green-heading">Projektai</h1>
-          {!data?.projects?.projects ? (
-            <Heading>Projektų nėra</Heading>
-          ) : (
-            <div className="content">
-              {data.projects?.projects?.map((p) => (
-                <Card
-                  key={p.id}
-                  id={p.id}
-                  imageUrl={p.imageUrl}
-                  title={p.title}
-                  description={p.description}
-                  createdAt={p.createdAt}
-                  authorized={data.projects?.authorized}
-                  published={p.isPublished}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+      <h1 className="green-heading">Projektai</h1>
+      {!data?.projects?.projects ? (
+        <h2>Projektų nėra</h2>
+      ) : (
+        <><section className="projects-container">
+          {data.projects?.projects?.map((p) => (
+            <Card
+              key={p.id}
+              id={p.id}
+              imageUrl={p.imageUrl}
+              title={p.title}
+              description={p.description}
+              createdAt={p.createdAt}
+              authorized={data.projects?.authorized}
+              published={p.isPublished}
+            />
+          ))}
+        </section>
         <Pagination
-          href="/projektai"
-          currentPage={page}
-          totalPageCount={totalPageNum}
-          hasMore={data?.projects?.hasMore}
-        />
-      </section>
+        href="/projektai"
+        currentPage={page}
+        totalPageCount={totalPageNum}
+        hasMore={data?.projects?.hasMore}
+        /></>
+      )}
     </Layout>
   );
 };

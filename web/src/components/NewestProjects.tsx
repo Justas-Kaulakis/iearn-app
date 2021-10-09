@@ -1,7 +1,6 @@
 import { Heading } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { FC } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { useProjectsQuery } from "../generated/graphql";
 import Card from "./Card";
 
@@ -18,30 +17,26 @@ const NewestProjects: FC<NewestProjectsProps> = ({}) => {
     console.log("ERROR FETCHING PROJECTS: ", error);
   }
   if (fetching) {
-    return <Heading>Loading...</Heading>;
+    return null;
   }
 
   return (
-    <section className="projects">
-      <div className="container-2">
-        <h1 className="green-heading">Naujausi Projektai</h1>
-        <div className="content">
-          {data.projects?.projects?.map((p) => (
-            <Card
-              key={p.id}
-              id={p.id}
-              title={p.title}
-              description={p.description}
-              imageUrl={p.imageUrl}
-            />
-          ))}
-
-          <Link href="/projektai">
-            <a className="card daugiau_projektu">
-              <h2 className="green-heading-h2">Daugiau projektų</h2>
-            </a>
-          </Link>
-        </div>
+    <section className="projects-container">
+      {data.projects?.projects?.map((p) => (
+        <Card
+          key={p.id}
+          id={p.id}
+          title={p.title}
+          description={p.description}
+          imageUrl={p.imageUrl}
+        />
+      ))}
+      <div  className="card daugiau_projektu">
+        <Link href="/projektai">
+          <a>
+            <h2>Daugiau projektų</h2>
+          </a>
+        </Link>
       </div>
     </section>
   );

@@ -236,7 +236,7 @@ form {
   width: -moz-fit-content;
   width: fit-content;
 }
-
+/*
 .content {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -248,8 +248,8 @@ form {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-}
-
+}*/
+/*
 .card {
   background: #fff;
   position: relative;
@@ -304,12 +304,9 @@ form {
   border-radius: 5px;
   padding: 3px;
   font-size: small;
-  /* margin-left: auto;
-  margin-right: 20px;
-  margin-top: auto; */
   width: fit-content;
 }
-
+*/
 .card-tag-red {
   border-color: red;
   color: red;
@@ -317,35 +314,6 @@ form {
 .card-tag-green {
   border-color: green;
   color: green;
-}
-
-.daugiau_projektu {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  text-align: center;
-  background-color: #f2f2f2;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  background-image: -webkit-gradient(
-    linear,
-    right top,
-    left top,
-    from(#f2f2f2),
-    to(#d8d8d8)
-  );
-  background-image: linear-gradient(-90deg, #f2f2f2 0%, #d8d8d8 100%);
-}
-
-.projects {
-  padding: 40px 30px;
 }
 
 .pagination {
@@ -367,7 +335,7 @@ form {
   line-height: 1em;
 }
 
-.outer {
+/* .outer {
   position: relative;
 }
 
@@ -392,7 +360,7 @@ form {
   height: 100%;
   font-size: 500%;
   color: #cad2c5;
-}
+} */
 
 .container-3 {
   width: 100%;
@@ -552,8 +520,21 @@ body {
 } */
 
 .content {
-  max-width: 1300px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+
+  width: 1240px;
+  height: 320px;
+
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 3;
+  align-self: stretch;
+  flex-grow: 0;
+  margin: 25px 0px;
 }
 
 .hoverCursor:hover {
@@ -565,8 +546,17 @@ body {
 }
 
 .green-heading {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 2em;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 37px;
+  /* identical to box height */
+
+  text-align: center;
+
+  /* spalvos/4 */
+
   color: #427a7e;
 }
 .green-heading-h2 {
