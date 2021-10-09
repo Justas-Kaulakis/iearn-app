@@ -24,26 +24,12 @@ const Card: FC<CardProps> = ({
     <div className="card">
       <Link href="/projektai/[id]" as={`/projektai/${id}`}>
         <a>
-          <div className="outer">
-            <div className="inner">
-              {imageUrl ? (
-                <img src={imageUrl} alt="Nuotrauka" />
-              ) : (
-                <FaFileImage />
-              )}
-            </div>
+          <div className="image" style={{backgroundImage: `url(${imageUrl})`}}>
           </div>
-          <h2>{title ? title : "No Data"}</h2>
-          <p>{description ? description : "No Data"}</p>
-          {!authorized ? null : (
-            <>
-              {published ? (
-                <div className="card-tag card-tag-green">Paskelbta</div>
-              ) : (
-                <div className="card-tag card-tag-red">Nepaskelbta</div>
-              )}
-            </>
-          )}
+          <div className="info">
+            <h2>{title || "No Data"}</h2>
+            <p>{description || "No Data"}</p>
+          </div>
         </a>
       </Link>
     </div>

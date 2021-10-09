@@ -38,9 +38,9 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
   if (error) {
     console.log("ERROR: ", error);
   }
-  // if (fetching) {
-  //   return <Heading>Loading...</Heading>;
-  // }
+  if (fetching) {
+    return <Heading>Loading...</Heading>;
+  }
   //if(data?.projects?.projects?.size)
 
   const totalPageNum = Math.max(1, Math.ceil(data?.projects?.total / perPage));
@@ -50,35 +50,31 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
   // const totalPageNum = 50;
   return (
     <Layout active="projektai">
-      <section className="pad projects">
-        <div className="container-2">
-          <h1 className="green-heading">Projektai</h1>
-          {fetching || !data?.projects?.projects ? null : (
-            <div className="content">
-              {data.projects?.projects?.map((p) => (
-                <Card
-                  key={p.id}
-                  id={p.id}
-                  imageUrl={p.imageUrl}
-                  title={p.title}
-                  description={p.description}
-                  createdAt={p.createdAt}
-                  authorized={data.projects?.authorized}
-                  published={p.isPublished}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-        {fetching ? null : (
-          <Pagination
-            href="/projektai"
-            currentPage={page}
-            totalPageCount={totalPageNum}
-            hasMore={data?.projects?.hasMore}
-          />
-        )}
-      </section>
+      <h1 className="green-heading">Projektai</h1>
+      {!data?.projects?.projects ? (
+        <h2>Projektų nėra</h2>
+      ) : (
+        <><section className="projects-container">
+          {data.projects?.projects?.map((p) => (
+            <Card
+              key={p.id}
+              id={p.id}
+              imageUrl={p.imageUrl}
+              title={p.title}
+              description={p.description}
+              createdAt={p.createdAt}
+              authorized={data.projects?.authorized}
+              published={p.isPublished}
+            />
+          ))}
+        </section>
+        <Pagination
+        href="/projektai"
+        currentPage={page}
+        totalPageCount={totalPageNum}
+        hasMore={data?.projects?.hasMore}
+        /></>
+      )}
     </Layout>
   );
 };

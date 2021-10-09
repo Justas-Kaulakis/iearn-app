@@ -10,6 +10,8 @@ import "../styles/Article.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import "../styles/Card.scss";
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />;
 };

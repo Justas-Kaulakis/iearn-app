@@ -3,38 +3,6 @@ import Member from "./Member";
 import Slider, { Settings as SliderSettings } from "react-slick";
 import { useMembersQuery } from "../generated/graphql";
 
-const visiNariai = [
-  {
-    fullName: "Gytis Kaulakis",
-    description: "Jaunikis Jonas",
-    imgLink: null,
-  },
-  {
-    fullName: "Gabija Kaulakyte",
-    description: "Panelė",
-    imgLink: null,
-  },
-  {
-    fullName: "Justas Kaulakis",
-    description: "Vaikas",
-    imgLink: null,
-  },
-  {
-    fullName: "Gytis Kaulakis",
-    description: "Jaunikis Jonas",
-    imgLink: null,
-  },
-  {
-    fullName: "Gabija Kaulakyte",
-    description: "Panelė",
-    imgLink: null,
-  },
-  {
-    fullName: "Justas Kaulakis",
-    description: "Vaikas",
-    imgLink: null,
-  },
-];
 interface OnClickType {
   onClick?: React.MouseEventHandler<any>;
 }
@@ -124,7 +92,6 @@ const Members = () => {
   return (
     <section id="Nariai">
       <div className="container-3">
-        <h1 className="green-heading">Klubo nariai</h1>
         {!data?.members || fetching ? null : (
           <div style={{ marginBottom: 30 }}>
             <Slider {...settings}>

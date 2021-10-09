@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { v4 } from "uuid";
+// import { v4 } from "uuid";
 import GalleryItem from "../components/GalleryItem";
 import Layout from "../components/Layout";
 // @ts-ignore: Unreachable code error
@@ -49,7 +49,7 @@ const Galerija: FC<GalerijaProps> = ({}) => {
                   onClick={(e) => {
                     setCurrentItem({ index, e });
                   }}
-                  key={v4()}
+                  key={item.id}
                   src={item.imageUrl}
                 />
               ))}
