@@ -216,14 +216,13 @@ export type ProjectRes = {
   __typename?: 'ProjectRes';
   error?: Maybe<Scalars['String']>;
   project?: Maybe<Project>;
-  authorized: Scalars['Boolean'];
+  authorized?: Maybe<Scalars['Boolean']>;
 };
 
 export type ProjectsRes = {
   __typename?: 'ProjectsRes';
   total: Scalars['Int'];
   hasMore: Scalars['Boolean'];
-  authorized: Scalars['Boolean'];
   projects?: Maybe<Array<Project>>;
 };
 
@@ -513,7 +512,7 @@ export type ProjectsQuery = (
   { __typename?: 'Query' }
   & { projects: (
     { __typename?: 'ProjectsRes' }
-    & Pick<ProjectsRes, 'total' | 'hasMore' | 'authorized'>
+    & Pick<ProjectsRes, 'total' | 'hasMore'>
     & { projects?: Maybe<Array<(
       { __typename?: 'Project' }
       & Pick<Project, 'id' | 'title' | 'description' | 'imageUrl' | 'isPublished' | 'createdAt'>
@@ -787,7 +786,6 @@ export const ProjectsDocument = gql`
   projects(offset: $offset, limit: $limit) {
     total
     hasMore
-    authorized
     projects {
       id
       title

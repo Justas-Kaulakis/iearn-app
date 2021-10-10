@@ -2,15 +2,13 @@ import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../../../utils/createUrqlClient";
 import {
   Box,
-  Flex,
   Grid,
   GridItem,
-  Heading,
   Tag,
   TagLabel,
-  Text,
+  TagRightIcon,
 } from "@chakra-ui/react";
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import AdminLayout from "../../../components/AdminLayout";
 import AdminTopBar from "../../../components/AdminTopBar";
 import { useRouter } from "next/router";
@@ -21,12 +19,14 @@ import {
   useProjectQuery,
   useUpdateProjectMutation,
 } from "../../../generated/graphql";
-import { GetServerSideProps, NextPage } from "next";
+import { NextPage } from "next";
 import Error from "next/error";
+import Link from "next/link";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const Redaguoti: NextPage<{}> = ({}) => {
   const formW = 300;
-  const maxEditW = 600;
+  const maxEditW = 700;
   const callbackEditor = useRef<any>();
   const router = useRouter();
   const [saved, setSaved] = useState(true);
@@ -55,6 +55,19 @@ const Redaguoti: NextPage<{}> = ({}) => {
   return (
     <AdminLayout active="projektai">
       <AdminTopBar pageName={`projektai / redaguoti / ${project?.title}`}>
+        <Link href={`/projektai/[id]`} as={`/projektai/${project?.id}`}>
+          <a target={"view" + project?.id}>
+            <Tag
+              _hover={{ backgroundColor: "#e5ffed" }}
+              className="hoverCursor"
+              mr="1em"
+              colorScheme="green"
+            >
+              <TagLabel>Peržiūrėti</TagLabel>
+              <TagRightIcon as={FaExternalLinkAlt} />
+            </Tag>
+          </a>
+        </Link>
         <Tag colorScheme={saved ? "green" : "red"} bg="white" variant="outline">
           <TagLabel>{saved ? "Išsaugota" : "Neišsaugota"}</TagLabel>
         </Tag>

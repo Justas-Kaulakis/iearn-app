@@ -22,6 +22,11 @@
 .article-box .intro {
   padding: 0 1em;
 }
+
+.article-box .intro .edit-article {
+  margin-left: 10px;
+}
+
 .article-box .intro .article-meta {
   display: flex;
   justify-content: space-between;

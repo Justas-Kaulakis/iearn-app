@@ -13,7 +13,6 @@ export const errorExchange: Exchange =
     return pipe(
       forward(ops$),
       tap(({ error }) => {
-        console.log("Tapped Error: ", error);
         if (error?.message.includes("not authenticated")) {
           Router.replace("/admin/login");
         }
@@ -53,7 +52,7 @@ export const createUrqlClient = (ssrExchange: any, ctx: any): ClientOptions => {
               });
             },
             logout: (_result, args, cache, _info) => {
-              console.log("result: ", _result);
+              //console.log("result: ", _result);
               cache.updateQuery({ query: IsLoggedInDocument }, () => ({
                 isLoggedIn: !_result.logout,
               }));

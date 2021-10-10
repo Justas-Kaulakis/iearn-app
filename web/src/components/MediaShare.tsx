@@ -22,7 +22,7 @@ const MediaShare: FC<MediaShareProps> = ({
   disabled,
 }) => {
   return (
-    <span className="share-media">
+    <span className={!disabled ? "share-media" : undefined}>
       <FacebookShareButton disabled={disabled} url={url}>
         <FacebookIcon size={35} />
       </FacebookShareButton>

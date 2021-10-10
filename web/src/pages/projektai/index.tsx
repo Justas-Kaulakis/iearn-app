@@ -54,26 +54,27 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
       {!data?.projects?.projects ? (
         <h2>Projektų nėra</h2>
       ) : (
-        <><section className="projects-container">
-          {data.projects?.projects?.map((p) => (
-            <Card
-              key={p.id}
-              id={p.id}
-              imageUrl={p.imageUrl}
-              title={p.title}
-              description={p.description}
-              createdAt={p.createdAt}
-              authorized={data.projects?.authorized}
-              published={p.isPublished}
-            />
-          ))}
-        </section>
-        <Pagination
-        href="/projektai"
-        currentPage={page}
-        totalPageCount={totalPageNum}
-        hasMore={data?.projects?.hasMore}
-        /></>
+        <>
+          <section className="projects-container">
+            {data.projects?.projects?.map((p) => (
+              <Card
+                key={p.id}
+                id={p.id}
+                imageUrl={p.imageUrl}
+                title={p.title}
+                description={p.description}
+                createdAt={p.createdAt}
+                published={p.isPublished}
+              />
+            ))}
+          </section>
+          <Pagination
+            href="/projektai"
+            currentPage={page}
+            totalPageCount={totalPageNum}
+            hasMore={data?.projects?.hasMore}
+          />
+        </>
       )}
     </Layout>
   );

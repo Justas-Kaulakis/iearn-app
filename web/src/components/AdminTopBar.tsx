@@ -17,7 +17,7 @@ const AdminTopBar: FC<AdminTopBarProps> = ({ pageName, children }) => {
       h="3em"
     >
       <Box>{pageName}</Box>
-      <Box>{children}</Box>
+      <Flex>{children}</Flex>
     </Flex>
   );
 };

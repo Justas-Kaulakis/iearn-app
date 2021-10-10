@@ -9,6 +9,11 @@ import parse from "html-react-parser";
 import ProjectMeta from "../../components/ProjectMeta";
 import { NextPage } from "next";
 import MediaShare from "../../components/MediaShare";
+import { FaEdit } from "react-icons/fa";
+import { Button, IconButton } from "@chakra-ui/button";
+import NextLink from "next/link";
+import { Link } from "@chakra-ui/react";
+
 interface ProjectPageProps {}
 
 export function getServerSideProps() {
@@ -46,7 +51,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
   }
   const shareUrl = `${process.env.NEXT_PUBLIC_FE_URL_BASE}/projektai/${project?.id}`;
   // const shareUrl = "https://www.youtube.com/watch?v=78oUN6QTKxI";
-  console.log(authorized);
+  console.log("Authorized: ", authorized);
   return (
     <>
       <Layout active="projektai">
@@ -54,7 +59,19 @@ const ProjectPage: NextPage<{}> = ({}) => {
           {!project || fetching ? null : (
             <>
               <div className="intro">
-                <h1>{project.title}</h1>
+                <h1>
+                  {project.title}
+                  {!meFetching && !meData.isLoggedIn ? null : (
+                    <NextLink
+                      href={`/admin/projektai/[id]`}
+                      as={`/admin/projektai/${project.id}`}
+                    >
+                      <a className="edit-article" target={"edit" + project.id}>
+                        <FaEdit size={25} color="#3182ce" />
+                      </a>
+                    </NextLink>
+                  )}
+                </h1>
                 <div className="article-meta">
                   <span>
                     <MediaShare
@@ -62,7 +79,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
                       url={shareUrl}
                       disabled={!project.isPublished}
                     />
-                    {meFetching || !meData?.isLoggedIn ? null : (
+                    {!meFetching && !meData.isLoggedIn ? null : (
                       <>
                         {project?.isPublished ? (
                           <div className="published-tag card-tag-green">
