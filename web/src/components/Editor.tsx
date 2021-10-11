@@ -39,6 +39,7 @@ const Editor: FC<EditorProps> = ({
     );
   }
 
+  console.log("url:", process.env.NEXT_PUBLIC_BE_URL_BASE);
   //console.log(MyEditor.builtinPlugins.map((plugin) => plugin.pluginName));
   return (
     <CKEditor
