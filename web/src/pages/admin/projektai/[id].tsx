@@ -56,7 +56,7 @@ const Redaguoti: NextPage<{}> = ({}) => {
     <AdminLayout active="projektai">
       <AdminTopBar pageName={`projektai / redaguoti / ${project?.title}`}>
         <Link href={`/projektai/[id]`} as={`/projektai/${project?.id}`}>
-          <a target={"view" + project?.id}>
+          <a target={`view${project?.id}`}>
             <Tag
               _hover={{ backgroundColor: "#e5ffed" }}
               className="hoverCursor"

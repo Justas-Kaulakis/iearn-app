@@ -50,6 +50,13 @@ export type BodyImage = {
   imageName: Scalars['String'];
 };
 
+export type CleanAdminRes = {
+  __typename?: 'CleanAdminRes';
+  id: Scalars['Float'];
+  email: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type Contacts = {
   __typename?: 'Contacts';
   id: Scalars['Float'];
@@ -231,7 +238,7 @@ export type Query = {
   member?: Maybe<Member>;
   members?: Maybe<Array<Member>>;
   admins?: Maybe<Array<Admin>>;
-  me?: Maybe<Admin>;
+  me?: Maybe<CleanAdminRes>;
   isLoggedIn: Scalars['Boolean'];
   project?: Maybe<ProjectRes>;
   projects: ProjectsRes;
@@ -483,6 +490,17 @@ export type IsLoggedInQueryVariables = Exact<{ [key: string]: never; }>;
 export type IsLoggedInQuery = (
   { __typename?: 'Query' }
   & Pick<Query, 'isLoggedIn'>
+);
+
+export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MeQuery = (
+  { __typename?: 'Query' }
+  & { me?: Maybe<(
+    { __typename?: 'CleanAdminRes' }
+    & Pick<CleanAdminRes, 'id' | 'username' | 'email'>
+  )> }
 );
 
 export type ProjectQueryVariables = Exact<{
@@ -759,6 +777,19 @@ export const IsLoggedInDocument = gql`
 
 export function useIsLoggedInQuery(options: Omit<Urql.UseQueryArgs<IsLoggedInQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<IsLoggedInQuery>({ query: IsLoggedInDocument, ...options });
+};
+export const MeDocument = gql`
+    query Me {
+  me {
+    id
+    username
+    email
+  }
+}
+    `;
+
+export function useMeQuery(options: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<MeQuery>({ query: MeDocument, ...options });
 };
 export const ProjectDocument = gql`
     query Project($id: Int!) {

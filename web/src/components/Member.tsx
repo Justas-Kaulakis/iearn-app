@@ -9,34 +9,15 @@ interface MemberProps {
   data: Pick<MemberType, "fullName" | "description" | "imageUrl" | "id">;
 }
 
-
-
-function Member2({ children, vardas }) {
-
-
-  return (
-    <div>
-      <div>{children}</div>
-      <p>{vardas}</p>
-    </div>
-  );
-}
 const Member: React.FC<MemberProps> = ({
   data: { fullName, description, imageUrl },
 }) => {
   return (
-    <>
-      <div className="Nariai-card">
-        <div>{!imageUrl ? <FaUser /> : <Image src={imageUrl} />}</div>
-        <h2>{fullName || "No Data"}</h2>
-        <p>{description || "No Data"}</p>
-      </div>
-      <Member2 vardas="Bobas">
-        asdkhaskjdkjhasd
-      </Member2>
-    </>
-
-
+    <div className="Nariai-card">
+      <div>{!imageUrl ? <FaUser /> : <Image src={imageUrl} />}</div>
+      <h2>{fullName || "No Data"}</h2>
+      <p>{description || "No Data"}</p>
+    </div>
   );
 };
 

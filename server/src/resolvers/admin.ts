@@ -27,6 +27,16 @@ export class AdminRegInput {
   password: string;
 }
 
+@ObjectType()
+export class CleanAdminRes {
+  @Field()
+  id: number;
+  @Field()
+  email: string;
+  @Field()
+  username: string;
+}
+
 @InputType()
 export class AdminLogInput {
   @Field()
@@ -58,13 +68,17 @@ export class AdminResolver {
   admins(): Promise<Admin[]> {
     return Admin.find({});
   }
-  @Query(() => Admin, { nullable: true })
-  me(@Ctx() { req }: MyContext) {
+  @Query(() => CleanAdminRes, { nullable: true })
+  async me(@Ctx() { req }: MyContext): Promise<CleanAdminRes | null> {
     // you are not logged in
     if (!req.session.adminId) {
       return null;
     }
-    return Admin.findOne(req.session.adminId);
+    const { id, username, email } = (await Admin.findOne(
+      req.session.adminId
+    )) as Admin;
+
+    return { id, username, email };
   }
 
   @Query(() => Boolean)
