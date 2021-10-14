@@ -2,12 +2,15 @@ import { AdminRegInput } from "src/resolvers/admin";
 
 const INPUT_LENGTH = 6;
 
+const emailValidation =
+  /([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?)+/;
+
 export const validateRegister = (options: AdminRegInput) => {
-  if (!options.email.includes("@")) {
+  if (!options.email.match(emailValidation)) {
     return [
       {
         field: "email",
-        message: "invalid email",
+        message: "blogas el. pašto formatas",
       },
     ];
   }
@@ -15,7 +18,7 @@ export const validateRegister = (options: AdminRegInput) => {
     return [
       {
         field: "username",
-        message: "cannot include an '@'",
+        message: "negali turėti '@'",
       },
     ];
   }
@@ -24,7 +27,7 @@ export const validateRegister = (options: AdminRegInput) => {
     return [
       {
         field: "username",
-        message: `length must be greater than ${INPUT_LENGTH}`,
+        message: `ilgis turi būti didesnis už ${INPUT_LENGTH}`,
       },
     ];
   }
@@ -33,7 +36,7 @@ export const validateRegister = (options: AdminRegInput) => {
     return [
       {
         field: "password",
-        message: `length must be greater than ${INPUT_LENGTH}`,
+        message: `ilgis turi būti didesnis už ${INPUT_LENGTH}`,
       },
     ];
   }

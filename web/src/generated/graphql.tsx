@@ -50,6 +50,12 @@ export type BodyImage = {
   imageName: Scalars['String'];
 };
 
+export type ChangeUsernameEmailInput = {
+  email: Scalars['String'];
+  username: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type CleanAdminRes = {
   __typename?: 'CleanAdminRes';
   id: Scalars['Float'];
@@ -108,6 +114,7 @@ export type Mutation = {
   register: AdminResponse;
   login: AdminResponse;
   logout: Scalars['Boolean'];
+  changeUsernameEmail?: Maybe<Array<FieldError>>;
   createProject: Project;
   updateProject: Project;
   deleteProject: Scalars['Boolean'];
@@ -147,6 +154,11 @@ export type MutationRegisterArgs = {
 
 export type MutationLoginArgs = {
   options: AdminLogInput;
+};
+
+
+export type MutationChangeUsernameEmailArgs = {
+  input: ChangeUsernameEmailInput;
 };
 
 
@@ -299,6 +311,19 @@ export type AddPictureMutationVariables = Exact<{
 export type AddPictureMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'addPicture'>
+);
+
+export type ChangeUsernameEmailMutationVariables = Exact<{
+  input: ChangeUsernameEmailInput;
+}>;
+
+
+export type ChangeUsernameEmailMutation = (
+  { __typename?: 'Mutation' }
+  & { changeUsernameEmail?: Maybe<Array<(
+    { __typename?: 'FieldError' }
+    & Pick<FieldError, 'field' | 'message'>
+  )>> }
 );
 
 export type CreateGalleryImageMutationVariables = Exact<{
@@ -585,6 +610,18 @@ export const AddPictureDocument = gql`
 
 export function useAddPictureMutation() {
   return Urql.useMutation<AddPictureMutation, AddPictureMutationVariables>(AddPictureDocument);
+};
+export const ChangeUsernameEmailDocument = gql`
+    mutation ChangeUsernameEmail($input: ChangeUsernameEmailInput!) {
+  changeUsernameEmail(input: $input) {
+    field
+    message
+  }
+}
+    `;
+
+export function useChangeUsernameEmailMutation() {
+  return Urql.useMutation<ChangeUsernameEmailMutation, ChangeUsernameEmailMutationVariables>(ChangeUsernameEmailDocument);
 };
 export const CreateGalleryImageDocument = gql`
     mutation CreateGalleryImage($input: GalleryInput!) {

@@ -27,6 +27,16 @@ export class AdminRegInput {
   password: string;
 }
 
+@InputType()
+export class ChangeUsernameEmailInput {
+  @Field()
+  email: string;
+  @Field()
+  username: string;
+  @Field()
+  password: string;
+}
+
 @ObjectType()
 export class CleanAdminRes {
   @Field()
@@ -201,5 +211,36 @@ export class AdminResolver {
         }
       })
     );
+  }
+
+  @Mutation(() => [FieldError], { nullable: true })
+  @UseMiddleware(isAuth)
+  async changeUsernameEmail(
+    @Arg("input") { email, username, password }: ChangeUsernameEmailInput,
+    @Ctx() { req }: MyContext
+  ): Promise<FieldError[] | null> {
+    const errors = validateRegister({ username, email, password });
+    if (errors) {
+      return errors;
+    }
+    const adminId = req.session.adminId as number;
+
+    const admin = await Admin.findOne(adminId);
+    if (!admin) {
+      throw new Error("Nera Admino!");
+    }
+
+    const valid = await argon2.verify(admin!.password, password);
+    if (!valid) {
+      return [
+        {
+          field: "password",
+          message: "neteisingas slaptažodis",
+        },
+      ];
+    }
+
+    await Admin.update({ id: adminId }, { email, username });
+    return null;
   }
 }

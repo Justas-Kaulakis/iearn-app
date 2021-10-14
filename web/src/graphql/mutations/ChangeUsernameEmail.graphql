@@ -1,0 +1,6 @@
+mutation ChangeUsernameEmail($input: ChangeUsernameEmailInput!) {
+  changeUsernameEmail(input: $input) {
+    field
+    message
+  }
+}
