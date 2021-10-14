@@ -50,6 +50,11 @@ export type BodyImage = {
   imageName: Scalars['String'];
 };
 
+export type ChangePasswordInput = {
+  password: Scalars['String'];
+  newPassword: Scalars['String'];
+};
+
 export type ChangeUsernameEmailInput = {
   email: Scalars['String'];
   username: Scalars['String'];
@@ -115,6 +120,7 @@ export type Mutation = {
   login: AdminResponse;
   logout: Scalars['Boolean'];
   changeUsernameEmail?: Maybe<Array<FieldError>>;
+  changePassword?: Maybe<Array<FieldError>>;
   createProject: Project;
   updateProject: Project;
   deleteProject: Scalars['Boolean'];
@@ -159,6 +165,11 @@ export type MutationLoginArgs = {
 
 export type MutationChangeUsernameEmailArgs = {
   input: ChangeUsernameEmailInput;
+};
+
+
+export type MutationChangePasswordArgs = {
+  input: ChangePasswordInput;
 };
 
 
@@ -311,6 +322,19 @@ export type AddPictureMutationVariables = Exact<{
 export type AddPictureMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'addPicture'>
+);
+
+export type ChangePasswordMutationVariables = Exact<{
+  input: ChangePasswordInput;
+}>;
+
+
+export type ChangePasswordMutation = (
+  { __typename?: 'Mutation' }
+  & { changePassword?: Maybe<Array<(
+    { __typename?: 'FieldError' }
+    & Pick<FieldError, 'field' | 'message'>
+  )>> }
 );
 
 export type ChangeUsernameEmailMutationVariables = Exact<{
@@ -610,6 +634,18 @@ export const AddPictureDocument = gql`
 
 export function useAddPictureMutation() {
   return Urql.useMutation<AddPictureMutation, AddPictureMutationVariables>(AddPictureDocument);
+};
+export const ChangePasswordDocument = gql`
+    mutation ChangePassword($input: ChangePasswordInput!) {
+  changePassword(input: $input) {
+    field
+    message
+  }
+}
+    `;
+
+export function useChangePasswordMutation() {
+  return Urql.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument);
 };
 export const ChangeUsernameEmailDocument = gql`
     mutation ChangeUsernameEmail($input: ChangeUsernameEmailInput!) {

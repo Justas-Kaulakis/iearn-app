@@ -17,6 +17,7 @@ import AdminLayout from "../../components/AdminLayout";
 import AdminTopBar from "../../components/AdminTopBar";
 import InputField from "../../components/InputField";
 import {
+  useChangePasswordMutation,
   useChangeUsernameEmailMutation,
   useMeQuery,
 } from "../../generated/graphql";
@@ -30,7 +31,8 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
   const [nameEmailSaved, setNameEmailSaved] = useState(true);
   const [paswordSaved, setPaswordSaved] = useState(true);
   const [, changeUsernameEmail] = useChangeUsernameEmailMutation();
-  //const [saved, setSaved] = useState(true);
+  const [, changePassword] = useChangePasswordMutation();
+
   if (error) {
     console.log("Error loading Admin data: ", error);
   }
@@ -59,7 +61,7 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
                 setNameEmailSaved(false);
               }}
               onSubmit={async (values, { setErrors }) => {
-                console.log(values);
+                //console.log(values);
                 const { data } = await changeUsernameEmail({ input: values });
                 if (data?.changeUsernameEmail) {
                   setErrors(toErrorMap(data.changeUsernameEmail));
@@ -97,6 +99,7 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
                             placeholder="slaptažodis"
                             required
                             size="sm"
+                            type="password"
                           />
                         </Box>
                         <Flex mt="1em" justifyContent="end">
@@ -130,15 +133,25 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
                 repeatNewPassword: "",
               }}
               validate={({ newPassword, repeatNewPassword }) => {
-                if (newPassword !== repeatNewPassword) {
-                  return {
-                    repeatNewPassword: "Slaptažodis nesutampa.",
-                  };
-                }
+                if (newPassword && repeatNewPassword)
+                  if (newPassword !== repeatNewPassword) {
+                    return {
+                      repeatNewPassword: "Slaptažodis nesutampa.",
+                    };
+                  }
                 return {};
               }}
-              onSubmit={(values) => {
-                console.log(values);
+              onSubmit={async (
+                { repeatNewPassword, ...values },
+                { setErrors, resetForm }
+              ) => {
+                const { data } = await changePassword({ input: values });
+                if (data?.changePassword) {
+                  setErrors(toErrorMap(data.changePassword));
+                } else {
+                  resetForm();
+                  setNameEmailSaved(true);
+                }
               }}
               validateOnBlur={false}
             >
@@ -151,6 +164,7 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
                       placeholder="dabartinis slaptažodis"
                       required
                       size="sm"
+                      type="password"
                     />
                     <InputField
                       label="Naujas slaptažodis:"
@@ -158,6 +172,7 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
                       placeholder="naujas slaptažodis"
                       required
                       size="sm"
+                      type="password"
                     />
                     <Box mt="0.5em">
                       <InputField
@@ -166,6 +181,7 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
                         placeholder="pakartoti naują slaptažodį"
                         required
                         size="sm"
+                        type="password"
                       />
                     </Box>
                     <Flex mt="1em" justifyContent="end">
