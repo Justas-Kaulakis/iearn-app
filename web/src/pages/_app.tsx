@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import "../styles/Styles.css";
 import "../styles/Header.css";
-import "../styles/Footer.css";
+// import "../styles/Footer.css";
 import "../styles/Admin-Projects.css";
 import "../styles/Admin-Gallery.css";
 import "../styles/Admin-Members.css";
@@ -12,6 +12,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import "../styles/Card.scss";
 import "../styles/Nariai.scss";
+import "../styles/Footer.scss";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />;

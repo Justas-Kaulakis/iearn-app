@@ -566,3 +566,9 @@ body {
   color: #2f3e46;
 }
 /*# sourceMappingURL=Styles.css.map */
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
