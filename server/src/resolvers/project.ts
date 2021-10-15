@@ -50,8 +50,6 @@ class ProjectsRes {
   total?: number;
   @Field()
   hasMore: boolean;
-  @Field()
-  authorized: boolean;
   @Field(() => [Project], { nullable: true })
   projects: Project[] | undefined;
 }
@@ -116,16 +114,12 @@ export class ProjectResolver {
   @Query(() => ProjectsRes)
   async projects(
     @Arg("offset", () => Int) offset: number,
-    @Arg("limit", () => Int) limit: number,
-    @Ctx() { req }: MyContext
+    @Arg("limit", () => Int) limit: number
   ): Promise<ProjectsRes | undefined> {
-    const authorized = !!req.session.adminId;
     const projects = await Project.find({
-      where: !authorized
-        ? {
-            isPublished: true,
-          }
-        : undefined,
+      where: {
+        isPublished: true,
+      },
       order: {
         createdAt: "DESC",
       },
@@ -133,16 +127,18 @@ export class ProjectResolver {
       take: limit + 1,
     });
 
-    const countRaw = await getConnection()
-      .createQueryBuilder()
-      .select("COUNT(id)")
-      .from(Project, "p")
-      .where('p."isPublished" = true')
-      .getRawOne();
+    const count = await Project.count({
+      where: { isPublished: true },
+    });
+    // const countRaw = await getConnection()
+    //   .createQueryBuilder()
+    //   .select("COUNT(id)")
+    //   .from(Project, "p")
+    //   .where('p."isPublished" = true')
+    //   .getRawOne();
 
     return {
-      authorized,
-      total: countRaw.count || 0,
+      total: count || 0,
       projects: projects.slice(0, limit),
       hasMore: projects.length > limit,
     };

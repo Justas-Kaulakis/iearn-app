@@ -18,7 +18,7 @@ const SideBarLink: FC<SideBarLinkProps> = ({
   return (
     <Link href={`/admin/${name}`}>
       <Flex
-        className="hoverCursor"
+        className="hoverCursor hoverDarken"
         justifyContent={collapsed ? "center" : undefined}
         direction="row"
         color={selected ? "#cad2c5" : "white"}

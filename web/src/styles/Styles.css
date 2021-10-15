@@ -539,6 +539,8 @@ body {
 
 .hoverCursor:hover {
   cursor: pointer;
+}
+.hoverDarken:hover {
   background: #0000001f;
 }
 .hoverBorder:hover {

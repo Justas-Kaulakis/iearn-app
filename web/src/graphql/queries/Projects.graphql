@@ -2,7 +2,6 @@ query Projects($offset: Int!, $limit: Int!) {
   projects(offset: $offset, limit: $limit) {
     total
     hasMore
-    authorized
     projects {
       id
       title

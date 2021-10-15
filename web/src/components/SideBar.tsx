@@ -10,14 +10,24 @@ import {
   FaBars,
   FaTimes,
   FaSignOutAlt,
+  FaInfo,
+  FaUserCog,
 } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 import { useLogoutMutation } from "../generated/graphql";
 import Popup from "./Popup";
 import SideBarLink from "./SideBarLink";
 
+export type AdminLinks =
+  | "nariai"
+  | "kontaktai"
+  | "projektai"
+  | "galerija"
+  | "istorija"
+  | "mano-info";
+
 export interface SideBarProps {
-  active: "nariai" | "kontaktai" | "projektai" | "galerija" | "istorija";
+  active: AdminLinks;
   collapsed: boolean;
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -31,6 +41,7 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
     { name: "galerija", icon: FaImages },
     { name: "istorija", icon: FaHistory },
     { name: "kontaktai", icon: FaLink },
+    { name: "mano-info", icon: FaUserCog },
   ];
 
   const TopIcon = collapsed ? FaBars : FaTimes;

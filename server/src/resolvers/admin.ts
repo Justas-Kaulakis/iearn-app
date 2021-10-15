@@ -1,6 +1,6 @@
 import { Admin } from "../entities/Admin";
 import { MyContext } from "../types";
-import { validateRegister } from "../utils/validateRegister";
+import { checkInputLength, validateRegister } from "../utils/validateInput";
 import {
   Arg,
   Ctx,
@@ -25,6 +25,34 @@ export class AdminRegInput {
   username: string;
   @Field()
   password: string;
+}
+
+@InputType()
+export class ChangePasswordInput {
+  @Field()
+  password: string;
+  @Field()
+  newPassword: string;
+}
+
+@InputType()
+export class ChangeUsernameEmailInput {
+  @Field()
+  email: string;
+  @Field()
+  username: string;
+  @Field()
+  password: string;
+}
+
+@ObjectType()
+export class CleanAdminRes {
+  @Field()
+  id: number;
+  @Field()
+  email: string;
+  @Field()
+  username: string;
 }
 
 @InputType()
@@ -58,13 +86,17 @@ export class AdminResolver {
   admins(): Promise<Admin[]> {
     return Admin.find({});
   }
-  @Query(() => Admin, { nullable: true })
-  me(@Ctx() { req }: MyContext) {
+  @Query(() => CleanAdminRes, { nullable: true })
+  async me(@Ctx() { req }: MyContext): Promise<CleanAdminRes | null> {
     // you are not logged in
     if (!req.session.adminId) {
       return null;
     }
-    return Admin.findOne(req.session.adminId);
+    const { id, username, email } = (await Admin.findOne(
+      req.session.adminId
+    )) as Admin;
+
+    return { id, username, email };
   }
 
   @Query(() => Boolean)
@@ -187,5 +219,79 @@ export class AdminResolver {
         }
       })
     );
+  }
+
+  @Mutation(() => [FieldError], { nullable: true })
+  @UseMiddleware(isAuth)
+  async changeUsernameEmail(
+    @Arg("input") { email, username, password }: ChangeUsernameEmailInput,
+    @Ctx() { req }: MyContext
+  ): Promise<FieldError[] | null> {
+    const errors = validateRegister({ username, email, password });
+    if (errors) {
+      return errors;
+    }
+    const adminId = req.session.adminId as number;
+
+    const admin = await Admin.findOne(adminId);
+    if (!admin) {
+      throw new Error("Nera Admino!");
+    }
+
+    const valid = await argon2.verify(admin!.password, password);
+    if (!valid) {
+      return [
+        {
+          field: "password",
+          message: "neteisingas slaptažodis",
+        },
+      ];
+    }
+
+    await Admin.update({ id: adminId }, { email, username });
+    return null;
+  }
+
+  @Mutation(() => [FieldError], { nullable: true })
+  @UseMiddleware(isAuth)
+  async changePassword(
+    @Arg("input") { password, newPassword }: ChangePasswordInput,
+    @Ctx() { req }: MyContext
+  ): Promise<FieldError[] | null> {
+    const err1 = checkInputLength("password", password);
+    if (err1) return err1;
+    const err2 = checkInputLength("newPassword", newPassword);
+    if (err2) return err2;
+    if (password === newPassword) {
+      return [
+        {
+          field: "newPassword",
+          message: "naujas slaptažodis negali būti toks pats",
+        },
+      ];
+    }
+
+    const adminId = req.session.adminId as number;
+
+    const admin = await Admin.findOne(adminId);
+    if (!admin) {
+      throw new Error("Nera Admino!");
+    }
+
+    const valid = await argon2.verify(admin!.password, password);
+    if (!valid) {
+      return [
+        {
+          field: "password",
+          message: "neteisingas slaptažodis",
+        },
+      ];
+    }
+
+    await Admin.update(
+      { id: adminId },
+      { password: await argon2.hash(newPassword) }
+    );
+    return null;
   }
 }

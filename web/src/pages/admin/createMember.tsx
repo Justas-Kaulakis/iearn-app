@@ -5,11 +5,7 @@ import DropzoneField, {
   DropzoneFileType,
   requiredDropzoneValidation,
 } from "../../components/DropzoneField";
-import {
-  CreateMemberMutationVariables,
-  MemberInput,
-  useCreateMemberMutation,
-} from "../../generated/graphql";
+import { useCreateMemberMutation } from "../../generated/graphql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 interface FormInputType {
   fullName: string;

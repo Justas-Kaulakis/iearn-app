@@ -50,6 +50,24 @@ export type BodyImage = {
   imageName: Scalars['String'];
 };
 
+export type ChangePasswordInput = {
+  password: Scalars['String'];
+  newPassword: Scalars['String'];
+};
+
+export type ChangeUsernameEmailInput = {
+  email: Scalars['String'];
+  username: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type CleanAdminRes = {
+  __typename?: 'CleanAdminRes';
+  id: Scalars['Float'];
+  email: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type Contacts = {
   __typename?: 'Contacts';
   id: Scalars['Float'];
@@ -101,6 +119,8 @@ export type Mutation = {
   register: AdminResponse;
   login: AdminResponse;
   logout: Scalars['Boolean'];
+  changeUsernameEmail?: Maybe<Array<FieldError>>;
+  changePassword?: Maybe<Array<FieldError>>;
   createProject: Project;
   updateProject: Project;
   deleteProject: Scalars['Boolean'];
@@ -140,6 +160,16 @@ export type MutationRegisterArgs = {
 
 export type MutationLoginArgs = {
   options: AdminLogInput;
+};
+
+
+export type MutationChangeUsernameEmailArgs = {
+  input: ChangeUsernameEmailInput;
+};
+
+
+export type MutationChangePasswordArgs = {
+  input: ChangePasswordInput;
 };
 
 
@@ -216,14 +246,13 @@ export type ProjectRes = {
   __typename?: 'ProjectRes';
   error?: Maybe<Scalars['String']>;
   project?: Maybe<Project>;
-  authorized: Scalars['Boolean'];
+  authorized?: Maybe<Scalars['Boolean']>;
 };
 
 export type ProjectsRes = {
   __typename?: 'ProjectsRes';
   total: Scalars['Int'];
   hasMore: Scalars['Boolean'];
-  authorized: Scalars['Boolean'];
   projects?: Maybe<Array<Project>>;
 };
 
@@ -232,7 +261,7 @@ export type Query = {
   member?: Maybe<Member>;
   members?: Maybe<Array<Member>>;
   admins?: Maybe<Array<Admin>>;
-  me?: Maybe<Admin>;
+  me?: Maybe<CleanAdminRes>;
   isLoggedIn: Scalars['Boolean'];
   project?: Maybe<ProjectRes>;
   projects: ProjectsRes;
@@ -293,6 +322,32 @@ export type AddPictureMutationVariables = Exact<{
 export type AddPictureMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'addPicture'>
+);
+
+export type ChangePasswordMutationVariables = Exact<{
+  input: ChangePasswordInput;
+}>;
+
+
+export type ChangePasswordMutation = (
+  { __typename?: 'Mutation' }
+  & { changePassword?: Maybe<Array<(
+    { __typename?: 'FieldError' }
+    & Pick<FieldError, 'field' | 'message'>
+  )>> }
+);
+
+export type ChangeUsernameEmailMutationVariables = Exact<{
+  input: ChangeUsernameEmailInput;
+}>;
+
+
+export type ChangeUsernameEmailMutation = (
+  { __typename?: 'Mutation' }
+  & { changeUsernameEmail?: Maybe<Array<(
+    { __typename?: 'FieldError' }
+    & Pick<FieldError, 'field' | 'message'>
+  )>> }
 );
 
 export type CreateGalleryImageMutationVariables = Exact<{
@@ -486,6 +541,17 @@ export type IsLoggedInQuery = (
   & Pick<Query, 'isLoggedIn'>
 );
 
+export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MeQuery = (
+  { __typename?: 'Query' }
+  & { me?: Maybe<(
+    { __typename?: 'CleanAdminRes' }
+    & Pick<CleanAdminRes, 'id' | 'username' | 'email'>
+  )> }
+);
+
 export type ProjectQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -513,7 +579,7 @@ export type ProjectsQuery = (
   { __typename?: 'Query' }
   & { projects: (
     { __typename?: 'ProjectsRes' }
-    & Pick<ProjectsRes, 'total' | 'hasMore' | 'authorized'>
+    & Pick<ProjectsRes, 'total' | 'hasMore'>
     & { projects?: Maybe<Array<(
       { __typename?: 'Project' }
       & Pick<Project, 'id' | 'title' | 'description' | 'imageUrl' | 'isPublished' | 'createdAt'>
@@ -568,6 +634,30 @@ export const AddPictureDocument = gql`
 
 export function useAddPictureMutation() {
   return Urql.useMutation<AddPictureMutation, AddPictureMutationVariables>(AddPictureDocument);
+};
+export const ChangePasswordDocument = gql`
+    mutation ChangePassword($input: ChangePasswordInput!) {
+  changePassword(input: $input) {
+    field
+    message
+  }
+}
+    `;
+
+export function useChangePasswordMutation() {
+  return Urql.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument);
+};
+export const ChangeUsernameEmailDocument = gql`
+    mutation ChangeUsernameEmail($input: ChangeUsernameEmailInput!) {
+  changeUsernameEmail(input: $input) {
+    field
+    message
+  }
+}
+    `;
+
+export function useChangeUsernameEmailMutation() {
+  return Urql.useMutation<ChangeUsernameEmailMutation, ChangeUsernameEmailMutationVariables>(ChangeUsernameEmailDocument);
 };
 export const CreateGalleryImageDocument = gql`
     mutation CreateGalleryImage($input: GalleryInput!) {
@@ -761,6 +851,19 @@ export const IsLoggedInDocument = gql`
 export function useIsLoggedInQuery(options: Omit<Urql.UseQueryArgs<IsLoggedInQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<IsLoggedInQuery>({ query: IsLoggedInDocument, ...options });
 };
+export const MeDocument = gql`
+    query Me {
+  me {
+    id
+    username
+    email
+  }
+}
+    `;
+
+export function useMeQuery(options: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<MeQuery>({ query: MeDocument, ...options });
+};
 export const ProjectDocument = gql`
     query Project($id: Int!) {
   project(id: $id) {
@@ -787,7 +890,6 @@ export const ProjectsDocument = gql`
   projects(offset: $offset, limit: $limit) {
     total
     hasMore
-    authorized
     projects {
       id
       title
