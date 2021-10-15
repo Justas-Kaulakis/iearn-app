@@ -21,9 +21,9 @@ const Card: FC<CardProps> = ({
   published,
 }) => {
   return (
-    <div className="card">
+    // <div className="card">
       <Link href="/projektai/[id]" as={`/projektai/${id}`}>
-        <a>
+        <a className="card">
           <div className="image" style={{backgroundImage: `url(${imageUrl})`}}>
           </div>
           <div className="info">
@@ -32,7 +32,7 @@ const Card: FC<CardProps> = ({
           </div>
         </a>
       </Link>
-    </div>
+    // </div>
   );
 };
 

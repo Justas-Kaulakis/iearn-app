@@ -38,8 +38,6 @@ const Members = () => {
     slidesToScroll: 5,
     useTransform: true,
     cssEase: "ease-out",
-    // prevArrow: <PrevArrow />,
-    // nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
     responsive: [
@@ -67,20 +65,9 @@ const Members = () => {
       {
         breakpoint: 600,
         settings: {
-          draggable: true,
-          rows: 2,
-          slidesToShow: 2,
-          slidesToScroll: 2,
-
-          infinite: data?.members.length > 4,
-        },
-      },
-      {
-        breakpoint: 500,
-        settings: {
           arrows: false,
           draggable: true,
-          //rows: 3,
+          rows: 3,
           slidesToShow: 2,
           slidesToScroll: 2,
 
@@ -91,17 +78,13 @@ const Members = () => {
   };
   return (
     <section id="Nariai">
-      <div className="container-3">
-        {!data?.members || fetching ? null : (
-          <div style={{ marginBottom: 30 }}>
-            <Slider {...settings}>
-              {data.members.map((m) => (
-                <Member key={m.id} data={m} />
-              ))}
-            </Slider>
-          </div>
-        )}
-      </div>
+      {!data?.members || fetching ? null : (
+        <Slider {...settings}>
+          {data.members.map((m) => (
+            <Member key={m.id} data={m} />
+          ))}
+        </Slider>
+      )}
     </section>
   );
 };

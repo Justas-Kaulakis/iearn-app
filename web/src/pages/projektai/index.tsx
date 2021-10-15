@@ -55,7 +55,7 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
         <h2>Projektų nėra</h2>
       ) : (
         <>
-          <section className="projects-container">
+          <section className="projects-container wide">
             {data.projects?.projects?.map((p) => (
               <Card
                 key={p.id}
@@ -64,6 +64,7 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
                 title={p.title}
                 description={p.description}
                 createdAt={p.createdAt}
+                authorized={data.projects?.authorized}
                 published={p.isPublished}
               />
             ))}

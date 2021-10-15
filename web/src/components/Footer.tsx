@@ -5,58 +5,6 @@ import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 interface FooterProps {}
 type LinkType = { text: string; link: string | null; iconSrc: string | null };
 const Footer: FC<FooterProps> = ({}) => {
-  const footerLinks = [
-    {
-      name: "Socialiniai Tinklai",
-      links: [
-        {
-          text: "Instagram",
-          link: "https://www.instagram.com/iearn_ziezmariai_lithuania/",
-          iconSrc: null,
-        },
-        {
-          text: "Facebook",
-          link: "https://www.instagram.com/iearn_ziezmariai_lithuania/",
-          iconSrc: null,
-        },
-        {
-          text: "YouTube",
-          link: "https://www.instagram.com/iearn_ziezmariai_lithuania/",
-          iconSrc: null,
-        },
-        {
-          text: "iEARN",
-          link: "https://www.instagram.com/iearn_ziezmariai_lithuania/",
-          iconSrc: null,
-        },
-      ],
-    },
-    {
-      name: "Kontaktai",
-      links: [
-        {
-          text: "Instagram",
-          link: null,
-          iconSrc: null,
-        },
-        {
-          text: "Kocienė@gmail.com",
-          link: null,
-          iconSrc: null,
-        },
-        {
-          text: "Bachūras420@bing.com",
-          link: null,
-          iconSrc: null,
-        },
-        {
-          text: "+370 6841 2129",
-          link: null,
-          iconSrc: null,
-        },
-      ],
-    },
-  ];
 
   const [{ data: links, fetching: fLinks, error: lError }] =
     useSocialLinksQuery();
@@ -136,7 +84,6 @@ const Footer: FC<FooterProps> = ({}) => {
           </div>
         )}
       </div>
-      <hr />
       <p>©2021 iEARN Žiežmarių klubas. Visos teisės saugomos.</p>
     </footer>
   );

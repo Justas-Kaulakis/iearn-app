@@ -39,7 +39,8 @@ const Layout: FC<LayoutProps> = ({
         </Head>
       )}
       <Header active={active} />
-      <div className="base">{children}</div>
+      {/* <div className="base">{children}</div> */}
+      {children}
       {!isFooter ? null : <Footer />}
     </>
   );

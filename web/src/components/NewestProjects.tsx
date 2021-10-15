@@ -31,13 +31,11 @@ const NewestProjects: FC<NewestProjectsProps> = ({}) => {
           imageUrl={p.imageUrl}
         />
       ))}
-      <div  className="card daugiau_projektu">
-        <Link href="/projektai">
-          <a>
-            <h2>Daugiau projektų</h2>
-          </a>
-        </Link>
-      </div>
+      <Link href="/projektai">
+        <a className="card daugiau_projektu">
+          <h2>Daugiau projektų</h2>
+        </a>
+      </Link>
     </section>
   );
 };

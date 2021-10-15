@@ -1,4 +1,3 @@
-//window.$ = window.jQuery = require("jquery");
 console.log(typeof exports);
 $(document).ready(function () {
   $("#Nariai .container-3 .carousel").slick({
@@ -51,7 +50,7 @@ $(document).ready(function () {
         settings: {
           arrows: false,
           draggable: true,
-          //rows: 3,
+          rows: 3,
           slidesToShow: 2,
           slidesToScroll: 2,
         },
