@@ -362,7 +362,7 @@ form {
   color: #cad2c5;
 } */
 
-.container-3 {
+/* .container-3 {
   width: 100%;
   max-width: 1500px;
   margin: 0 auto;
@@ -379,8 +379,8 @@ form {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-}
-
+} */
+/* 
 .Nariai-card {
   width: 100%;
 }
@@ -437,7 +437,7 @@ form {
     height: 30vw;
     width: 30vw;
   }
-}
+} */
 
 .priv_arrow,
 .next_arrow {
