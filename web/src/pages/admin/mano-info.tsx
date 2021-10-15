@@ -1,15 +1,6 @@
 import { Button } from "@chakra-ui/button";
-import {
-  Box,
-  Center,
-  Divider,
-  Flex,
-  Heading,
-  Stack,
-  VStack,
-} from "@chakra-ui/layout";
-import { MenuDivider } from "@chakra-ui/menu";
-import { Table, Tbody, Td, Tr } from "@chakra-ui/table";
+import { Box, Divider, Flex, Heading, VStack } from "@chakra-ui/layout";
+import { ChakraProvider, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
 import React, { FC, useState } from "react";
@@ -23,6 +14,8 @@ import {
 } from "../../generated/graphql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 import { toErrorMap } from "../../utils/toErrorMap";
+import { FaCheckCircle } from "react-icons/fa";
+import { myToast } from "../../components/toasts";
 
 interface ManoInfoProps {}
 
@@ -32,6 +25,8 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
   const [paswordSaved, setPaswordSaved] = useState(true);
   const [, changeUsernameEmail] = useChangeUsernameEmailMutation();
   const [, changePassword] = useChangePasswordMutation();
+  /// popping messages
+  const toast = useToast();
 
   if (error) {
     console.log("Error loading Admin data: ", error);
@@ -60,13 +55,15 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
               validate={({ username, email, password }) => {
                 setNameEmailSaved(false);
               }}
-              onSubmit={async (values, { setErrors }) => {
+              onSubmit={async (values, { setErrors, resetForm }) => {
                 //console.log(values);
                 const { data } = await changeUsernameEmail({ input: values });
                 if (data?.changeUsernameEmail) {
                   setErrors(toErrorMap(data.changeUsernameEmail));
                 } else {
                   setNameEmailSaved(true);
+                  myToast(toast, "good", "Vardas arba el. paštas pakeistas.");
+                  resetForm({ password: "" } as any);
                 }
               }}
               validateOnBlur={false}
@@ -151,6 +148,7 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
                 } else {
                   resetForm();
                   setNameEmailSaved(true);
+                  myToast(toast, "good", "Slaptažodis pakeistas.");
                 }
               }}
               validateOnBlur={false}

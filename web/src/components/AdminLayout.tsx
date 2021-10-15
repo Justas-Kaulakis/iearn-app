@@ -1,9 +1,9 @@
-import { Box, ChakraProvider, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { ChakraProvider, Grid, GridItem } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
 import React, { FC, useState } from "react";
 import { useIsLoggedInQuery } from "../generated/graphql";
 import Layout from "./Layout";
-import SideBar, { AdminLinks, SideBarProps } from "./SideBar";
+import SideBar, { AdminLinks } from "./SideBar";
 import Error from "next/error";
 
 interface AdminLayoutProps {
