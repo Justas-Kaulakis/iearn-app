@@ -21,20 +21,6 @@
   box-sizing: border-box;
 }
 
-/* h1 {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 2rem;
-  color: #427a7e;
-  text-align: center;
-}
-
-h2 {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #2f3e46;
-} */
-
 img {
   display: block;
 }
@@ -200,9 +186,6 @@ form {
 }
 
 .top {
-  /*display: -webkit-box;
-   display: -ms-flexbox;
-  display: flex; */
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
@@ -236,77 +219,6 @@ form {
   width: -moz-fit-content;
   width: fit-content;
 }
-/*
-.content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}*/
-/*
-.card {
-  background: #fff;
-  position: relative;
-  -webkit-box-shadow: 0 3px 22px 1px rgba(55, 48, 48, 0.09);
-  box-shadow: 0 3px 22px 1px rgba(55, 48, 48, 0.09);
-  border-radius: 20px;
-  width: 300px;
-  min-height: 360px;
-  max-width: 400px;
-  height: 100%;
-  margin: 10px;
-}
-
-.card a {
-  width: 100%;
-  width: 100%;
-}
-
-.card div {
-  overflow: hidden;
-}
-
-.card div img {
-  width: 100%;
-  border-radius: 20px 20px 0 0;
-  -o-object-fit: cover;
-  object-fit: cover;
-  height: 100%;
-}
-
-.card h2 {
-  margin: 10px 20px;
-  font-size: 1.4em;
-  font-weight: 400;
-  color: #2f3e46;
-}
-
-.card p {
-  padding: 0 20px 15px 20px;
-  margin: 0px;
-  color: #2f3e46;
-  font-size: 14px;
-  line-height: 1.5em;
-}
-
-.card .card-tag {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 5px;
-  padding: 3px;
-  font-size: small;
-  width: fit-content;
-}
-*/
 .card-tag-red {
   border-color: red;
   color: red;
@@ -334,110 +246,6 @@ form {
   font-size: 0.8em;
   line-height: 1em;
 }
-
-/* .outer {
-  position: relative;
-}
-
-.outer:before {
-  display: block;
-  content: "";
-  width: 100%;
-  padding-top: 56.25%;
-}
-
-.outer > .inner {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  text-align: center;
-  border-radius: 20px 20px 0 0;
-}
-
-.outer > .inner svg {
-  height: 100%;
-  font-size: 500%;
-  color: #cad2c5;
-} */
-
-/* .container-3 {
-  width: 100%;
-  max-width: 1500px;
-  margin: 0 auto;
-}
-
-.container-3 h1 {
-  text-align: center;
-}
-
-.box {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-} */
-/* 
-.Nariai-card {
-  width: 100%;
-}
-
-.Nariai-card div {
-  margin: 0 auto;
-  width: 50vw;
-  height: 50vw;
-  max-width: 160px;
-  max-height: 160px;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 50%;
-  -webkit-box-shadow: 0 3px 22px 1px rgba(55, 48, 48, 0.09);
-  box-shadow: 0 3px 22px 1px rgba(55, 48, 48, 0.09);
-  background-color: white;
-}
-
-.Nariai-card div img {
-  vertical-align: middle;
-  -o-object-fit: cover;
-  object-fit: cover;
-  width: 100%;
-}
-
-.Nariai-card div svg {
-  height: 100%;
-  font-size: 500%;
-  color: #cad2c5;
-}
-
-.Nariai-card h2 {
-  text-align: center;
-  margin-bottom: 5px;
-  font-size: 1.5em;
-  font-weight: 400;
-  color: #2f3e46;
-}
-
-.Nariai-card p {
-  text-align: center;
-  font-size: 1em;
-  min-height: 36px;
-  margin-top: 5px;
-}
-
-@media only screen and (max-width: 500px) {
-  .Nariai-card div {
-    height: 30vw;
-    width: 30vw;
-  }
-} */
 
 .priv_arrow,
 .next_arrow {
@@ -469,12 +277,6 @@ form {
   -ms-user-select: initial;
   user-select: initial;
 }
-/* 
-h1 {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 2em;
-  color: #427a7e;
-} */
 
 p {
   font-weight: 400;
@@ -508,16 +310,6 @@ body {
   padding-top: 40px;
   padding-bottom: 40px;
 }
-
-/* h1 {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 2em;
-  color: #427a7e;
-} */
-
-/* .card {
-  width: 100%;
-} */
 
 .content {
   display: flex;
@@ -567,7 +359,6 @@ body {
   font-weight: 500;
   color: #2f3e46;
 }
-/*# sourceMappingURL=Styles.css.map */
 
 #__next {
   display: flex;

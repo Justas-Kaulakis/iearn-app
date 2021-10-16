@@ -4,6 +4,7 @@ import { createUrqlClient } from "../utils/createUrqlClient";
 import Members from "../components/Members";
 import Layout from "../components/Layout";
 import NewestProjects from "../components/NewestProjects";
+import AboutUs from "../components/About";
 
 const Index: FC = () => {
   return (
@@ -11,6 +12,7 @@ const Index: FC = () => {
       <section className="top">
         <div className="landing-img"></div>
       </section>
+      <AboutUs/>
       <h1 className="green-heading">Naujausi Projektai</h1>
       <NewestProjects />
       <h1 className="green-heading">Klubo nariai</h1>

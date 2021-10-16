@@ -20,7 +20,7 @@ import { createUrqlClient } from "../../utils/createUrqlClient";
 interface apieMusProps {}
 
 const apieMus: FC<apieMusProps> = ({}) => {
-  const contentLimit = 320;
+  const contentLimit = 500;
   const [{ data, fetching, error }] = useGetAboutQuery();
   const [, updateAbout] = useUpdateAboutMutation();
   if (error) {

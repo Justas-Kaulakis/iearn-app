@@ -12,6 +12,7 @@ import "../styles/Header.scss";
 import "../styles/Card.scss";
 import "../styles/Nariai.scss";
 import "../styles/Footer.scss";
+import "../styles/Aboutus.scss";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />;
