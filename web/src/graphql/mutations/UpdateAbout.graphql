@@ -1,0 +1,3 @@
+mutation UpdateAbout($id: Int!, $input: AboutInput!) {
+  updateAbout(id: $id, input: $input)
+}

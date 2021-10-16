@@ -56,14 +56,18 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
                 setNameEmailSaved(false);
               }}
               onSubmit={async (values, { setErrors, resetForm }) => {
-                //console.log(values);
                 const { data } = await changeUsernameEmail({ input: values });
                 if (data?.changeUsernameEmail) {
                   setErrors(toErrorMap(data.changeUsernameEmail));
                 } else {
                   setNameEmailSaved(true);
                   myToast(toast, "good", "Vardas arba el. paštas pakeistas.");
-                  resetForm({ password: "" } as any);
+                  resetForm({
+                    values: {
+                      ...values,
+                      password: "",
+                    },
+                  });
                 }
               }}
               validateOnBlur={false}

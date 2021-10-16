@@ -18,6 +18,18 @@ export type Scalars = {
   Upload: any;
 };
 
+export type About = {
+  __typename?: 'About';
+  id: Scalars['Float'];
+  content: Scalars['String'];
+  imageUrl: Scalars['String'];
+};
+
+export type AboutInput = {
+  content: Scalars['String'];
+  image?: Maybe<Scalars['Upload']>;
+};
+
 export type Admin = {
   __typename?: 'Admin';
   id: Scalars['Float'];
@@ -129,6 +141,7 @@ export type Mutation = {
   createGalleryImage: Scalars['Int'];
   updateGalleryImage: Scalars['Boolean'];
   deleteGalleryImage: Scalars['Boolean'];
+  updateAbout: Scalars['Boolean'];
 };
 
 
@@ -215,6 +228,12 @@ export type MutationDeleteGalleryImageArgs = {
   id: Scalars['Int'];
 };
 
+
+export type MutationUpdateAboutArgs = {
+  input: AboutInput;
+  id: Scalars['Int'];
+};
+
 export type MyContact = {
   id: Scalars['Int'];
   contact: Scalars['String'];
@@ -269,6 +288,7 @@ export type Query = {
   socialLinks: SocialLinks;
   contacts: Array<Contacts>;
   galleryImages?: Maybe<Array<GalleryImage>>;
+  getAbout: About;
 };
 
 
@@ -440,6 +460,17 @@ export type LogoutMutation = (
   & Pick<Mutation, 'logout'>
 );
 
+export type UpdateAboutMutationVariables = Exact<{
+  id: Scalars['Int'];
+  input: AboutInput;
+}>;
+
+
+export type UpdateAboutMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateAbout'>
+);
+
 export type UpdateContactsMutationVariables = Exact<{
   contacts: Array<MyContact> | MyContact;
 }>;
@@ -531,6 +562,17 @@ export type GalleryImagesQuery = (
     { __typename?: 'GalleryImage' }
     & Pick<GalleryImage, 'id' | 'imageUrl' | 'description'>
   )>> }
+);
+
+export type GetAboutQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAboutQuery = (
+  { __typename?: 'Query' }
+  & { getAbout: (
+    { __typename?: 'About' }
+    & Pick<About, 'id' | 'content' | 'imageUrl'>
+  ) }
 );
 
 export type IsLoggedInQueryVariables = Exact<{ [key: string]: never; }>;
@@ -744,6 +786,15 @@ export const LogoutDocument = gql`
 export function useLogoutMutation() {
   return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
 };
+export const UpdateAboutDocument = gql`
+    mutation UpdateAbout($id: Int!, $input: AboutInput!) {
+  updateAbout(id: $id, input: $input)
+}
+    `;
+
+export function useUpdateAboutMutation() {
+  return Urql.useMutation<UpdateAboutMutation, UpdateAboutMutationVariables>(UpdateAboutDocument);
+};
 export const UpdateContactsDocument = gql`
     mutation UpdateContacts($contacts: [MyContact!]!) {
   updateContacts(contacts: $contacts)
@@ -841,6 +892,19 @@ export const GalleryImagesDocument = gql`
 
 export function useGalleryImagesQuery(options: Omit<Urql.UseQueryArgs<GalleryImagesQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<GalleryImagesQuery>({ query: GalleryImagesDocument, ...options });
+};
+export const GetAboutDocument = gql`
+    query GetAbout {
+  getAbout {
+    id
+    content
+    imageUrl
+  }
+}
+    `;
+
+export function useGetAboutQuery(options: Omit<Urql.UseQueryArgs<GetAboutQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetAboutQuery>({ query: GetAboutDocument, ...options });
 };
 export const IsLoggedInDocument = gql`
     query IsLoggedIn {

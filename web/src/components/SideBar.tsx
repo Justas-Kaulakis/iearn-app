@@ -24,7 +24,8 @@ export type AdminLinks =
   | "projektai"
   | "galerija"
   | "istorija"
-  | "mano-info";
+  | "mano-info"
+  | "apie-mus";
 
 export interface SideBarProps {
   active: AdminLinks;
@@ -35,7 +36,8 @@ export interface SideBarProps {
 const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
   const [, logout] = useLogoutMutation();
   const router = useRouter();
-  const links: { name: string; icon: IconType }[] = [
+  const links: { name: AdminLinks; icon: IconType }[] = [
+    { name: "apie-mus", icon: FaInfo },
     { name: "nariai", icon: FaUsers },
     { name: "projektai", icon: FaEdit },
     { name: "galerija", icon: FaImages },

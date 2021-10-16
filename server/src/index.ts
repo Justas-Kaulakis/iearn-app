@@ -29,6 +29,8 @@ import {
 } from "./resolvers/footer";
 import { GalleryImage } from "./entities/GalleryImage";
 import { GalleryResolver } from "./resolvers/gallery";
+import { About } from "./entities/About";
+import { AboutResolver, createAbout } from "./resolvers/about";
 
 const main = async () => {
   const conn = await createConnection({
@@ -38,6 +40,7 @@ const main = async () => {
     logging: ["query", "log", "error", "warn", "info", "migration"],
     synchronize: true,
     entities: [
+      About,
       Member,
       Admin,
       Project,
@@ -56,6 +59,7 @@ const main = async () => {
 
   createLinks();
   createContacts();
+  createAbout();
 
   const app = express();
 
@@ -107,6 +111,7 @@ const main = async () => {
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
       resolvers: [
+        AboutResolver,
         MemberResolver,
         PictureResolver,
         AdminResolver,

@@ -16,7 +16,9 @@ const AdminTopBar: FC<AdminTopBarProps> = ({ pageName, children }) => {
       bg="#427a7e"
       h="3em"
     >
-      <Box>{pageName}</Box>
+      <Box>
+        <span style={{ whiteSpace: "nowrap" }}>{pageName}</span>
+      </Box>
       <Flex>{children}</Flex>
     </Flex>
   );

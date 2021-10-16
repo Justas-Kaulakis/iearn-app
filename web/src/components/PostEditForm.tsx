@@ -12,7 +12,7 @@ interface FormInputType {
   title: string;
   description: string;
   publish: boolean;
-  image: DropzoneFileType | null;
+  image: File | null;
 }
 
 interface PostFormInitValues {
@@ -93,7 +93,7 @@ const PostEditForm: FC<PostEditFormProps> = ({
                 required={isNew}
                 component={DropzoneField}
                 imageUrl={data.imageUrl}
-              // dim={{ x: 400, y: 400 }}
+                // dim={{ x: 400, y: 400 }}
               />
             </Box>
             {isNew ? null : (
