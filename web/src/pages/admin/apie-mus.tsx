@@ -1,6 +1,7 @@
 import { Button } from "@chakra-ui/button";
 import { FormLabel } from "@chakra-ui/form-control";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
+import { useToast } from "@chakra-ui/toast";
 import { Field, Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
 import React, { FC } from "react";
@@ -11,6 +12,7 @@ import DropzoneField, {
   requiredDropzoneValidation,
 } from "../../components/DropzoneField";
 import InputField from "../../components/InputField";
+import { myToast } from "../../components/toasts";
 import {
   useGetAboutQuery,
   useUpdateAboutMutation,
@@ -23,6 +25,7 @@ const apieMus: FC<apieMusProps> = ({}) => {
   const contentLimit = 500;
   const [{ data, fetching, error }] = useGetAboutQuery();
   const [, updateAbout] = useUpdateAboutMutation();
+  const toast = useToast();
   if (error) {
     console.log("Error loading About data");
   }
@@ -62,10 +65,13 @@ const apieMus: FC<apieMusProps> = ({}) => {
                 }}
                 onSubmit={async (values, { setErrors, resetForm }) => {
                   console.log(values);
-                  updateAbout({
+                  const { error } = await updateAbout({
                     id: data?.getAbout.id,
                     input: values,
                   });
+                  if (!error) {
+                    myToast(toast, "good", '"Apie mus" sekcija atnaujinta.');
+                  }
                 }}
                 validateOnBlur={false}
               >
@@ -84,8 +90,6 @@ const apieMus: FC<apieMusProps> = ({}) => {
                         <FormLabel>Sekcijos nuotrauka:</FormLabel>
                         <Field
                           name="image"
-                          validate={requiredDropzoneValidation}
-                          required
                           component={DropzoneField}
                           imageUrl={data?.getAbout.imageUrl}
                           dim={{ x: 600, y: 600 }}

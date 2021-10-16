@@ -49,13 +49,6 @@ const AdminLayout: FC<AdminLayoutProps> = ({
           </GridItem>
         </Grid>
       </ChakraProvider>
-
-      {/* <Flex>
-        <SideBar active={active} />
-        <Box h="calc(100vh - 3em)" w="100%" bgColor="floralwhite">
-          {children}
-        </Box>
-      </Flex> */}
     </Layout>
   );
 };

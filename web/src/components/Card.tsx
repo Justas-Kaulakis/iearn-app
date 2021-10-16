@@ -8,30 +8,23 @@ interface CardProps {
   description: string;
   imageUrl: string;
   createdAt?: string;
-  authorized?: boolean;
-  published?: boolean;
 }
 
-const Card: FC<CardProps> = ({
-  id,
-  title,
-  description,
-  imageUrl,
-  authorized = false,
-  published,
-}) => {
+const Card: FC<CardProps> = ({ id, title, description, imageUrl }) => {
   return (
     // <div className="card">
-      <Link href="/projektai/[id]" as={`/projektai/${id}`}>
-        <a className="card">
-          <div className="image" style={{backgroundImage: `url(${imageUrl})`}}>
-          </div>
-          <div className="info">
-            <h2>{title || "No Data"}</h2>
-            <p>{description || "No Data"}</p>
-          </div>
-        </a>
-      </Link>
+    <Link href="/projektai/[id]" as={`/projektai/${id}`}>
+      <a className="card">
+        <div
+          className="image"
+          style={{ backgroundImage: `url(${imageUrl})` }}
+        ></div>
+        <div className="info">
+          <h2>{title || "No Data"}</h2>
+          <p>{description || "No Data"}</p>
+        </div>
+      </a>
+    </Link>
     // </div>
   );
 };

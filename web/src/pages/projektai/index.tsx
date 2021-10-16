@@ -39,7 +39,7 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
     console.log("ERROR: ", error);
   }
   if (fetching) {
-    return <Heading>Loading...</Heading>;
+    return null;
   }
   //if(data?.projects?.projects?.size)
 
@@ -64,8 +64,6 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
                 title={p.title}
                 description={p.description}
                 createdAt={p.createdAt}
-                authorized={data.projects?.authorized}
-                published={p.isPublished}
               />
             ))}
           </section>
