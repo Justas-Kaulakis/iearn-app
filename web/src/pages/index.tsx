@@ -14,15 +14,17 @@ const Index: FC = () => {
           className="landing-img"
           style={{
             backgroundImage:
-              "url('http: //localhost:4000/api/images/landing-image.png')",
+              "url('http://localhost:4000/api/images/landing-image.png')",
           }}
         />
       </section>
-      <AboutUs />
-      <h1 className="green-heading">Naujausi Projektai</h1>
-      <NewestProjects />
-      <h1 className="green-heading">Klubo nariai</h1>
-      <Members />
+      <div className="Base">
+        <AboutUs />
+        <h1 className="green-heading">Naujausi Projektai</h1>
+        <NewestProjects />
+        <h1 className="green-heading">Klubo nariai</h1>
+        <Members />
+      </div>
     </Layout>
   );
 };

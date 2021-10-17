@@ -85,6 +85,7 @@ const apieMus: FC<apieMusProps> = ({}) => {
                         required
                         isTextarea
                         maxLength={120}
+                        size={"lg"}
                       />
                       <Box mt="1em">
                         <FormLabel>Sekcijos nuotrauka:</FormLabel>

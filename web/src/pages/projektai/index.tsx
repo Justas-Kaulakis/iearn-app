@@ -50,31 +50,33 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
   // const totalPageNum = 50;
   return (
     <Layout active="projektai">
-      <h1 className="green-heading">Projektai</h1>
-      {!data?.projects?.projects ? (
-        <h2>Projektų nėra</h2>
-      ) : (
-        <>
-          <section className="projects-container wide">
-            {data.projects?.projects?.map((p) => (
-              <Card
-                key={p.id}
-                id={p.id}
-                imageUrl={p.imageUrl}
-                title={p.title}
-                description={p.description}
-                createdAt={p.createdAt}
-              />
-            ))}
-          </section>
-          <Pagination
-            href="/projektai"
-            currentPage={page}
-            totalPageCount={totalPageNum}
-            hasMore={data?.projects?.hasMore}
-          />
-        </>
-      )}
+      <div className="Base">
+        <h1 className="green-heading">Projektai</h1>
+        {!data?.projects?.projects ? (
+          <h2>Projektų nėra</h2>
+        ) : (
+          <>
+            <section className="projects-container wide">
+              {data.projects?.projects?.map((p) => (
+                <Card
+                  key={p.id}
+                  id={p.id}
+                  imageUrl={p.imageUrl}
+                  title={p.title}
+                  description={p.description}
+                  createdAt={p.createdAt}
+                />
+              ))}
+            </section>
+            <Pagination
+              href="/projektai"
+              currentPage={page}
+              totalPageCount={totalPageNum}
+              hasMore={data?.projects?.hasMore}
+            />
+          </>
+        )}
+      </div>
     </Layout>
   );
 };

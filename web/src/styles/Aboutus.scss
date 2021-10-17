@@ -1,14 +1,11 @@
 .AboutUs {
   width: 100%;
-  max-width: 1240px;
-  margin: 0 auto;
 
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 15px;
 
-  margin-top: 40px;
   .image {
     height: 320px;
 
@@ -36,6 +33,16 @@
     p {
       margin: 0;
       line-height: 1.5em;
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .AboutUs {
+    flex-direction: column;
+    .image {
+      flex: none;
+      width: 100%;
     }
   }
 }

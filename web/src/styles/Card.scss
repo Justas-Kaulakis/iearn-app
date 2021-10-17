@@ -1,7 +1,7 @@
 .card {
   max-width: 320px;
   min-width: 250px;
-  height: 316px;
+  height: 310px;
   background: #ffffff;
 
   box-shadow: 0px 3px 8px rgba(55, 48, 48, 0.1);
@@ -28,11 +28,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
 
-      font-family: Roboto;
       font-style: normal;
       font-weight: normal;
-      font-size: 22px;
-      line-height: 26px;
+      font-size: 18px;
+      line-height: 20px;
 
       color: #2f3e46;
       margin: 0;
@@ -61,9 +60,7 @@
   justify-content: center;
   gap: 15px;
   flex-wrap: wrap;
-  max-width: 1260px;
-  margin: 0 auto;
-  padding: 0 20px;
+  width: 100%;
 }
 .wide {
   margin-bottom: 40px;
@@ -100,10 +97,10 @@
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   .card {
+    width: 100%;
     max-width: none;
-    min-width: none;
     height: auto;
     .info p {
       -webkit-line-clamp: none;
@@ -117,20 +114,17 @@
     height: 3em;
   }
   .projects-container {
-    padding: 0 20px;
     margin: 0;
     margin-bottom: 40px;
+    flex-direction: column;
   }
 }
 
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 600px) {
   .wide {
-    max-width: 1280px;
-    margin: 0 auto;
     margin-bottom: 40px;
-    padding: 0 20px;
     .card {
-      height: 360px;
+      height: 348px;
       max-width: 420px;
       min-width: 320px;
       .image {

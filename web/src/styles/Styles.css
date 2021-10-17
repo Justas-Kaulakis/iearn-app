@@ -298,10 +298,21 @@ body {
   background-color: #f1f1f1;
 }
 
+.Base {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: 25px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
 .landing-img {
   height: 70vw;
   max-height: 340px;
-  /* background-image: url("http://localhost:4000/api/images/landing-image.png"); */
   background-position: center;
   background-size: cover;
 }
@@ -345,12 +356,8 @@ body {
   font-weight: normal;
   font-size: 32px;
   line-height: 37px;
-  /* identical to box height */
-
   text-align: center;
-
-  /* spalvos/4 */
-
+  margin: 0;
   color: #427a7e;
 }
 .green-heading-h2 {
