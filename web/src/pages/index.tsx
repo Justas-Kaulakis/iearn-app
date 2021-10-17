@@ -10,9 +10,15 @@ const Index: FC = () => {
   return (
     <Layout active="pagrindinis">
       <section className="top">
-        <div className="landing-img"></div>
+        <div
+          className="landing-img"
+          style={{
+            backgroundImage:
+              "url('http: //localhost:4000/api/images/landing-image.png')",
+          }}
+        />
       </section>
-      <AboutUs/>
+      <AboutUs />
       <h1 className="green-heading">Naujausi Projektai</h1>
       <NewestProjects />
       <h1 className="green-heading">Klubo nariai</h1>

@@ -301,7 +301,7 @@ body {
 .landing-img {
   height: 70vw;
   max-height: 340px;
-  background-image: url("http://localhost:4000/api/images/landing-image.png");
+  /* background-image: url("http://localhost:4000/api/images/landing-image.png"); */
   background-position: center;
   background-size: cover;
 }
