@@ -31,8 +31,10 @@ import { GalleryImage } from "./entities/GalleryImage";
 import { GalleryResolver } from "./resolvers/gallery";
 import { About } from "./entities/About";
 import { AboutResolver, createAbout } from "./resolvers/about";
+//import { sendEmail } from "./utils/sendEmail";
 
 const main = async () => {
+  //sendEmail("just.kaulakis@gmail.com", "CIU BIBI KUIWA!");
   const conn = await createConnection({
     type: "postgres",
     url: process.env.DATABASE_URL,
