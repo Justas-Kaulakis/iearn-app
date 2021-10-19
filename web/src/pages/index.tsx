@@ -5,6 +5,7 @@ import Members from "../components/Members";
 import Layout from "../components/Layout";
 import NewestProjects from "../components/NewestProjects";
 import AboutUs from "../components/About";
+import { Box } from "@chakra-ui/layout";
 
 const Index: FC = () => {
   return (

@@ -133,6 +133,8 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   changeUsernameEmail?: Maybe<Array<FieldError>>;
   changePassword?: Maybe<Array<FieldError>>;
+  forgotPassword: Scalars['Boolean'];
+  changePasswordToken?: Maybe<Array<FieldError>>;
   createProject: Project;
   updateProject: Project;
   deleteProject: Scalars['Boolean'];
@@ -183,6 +185,12 @@ export type MutationChangeUsernameEmailArgs = {
 
 export type MutationChangePasswordArgs = {
   input: ChangePasswordInput;
+};
+
+
+export type MutationChangePasswordTokenArgs = {
+  newPassword: Scalars['String'];
+  token: Scalars['String'];
 };
 
 
@@ -357,6 +365,20 @@ export type ChangePasswordMutation = (
   )>> }
 );
 
+export type ChangePasswordTokenMutationVariables = Exact<{
+  token: Scalars['String'];
+  newPassword: Scalars['String'];
+}>;
+
+
+export type ChangePasswordTokenMutation = (
+  { __typename?: 'Mutation' }
+  & { changePasswordToken?: Maybe<Array<(
+    { __typename?: 'FieldError' }
+    & Pick<FieldError, 'field' | 'message'>
+  )>> }
+);
+
 export type ChangeUsernameEmailMutationVariables = Exact<{
   input: ChangeUsernameEmailInput;
 }>;
@@ -434,6 +456,14 @@ export type DeleteProjectMutationVariables = Exact<{
 export type DeleteProjectMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'deleteProject'>
+);
+
+export type ForgotPasswordMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ForgotPasswordMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'forgotPassword'>
 );
 
 export type LoginMutationVariables = Exact<{
@@ -689,6 +719,18 @@ export const ChangePasswordDocument = gql`
 export function useChangePasswordMutation() {
   return Urql.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument);
 };
+export const ChangePasswordTokenDocument = gql`
+    mutation ChangePasswordToken($token: String!, $newPassword: String!) {
+  changePasswordToken(token: $token, newPassword: $newPassword) {
+    field
+    message
+  }
+}
+    `;
+
+export function useChangePasswordTokenMutation() {
+  return Urql.useMutation<ChangePasswordTokenMutation, ChangePasswordTokenMutationVariables>(ChangePasswordTokenDocument);
+};
 export const ChangeUsernameEmailDocument = gql`
     mutation ChangeUsernameEmail($input: ChangeUsernameEmailInput!) {
   changeUsernameEmail(input: $input) {
@@ -762,6 +804,15 @@ export const DeleteProjectDocument = gql`
 
 export function useDeleteProjectMutation() {
   return Urql.useMutation<DeleteProjectMutation, DeleteProjectMutationVariables>(DeleteProjectDocument);
+};
+export const ForgotPasswordDocument = gql`
+    mutation ForgotPassword {
+  forgotPassword
+}
+    `;
+
+export function useForgotPasswordMutation() {
+  return Urql.useMutation<ForgotPasswordMutation, ForgotPasswordMutationVariables>(ForgotPasswordDocument);
 };
 export const LoginDocument = gql`
     mutation Login($options: AdminLogInput!) {

@@ -14,8 +14,12 @@ import {
 } from "type-graphql";
 import argon2 from "argon2";
 import { getConnection } from "typeorm";
-import { COOKIE_NAME } from "../constants";
+import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
 import { isAuth } from "../utils/isAuth";
+import { sendEmail } from "../utils/sendEmail";
+import { genEmail } from "../utils/genEmail";
+import { v4 } from "uuid";
+//import { email } from "../utils/resetPasswordEmail";
 
 @InputType()
 export class AdminRegInput {
@@ -83,6 +87,7 @@ class AdminResponse {
 @Resolver(Admin)
 export class AdminResolver {
   @Query(() => [Admin], { nullable: true })
+  @UseMiddleware(isAuth)
   admins(): Promise<Admin[]> {
     return Admin.find({});
   }
@@ -292,6 +297,59 @@ export class AdminResolver {
       { id: adminId },
       { password: await argon2.hash(newPassword) }
     );
+    return null;
+  }
+
+  @Mutation(() => Boolean)
+  async forgotPassword(@Ctx() { req, redis }: MyContext): Promise<boolean> {
+    const adminId = req.session.adminId as number;
+
+    const admin = await Admin.findOne(adminId);
+    if (!admin) return true;
+
+    const token = v4();
+
+    const expires = 1000 * 60 * 60 * 3;
+    await redis.set(FORGET_PASSWORD_PREFIX + token, admin.id, "ex", expires);
+    redis;
+    FORGET_PASSWORD_PREFIX;
+    sendEmail(admin.email, genEmail(token, expires));
+
+    return true;
+  }
+  @Mutation(() => [FieldError], { nullable: true })
+  async changePasswordToken(
+    @Arg("token") token: string,
+    @Arg("newPassword") newPassword: string,
+    @Ctx() { req, redis }: MyContext
+  ): Promise<FieldError[] | null> {
+    const err2 = checkInputLength("newPassword", newPassword);
+    if (err2) return err2;
+
+    const key = FORGET_PASSWORD_PREFIX + token;
+    const adminId = await redis.get(key);
+    const err = [
+      {
+        field: "token",
+        message: "Galiojimo laikas pasibaigė arba bloga nuoroda.",
+      },
+    ];
+    if (!adminId) {
+      return err;
+    }
+
+    const admin = await Admin.findOne({ id: parseInt(adminId) });
+    if (!admin) {
+      throw err;
+    }
+
+    await Admin.update(
+      { id: admin.id },
+      { password: await argon2.hash(newPassword) }
+    );
+
+    await redis.del(key);
+    req.session.adminId = admin.id;
     return null;
   }
 }

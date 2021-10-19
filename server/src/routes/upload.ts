@@ -3,7 +3,6 @@ import fileUpload from "express-fileupload";
 import { InitializedSession, Session } from "express-session";
 import shortid from "shortid";
 import { ProjectImage } from "../entities/ProjectImage";
-import { SERVER_URL } from "../constants";
 import { getConnection } from "typeorm";
 import { Project } from "../entities/Project";
 
@@ -73,7 +72,7 @@ router.post("/projects/upload", fileUpload(), check, async (req, res) => {
       imageName: filename,
       projectId: intId,
     }).save();
-    const url = `${SERVER_URL}/api/images/project/${filename}`;
+    const url = `http://localhost:${process.env.SERVER_PORT}/api/images/project/${filename}`;
     console.log(" Stored Url: ", url);
     return res.json({ url });
   });

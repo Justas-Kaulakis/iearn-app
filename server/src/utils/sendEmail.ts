@@ -3,9 +3,6 @@ import nodemailer from "nodemailer";
 /*
 Sukūriau nauja gmail, kuris bus mažiau saugus,
 bet galės siūsti žinutes.
-mail.iearn.ziezmariai@gmail.com
-
-mail.ziezmariai.2021 
 */
 
 // async..await is not allowed in global scope, must use a wrapper
@@ -37,7 +34,6 @@ export const sendEmail = async (to: string, html: string) => {
   });
 
   console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
   // Preview only available when sending through an Ethereal account
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));

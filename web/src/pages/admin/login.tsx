@@ -6,12 +6,14 @@ import {
   ChakraProvider,
   Flex,
   Heading,
+  useToast,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { Form, Formik } from "formik";
 import InputField from "../../components/InputField";
 import {
   AdminLogInput,
+  useForgotPasswordMutation,
   useIsLoggedInQuery,
   useLoginMutation,
 } from "../../generated/graphql";
@@ -20,6 +22,7 @@ import { createUrqlClient } from "../../utils/createUrqlClient";
 import { toErrorMap } from "../../utils/toErrorMap";
 import { useRouter } from "next/dist/client/router";
 import shortid from "shortid";
+import { myToast } from "../../components/toasts";
 
 interface LoginFormInputType {
   usernameOrEmail: string;
@@ -35,6 +38,8 @@ const Login: FC<LoginProps> = ({}) => {
   const [{ data, fetching }] = useIsLoggedInQuery({
     requestPolicy: "network-only",
   });
+  const [, forgotPassword] = useForgotPasswordMutation();
+  const toast = useToast();
   if (!fetching && data?.isLoggedIn) {
     console.log("Already logged in!", data);
     router.push("/admin/projektai");
@@ -115,9 +120,20 @@ const Login: FC<LoginProps> = ({}) => {
                   >
                     Prisijungti
                   </Button>
-                  <NextLink href="#">
-                    <Link>pamiršai slaptažodį?</Link>
-                  </NextLink>
+                  <Button
+                    ml="auto"
+                    variant="link"
+                    onClick={() => {
+                      forgotPassword();
+                      myToast(
+                        toast,
+                        "info",
+                        "Išsiuntėme laišką į admin el. paštą."
+                      );
+                    }}
+                  >
+                    Pamiršau slaptažodį.
+                  </Button>
                 </Flex>
               </Form>
             )}

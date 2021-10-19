@@ -42,11 +42,8 @@ class MyContact {
 @Resolver(SocialLinks)
 export class SocialLinksResolver {
   @Query(() => SocialLinks)
-  async socialLinks() {
-    const result = await SocialLinks.findOne();
-    console.log("Result: ", result);
-
-    return result;
+  socialLinks() {
+    return SocialLinks.findOne();
   }
 
   @Mutation(() => Boolean)

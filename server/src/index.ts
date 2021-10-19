@@ -54,7 +54,7 @@ const main = async () => {
   });
   conn;
 
-  console.log("ENV: ", process.env.DOMAIN);
+  console.log("DOMAIN ENV: ", process.env.DOMAIN);
   //await conn.runMigrations();
   /// Delete all posts yyeye
   //await ProjectImage.delete({});
