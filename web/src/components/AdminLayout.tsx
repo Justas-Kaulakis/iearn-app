@@ -14,7 +14,7 @@ interface AdminLayoutProps {
 }
 
 const AdminLayout: FC<AdminLayoutProps> = ({
-  scrollable = true,
+  scrollable = false,
   active,
   children,
   pageTitle,

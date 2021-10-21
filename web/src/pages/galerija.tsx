@@ -37,24 +37,26 @@ const Galerija: FC<GalerijaProps> = ({}) => {
 
   return (
     <Layout active="galerija">
-      <h1 style={{ textAlign: "center" }} className="green-heading">
-        Galerija
-      </h1>
-      <div className="container">
-        <div className="gallery">
-          {!data?.galleryImages || fetching ? null : (
-            <>
-              {data?.galleryImages.map((item, index) => (
-                <GalleryItem
-                  onClick={(e) => {
-                    setCurrentItem({ index, e });
-                  }}
-                  key={item.id}
-                  src={item.imageUrl}
-                />
-              ))}
-            </>
-          )}
+      <div className="Base">
+        <h1 style={{ textAlign: "center" }} className="green-heading">
+          Galerija
+        </h1>
+        <div className="container">
+          <div className="gallery">
+            {!data?.galleryImages || fetching ? null : (
+              <>
+                {data?.galleryImages.map((item, index) => (
+                  <GalleryItem
+                    onClick={(e) => {
+                      setCurrentItem({ index, e });
+                    }}
+                    key={item.id}
+                    src={item.imageUrl}
+                  />
+                ))}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </Layout>
