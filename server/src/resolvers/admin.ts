@@ -311,9 +311,8 @@ export class AdminResolver {
 
     const expires = 1000 * 60 * 60 * 3;
     await redis.set(FORGET_PASSWORD_PREFIX + token, admin.id, "ex", expires);
-    redis;
-    FORGET_PASSWORD_PREFIX;
-    sendEmail(admin.email, genEmail(token, expires));
+
+    await sendEmail(admin.email, genEmail(token, expires));
 
     return true;
   }

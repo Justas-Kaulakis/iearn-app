@@ -15,6 +15,7 @@ import { FileUpload, GraphQLUpload } from "graphql-upload";
 import { processUpload } from "../utils/processUpload";
 import { Project } from "../entities/Project";
 import { isAuth } from "../utils/isAuth";
+import { deleteFile } from "../utils/deleteFile";
 
 @InputType()
 class GalleryInput {
@@ -86,6 +87,13 @@ export class GalleryResolver {
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   async deleteGalleryImage(@Arg("id", () => Int) id: number): Promise<boolean> {
+    const image = await GalleryImage.findOne({ id });
+
+    const base = `${__dirname}/../../api/images/gallery/`;
+    if (image?.imageUrl) {
+      await deleteFile(base + image?.imageUrl);
+    }
+
     await GalleryImage.delete(id);
     return true;
   }

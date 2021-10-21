@@ -7,7 +7,7 @@ export interface HeaderProps {
   active:
     | "pagrindinis"
     | "projektai"
-    | "veikla"
+    | "kartos"
     | "istorija"
     | "galerija"
     | "admin";
@@ -17,7 +17,7 @@ const Header: FC<HeaderProps> = ({ active }) => {
   const linkNames = [
     "pagrindinis",
     "projektai",
-    "veikla",
+    "kartos",
     "istorija",
     "galerija",
   ];
