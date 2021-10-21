@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from "react";
-// import { v4 } from "uuid";
 import GalleryItem from "../components/GalleryItem";
 import Layout from "../components/Layout";
 // @ts-ignore: Unreachable code error
@@ -41,22 +40,20 @@ const Galerija: FC<GalerijaProps> = ({}) => {
         <h1 style={{ textAlign: "center" }} className="green-heading">
           Galerija
         </h1>
-        <div className="container">
-          <div className="gallery">
-            {!data?.galleryImages || fetching ? null : (
-              <>
-                {data?.galleryImages.map((item, index) => (
-                  <GalleryItem
-                    onClick={(e) => {
-                      setCurrentItem({ index, e });
-                    }}
-                    key={item.id}
-                    src={item.imageUrl}
-                  />
-                ))}
-              </>
-            )}
-          </div>
+        <div className="gallery">
+          {!data?.galleryImages || fetching ? null : (
+            <>
+              {data?.galleryImages.map((item, index) => (
+                <GalleryItem
+                  onClick={(e) => {
+                    setCurrentItem({ index, e });
+                  }}
+                  key={item.id}
+                  src={item.imageUrl}
+                />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </Layout>
