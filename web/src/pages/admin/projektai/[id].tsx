@@ -54,7 +54,7 @@ const Redaguoti: NextPage<{}> = ({}) => {
   console.log("Project: ", project);
   return (
     <AdminLayout active="projektai">
-      <AdminTopBar pageName={`projektai / redaguoti / ${project?.title}`}>
+      <AdminTopBar pageName={`projektai / ${project?.title}`}>
         <Link href={`/projektai/[id]`} as={`/projektai/${project?.id}`}>
           <a target={`view${project?.id}`}>
             <Tag

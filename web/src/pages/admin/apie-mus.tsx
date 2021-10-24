@@ -84,7 +84,7 @@ const apieMus: FC<apieMusProps> = ({}) => {
                         placeholder={`iki ${contentLimit} sibolių`}
                         required
                         isTextarea
-                        maxLength={120}
+                        maxLength={contentLimit}
                         size={"lg"}
                       />
                       <Box mt="1em">

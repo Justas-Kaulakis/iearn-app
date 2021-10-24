@@ -17,11 +17,11 @@ const Galerija: FC = ({}) => {
   }
 
   return (
-    <AdminLayout scrollable active="galerija">
+    <AdminLayout active="galerija">
       <AdminTopBar pageName="galerija">
         Nuotraukų sk. - {data?.galleryImages.length}
       </AdminTopBar>
-      <div className="korteles galerija">
+      <div className="Admin-content korteles galerija">
         <EditGalleryPictureModal create redoQuery={redoQuery}>
           {(onOpen) => (
             <div onClick={onOpen} className="new-project hoverCursor image-card">

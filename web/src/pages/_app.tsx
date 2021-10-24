@@ -2,7 +2,6 @@ import type { AppProps } from "next/app";
 import "../styles/Styles.css";
 import "../styles/Admin-Members.css";
 import "../styles/Dropzone.css";
-import "../styles/Article.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -14,6 +13,7 @@ import "../styles/Card.scss";
 import "../styles/Nariai.scss";
 import "../styles/Footer.scss";
 import "../styles/Aboutus.scss";
+import "../styles/Article.scss";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />;

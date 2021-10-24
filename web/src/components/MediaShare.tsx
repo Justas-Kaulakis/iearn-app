@@ -22,7 +22,7 @@ const MediaShare: FC<MediaShareProps> = ({
   disabled,
 }) => {
   return (
-    <span className={!disabled ? "share-media" : undefined}>
+    <div className={!disabled ? "share-media" : undefined}>
       <FacebookShareButton disabled={disabled} url={url}>
         <FacebookIcon size={35} />
       </FacebookShareButton>
@@ -36,7 +36,7 @@ const MediaShare: FC<MediaShareProps> = ({
       >
         <EmailIcon size={35} />
       </EmailShareButton>
-    </span>
+    </div>
   );
 };
 
