@@ -43,7 +43,7 @@ const AdminLayout: FC<AdminLayoutProps> = ({
           </GridItem>
           <GridItem
             bg="#f1f1f1"
-            style={!scrollable ? undefined : { overflowY: "scroll" }}
+            //style={!scrollable ? undefined : { overflowY: "scroll" }}
           >
             {children}
           </GridItem>

@@ -25,7 +25,7 @@ const Projektai: FC<ProjektaiProps> = ({}) => {
       <AdminTopBar pageName="projektai">
         Projektų sk. - {data?.adminProjects.length}
       </AdminTopBar>
-      <div className="korteles">
+      <div className="Admin-content korteles">
         <CreateProjectModal>
           {(onOpen) => (
             <div onClick={onOpen} className="new-project hoverCursor">

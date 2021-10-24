@@ -27,7 +27,7 @@ const SideBarLink: FC<SideBarLinkProps> = ({
       >
         <Icon style={{ width: "1.4em", height: "1.4em" }} />
         {collapsed ? null : (
-          <Box ml="0.5em" fontSize="1.2em">
+          <Box ml="0.5em" >
             {capitalize(name)}
           </Box>
         )}

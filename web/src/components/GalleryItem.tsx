@@ -11,7 +11,7 @@ const GalleryItem: FC<GalleryItemProps> = ({ src, onClick }) => {
       <div
         className="gallery-image"
         style={{
-          backgroundImage: `url(${src})`,
+          backgroundImage: `url("${src}")`,
         }}
       ></div>
     </div>

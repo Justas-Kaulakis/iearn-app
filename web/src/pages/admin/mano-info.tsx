@@ -34,13 +34,14 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
   return (
     <AdminLayout scrollable active="mano-info">
       <AdminTopBar pageName={`mano-info / ${data?.me?.username}`} />
-      <VStack minWidth="300px" p="1em">
+      <div className="Admin-content">
         {fetching && !data?.me ? null : (
           <Box
             maxWidth="500px"
             width="100%"
             shadow="lg"
-            rounded="1em"
+            rounded="10px"
+            m="auto"
             p="1em"
             bg="white"
           >
@@ -202,7 +203,7 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
             </Formik>
           </Box>
         )}
-      </VStack>
+      </div>
     </AdminLayout>
   );
 };
