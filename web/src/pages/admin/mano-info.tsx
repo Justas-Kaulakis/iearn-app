@@ -32,7 +32,7 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
     console.log("Error loading Admin data: ", error);
   }
   return (
-    <AdminLayout scrollable active="mano-info">
+    <AdminLayout active="mano-info">
       <AdminTopBar pageName={`mano-info / ${data?.me?.username}`} />
       <div className="Admin-content">
         {fetching && !data?.me ? null : (

@@ -8,13 +8,12 @@ import Error from "next/error";
 
 interface AdminLayoutProps {
   active: AdminLinks;
-  scrollable?: boolean;
+  
   pageTitle?: string;
   bg?: string;
 }
 
 const AdminLayout: FC<AdminLayoutProps> = ({
-  scrollable = false,
   active,
   children,
   pageTitle,
@@ -43,7 +42,7 @@ const AdminLayout: FC<AdminLayoutProps> = ({
           </GridItem>
           <GridItem
             bg="#f1f1f1"
-            //style={!scrollable ? undefined : { overflowY: "scroll" }}
+            
           >
             {children}
           </GridItem>
