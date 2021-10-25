@@ -117,6 +117,35 @@ const Editor: FC<EditorProps> = ({
           offset: 1,
           unit: "em",
         },
+        table: {
+          contentToolbar: [
+            'tableColumn', 'tableRow', 'mergeTableCells',
+            'tableProperties', 'tableCellProperties'
+          ],
+
+          // Configuration of the TableProperties plugin.
+
+          // The default styles for tables in the editor.
+          // They should be synchronized with the content styles.
+          defaultProperties: {
+            borderStyle: 'dashed',
+            borderColor: 'hsl(90, 75%, 60%)',
+            borderWidth: '3px',
+            alignment: 'left',
+            width: '550px',
+            height: '450px'
+          },
+          // The default styles for table cells in the editor.
+          // They should be synchronized with the content styles.
+          tableCellProperties: {
+            defaultProperties: {
+              horizontalAlignment: 'center',
+              verticalAlignment: 'bottom',
+              padding: '10px'
+            }
+          }
+        }
+
       }}
     />
   );
