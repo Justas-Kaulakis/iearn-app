@@ -25,23 +25,15 @@ const Projektai: FC<ProjektaiProps> = ({}) => {
       <AdminTopBar pageName="projektai">
         Projektų sk. - {data?.adminProjects.length}
       </AdminTopBar>
-      <Box bg="#f1f1f1" className="korteles">
+      <div className="Admin-content korteles">
         <CreateProjectModal>
           {(onOpen) => (
-            <Button
-              height="fit-content"
-              variant="link"
-              onClick={() => {
-                onOpen();
-              }}
-            >
-              <div className="new-project hoverCursor">
-                <span>
-                  <FaPlus />
-                </span>
-                <p>Sukurti naują projektą</p>
-              </div>
-            </Button>
+            <div onClick={onOpen} className="new-project hoverCursor">
+              <span>
+                <FaPlus />
+              </span>
+              <p>Sukurti naują projektą</p>
+            </div>
           )}
         </CreateProjectModal>
         {!data?.adminProjects || fetching
@@ -73,7 +65,7 @@ const Projektai: FC<ProjektaiProps> = ({}) => {
                 </div>
               </Link>
             ))}
-      </Box>
+      </div>
     </AdminLayout>
   );
 };

@@ -59,7 +59,7 @@ const Login: FC<LoginProps> = ({}) => {
           Admin prisijungimas
         </Heading>
 
-        <Box mx="1em" w="100%" maxW={400} rounded="lg" p={5} bgColor="white">
+        <Box boxShadow="lg" mx="1em" w="100%" maxW={400} rounded="lg" p={5} bgColor="white">
           <Formik<AdminLogInput>
             initialValues={{ usernameOrEmail: "", password: "" }}
             validate={(values) => {

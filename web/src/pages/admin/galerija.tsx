@@ -17,27 +17,19 @@ const Galerija: FC = ({}) => {
   }
 
   return (
-    <AdminLayout scrollable active="galerija">
+    <AdminLayout active="galerija">
       <AdminTopBar pageName="galerija">
         Nuotraukų sk. - {data?.galleryImages.length}
       </AdminTopBar>
-      <Box bg="#f1f1f1" className="korteles gallery-grid">
+      <div className="Admin-content korteles galerija">
         <EditGalleryPictureModal create redoQuery={redoQuery}>
           {(onOpen) => (
-            <Button
-              height="250px"
-              variant="link"
-              onClick={() => {
-                onOpen();
-              }}
-            >
-              <div className="new-project hoverCursor image-card">
-                <span>
-                  <FaPlus />
-                </span>
-                <p>Pridėti nuotrauką</p>
-              </div>
-            </Button>
+            <div onClick={onOpen} className="new-project hoverCursor image-card">
+              <span>
+                <FaPlus />
+              </span>
+              <p>Pridėti nuotrauką</p>
+            </div>
           )}
         </EditGalleryPictureModal>
         {!data?.galleryImages || fetching ? null : (
@@ -49,30 +41,24 @@ const Galerija: FC = ({}) => {
                 key={i.id}
               >
                 {(onOpen) => (
-                  <Button onClick={onOpen} height="250px" variant="link">
-                    <div className="korta image-card hoverCursor">
-                      <div className="img-con">
-                        {i.imageUrl ? (
-                          <img src={i.imageUrl} alt="nuotrauka" />
-                        ) : (
-                          <FaFileImage />
-                        )}
-                      </div>
-                      <p>
-                        {i.description.slice(0, 30)}
-                        {i.description.length < 30 ? null : "..."}
-                      </p>
-                      <div className="korta-button">
-                        <div>Redaguoti</div>
-                      </div>
+                  <div onClick={onOpen} className="korta image-card hoverCursor">
+                    <div className="img-con">
+                      {i.imageUrl ? (
+                        <img src={i.imageUrl} alt="nuotrauka" />
+                      ) : (
+                        <FaFileImage />
+                      )}
                     </div>
-                  </Button>
+                    <div className="korta-button">
+                      <div>Redaguoti</div>
+                    </div>
+                  </div>
                 )}
               </EditGalleryPictureModal>
             ))}
           </>
         )}
-      </Box>
+      </div>
     </AdminLayout>
   );
 };

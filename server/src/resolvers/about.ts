@@ -14,6 +14,7 @@ import { FileUpload, GraphQLUpload } from "graphql-upload";
 import { processUpload } from "../utils/processUpload";
 import { isAuth } from "../utils/isAuth";
 import { About } from "../entities/About";
+import { deleteFile } from "../utils/deleteFile";
 
 @InputType()
 class AboutInput {
@@ -44,6 +45,12 @@ export class AboutResolver {
   ): Promise<boolean> {
     let imageUrl = "";
     if (image) {
+      const about = await About.findOne({ id });
+
+      const base = `${__dirname}/../../api/images/about/`;
+      if (about?.imageUrl) {
+        await deleteFile(base + about?.imageUrl);
+      }
       imageUrl = await processUpload("about", image);
     }
 

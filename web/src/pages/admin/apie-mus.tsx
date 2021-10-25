@@ -32,10 +32,10 @@ const apieMus: FC<apieMusProps> = ({}) => {
 
   return (
     <>
-      <AdminLayout scrollable active="apie-mus">
+      <AdminLayout active="apie-mus">
         <AdminTopBar pageName={"mano-info / Apie mus"} />
         {fetching ? null : (
-          <Box m="1em">
+          <div className="Admin-content">
             <Flex
               rounded="md"
               width="100%"
@@ -84,7 +84,7 @@ const apieMus: FC<apieMusProps> = ({}) => {
                         placeholder={`iki ${contentLimit} sibolių`}
                         required
                         isTextarea
-                        maxLength={120}
+                        maxLength={contentLimit}
                         size={"lg"}
                       />
                       <Box mt="1em">
@@ -111,7 +111,7 @@ const apieMus: FC<apieMusProps> = ({}) => {
                 )}
               </Formik>
             </Flex>
-          </Box>
+          </div>
         )}
       </AdminLayout>
     </>

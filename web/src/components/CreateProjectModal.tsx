@@ -91,7 +91,7 @@ const CreateProjectModal: FC<CreateProjectModalProps> = ({ children }) => {
                     <InputField
                       placeholder="Aprašymas"
                       name="description"
-                      label="Vaizdo aprašymas"
+                      label="Projekto aprašymas"
                       isTextarea
                     />
                   </Box>

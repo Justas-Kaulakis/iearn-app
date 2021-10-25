@@ -125,7 +125,7 @@ const main = async () => {
       validate: false,
     }),
     playground: true,
-    introspection: true,
+    introspection: __prod__,
     context: ({ req, res }) => ({
       req,
       res,

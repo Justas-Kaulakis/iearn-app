@@ -55,11 +55,15 @@ const ProjectPage: NextPage<{}> = ({}) => {
   return (
     <>
       <Layout active="projektai">
+        <div
+          className="Article-img"
+          style={{ backgroundImage: `url("${project?.imageUrl}")` }}
+        />
         <div className="article-box">
           {!project || fetching ? null : (
             <>
               <div className="intro">
-                <h1>
+                <h1 className="title">
                   {project.title}
                   {!meFetching && !meData.isLoggedIn ? null : (
                     <NextLink
@@ -73,7 +77,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
                   )}
                 </h1>
                 <div className="article-meta">
-                  <span>
+                  <div className="left">
                     <MediaShare
                       title={project.title}
                       url={shareUrl}
@@ -92,12 +96,11 @@ const ProjectPage: NextPage<{}> = ({}) => {
                         )}
                       </>
                     )}
-                  </span>
+                  </div>
                   <time dateTime={project.publishedAt}>
                     {project.publishedAt}
                   </time>
                 </div>
-                <hr />
               </div>
               <article className="body">{parse(body)}</article>
             </>
