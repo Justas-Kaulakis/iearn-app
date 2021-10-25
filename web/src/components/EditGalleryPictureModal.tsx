@@ -107,7 +107,7 @@ const EditGalleryPictureModal: FC<EditGalleryPictureModalProps> = ({
                     type="submit"
                     colorScheme="blue"
                   >
-                    {create ? "Pridėti nuotrauką" : "Redaguoti"}
+                    {create ? "Pridėti nuotrauką" : "Išsaugoti"}
                   </Button>
                   {create ? null : (
                     <Button
@@ -123,14 +123,6 @@ const EditGalleryPictureModal: FC<EditGalleryPictureModalProps> = ({
                       Išstrinti
                     </Button>
                   )}
-                  <Button
-                    ml={3}
-                    colorScheme="red"
-                    variant="outline"
-                    onClick={onClose}
-                  >
-                    Atšaukti
-                  </Button>
                 </ModalFooter>
               </Form>
             )}

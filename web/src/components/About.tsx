@@ -5,14 +5,14 @@ import { useGetAboutQuery } from "../generated/graphql";
 const AboutUs: FC = ({
 }) => {
   const [{ data, fetching, error }] = useGetAboutQuery();
-  if(fetching) return null;
+  if (fetching) return null;
   return (
     <section className="AboutUs">
-        <div className="image" style={{backgroundImage: `url(${data?.getAbout.imageUrl})`}}/>
-        <div className="info">
-            <h1 className="green-heading">Apie Mus</h1>
-            <p>{data?.getAbout.content}</p>
-        </div>
+      <div className="image" style={{ backgroundImage: `url("${data?.getAbout.imageUrl}")` }} />
+      <div className="info">
+        <h1 className="green-heading">Apie Mus</h1>
+        <p>{data?.getAbout.content}</p>
+      </div>
     </section>
   );
 };

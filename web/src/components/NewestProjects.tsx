@@ -4,9 +4,9 @@ import React, { FC } from "react";
 import { useProjectsQuery } from "../generated/graphql";
 import Card from "./Card";
 
-interface NewestProjectsProps {}
+interface NewestProjectsProps { }
 
-const NewestProjects: FC<NewestProjectsProps> = ({}) => {
+const NewestProjects: FC<NewestProjectsProps> = ({ }) => {
   const [{ data, fetching, error }] = useProjectsQuery({
     variables: {
       offset: 0,
@@ -19,7 +19,6 @@ const NewestProjects: FC<NewestProjectsProps> = ({}) => {
   if (fetching) {
     return null;
   }
-
   return (
     <section className="projects-container">
       {data.projects?.projects?.map((p) => (

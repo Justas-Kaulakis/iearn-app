@@ -17,7 +17,7 @@ const Card: FC<CardProps> = ({ id, title, description, imageUrl }) => {
       <a className="card">
         <div
           className="image"
-          style={{ backgroundImage: `url(${imageUrl})` }}
+          style={{ backgroundImage: `url("${imageUrl}")` }}
         ></div>
         <div className="info">
           <h2>{title || "No Data"}</h2>
