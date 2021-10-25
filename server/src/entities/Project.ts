@@ -5,7 +5,9 @@ import {
   Column,
   CreateDateColumn,
   PrimaryGeneratedColumn,
+  ManyToOne,
 } from "typeorm";
+import { Generation } from "./Generation";
 
 @ObjectType()
 @Entity()
@@ -29,6 +31,10 @@ export class Project extends BaseEntity {
   @Field({ nullable: true })
   @Column({ default: "" })
   imageUrl: string;
+
+  @Field({ nullable: true })
+  @ManyToOne(() => Generation, (g) => g.projects, { nullable: true })
+  generation: Generation;
 
   @Field()
   @Column()

@@ -106,6 +106,31 @@ export type GalleryInput = {
   image?: Maybe<Scalars['Upload']>;
 };
 
+export type Generation = {
+  __typename?: 'Generation';
+  id: Scalars['Float'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  images?: Maybe<Array<GenerationImage>>;
+  projects?: Maybe<Array<Project>>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type GenerationImage = {
+  __typename?: 'GenerationImage';
+  id: Scalars['Float'];
+  imageUrl: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type GenerationInput = {
+  title: Scalars['String'];
+  description: Scalars['String'];
+  projectIds?: Maybe<Array<Scalars['Int']>>;
+  images?: Maybe<Array<Scalars['Upload']>>;
+};
+
 export type Member = {
   __typename?: 'Member';
   id: Scalars['Float'];
@@ -144,6 +169,7 @@ export type Mutation = {
   updateGalleryImage: Scalars['Boolean'];
   deleteGalleryImage: Scalars['Boolean'];
   updateAbout: Scalars['Boolean'];
+  createGeneration: Scalars['Int'];
 };
 
 
@@ -242,6 +268,11 @@ export type MutationUpdateAboutArgs = {
   id: Scalars['Int'];
 };
 
+
+export type MutationCreateGenerationArgs = {
+  input: GenerationInput;
+};
+
 export type MyContact = {
   id: Scalars['Int'];
   contact: Scalars['String'];
@@ -254,6 +285,7 @@ export type Project = {
   description: Scalars['String'];
   body: Scalars['String'];
   imageUrl?: Maybe<Scalars['String']>;
+  generation?: Maybe<Generation>;
   isPublished: Scalars['Boolean'];
   wasPublished: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
@@ -297,6 +329,7 @@ export type Query = {
   contacts: Array<Contacts>;
   galleryImages?: Maybe<Array<GalleryImage>>;
   getAbout: About;
+  generations?: Maybe<Array<Generation>>;
 };
 
 
@@ -400,6 +433,16 @@ export type CreateGalleryImageMutationVariables = Exact<{
 export type CreateGalleryImageMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'createGalleryImage'>
+);
+
+export type CreateGenerationMutationVariables = Exact<{
+  input: GenerationInput;
+}>;
+
+
+export type CreateGenerationMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createGeneration'>
 );
 
 export type CreateMemberMutationVariables = Exact<{
@@ -751,6 +794,15 @@ export const CreateGalleryImageDocument = gql`
 
 export function useCreateGalleryImageMutation() {
   return Urql.useMutation<CreateGalleryImageMutation, CreateGalleryImageMutationVariables>(CreateGalleryImageDocument);
+};
+export const CreateGenerationDocument = gql`
+    mutation CreateGeneration($input: GenerationInput!) {
+  createGeneration(input: $input)
+}
+    `;
+
+export function useCreateGenerationMutation() {
+  return Urql.useMutation<CreateGenerationMutation, CreateGenerationMutationVariables>(CreateGenerationDocument);
 };
 export const CreateMemberDocument = gql`
     mutation CreateMember($input: MemberInput!) {

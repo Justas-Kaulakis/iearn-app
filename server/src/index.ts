@@ -31,6 +31,9 @@ import { GalleryImage } from "./entities/GalleryImage";
 import { GalleryResolver } from "./resolvers/gallery";
 import { About } from "./entities/About";
 import { AboutResolver, createAbout } from "./resolvers/about";
+import { Generation } from "./entities/Generation";
+import { GenerationImage } from "./entities/GenerationImage";
+import { GenerationResolver } from "./resolvers/generation";
 //import { sendEmail } from "./utils/sendEmail";
 
 const main = async () => {
@@ -50,6 +53,8 @@ const main = async () => {
       SocialLinks,
       Contacts,
       GalleryImage,
+      Generation,
+      GenerationImage,
     ],
   });
   conn;
@@ -121,11 +126,12 @@ const main = async () => {
         SocialLinksResolver,
         ContactsResolver,
         GalleryResolver,
+        GenerationResolver,
       ],
       validate: false,
     }),
     playground: true,
-    introspection: __prod__,
+    introspection: !__prod__,
     context: ({ req, res }) => ({
       req,
       res,

@@ -12,6 +12,7 @@ import {
   FaSignOutAlt,
   FaInfo,
   FaUserCog,
+  FaThList,
 } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 import { useLogoutMutation } from "../generated/graphql";
@@ -23,6 +24,7 @@ export type AdminLinks =
   | "kontaktai"
   | "projektai"
   | "galerija"
+  | "kartos"
   | "istorija"
   | "mano-info"
   | "apie-mus";
@@ -41,6 +43,7 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
     { name: "nariai", icon: FaUsers },
     { name: "projektai", icon: FaEdit },
     { name: "galerija", icon: FaImages },
+    { name: "kartos", icon: FaThList },
     { name: "istorija", icon: FaHistory },
     { name: "kontaktai", icon: FaLink },
     { name: "mano-info", icon: FaUserCog },
