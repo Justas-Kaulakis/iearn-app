@@ -232,6 +232,9 @@ form {
   border: 0;
   cursor: pointer;
 }
+.top-center {
+  top: 50%;
+}
 
 .priv_arrow {
   left: 8px;

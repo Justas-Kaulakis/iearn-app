@@ -23,17 +23,17 @@ For development, you will need:
 
   You can install nodejs and npm easily with apt install, just run the following commands.
 
-      $ sudo apt install nodejs
-      $ sudo apt install npm
-
-###
+  ```bash
+  sudo apt install nodejs
+  sudo apt install npm
+  ```
 
 ### Yarn installation
 
 After installing node, this project will need yarn too, so just run the following command.
 
 ```bash
-$ npm install -g yarn
+npm install -g yarn
 ```
 
 # Database setup
@@ -51,15 +51,18 @@ Redis is a light and fast caching system. This project is uing it to send and re
 - Download and install for linux [HERE](https://redis.io/download)
 - Start the redis server from the binary file:
 
-      $ redis-server
+  ```bash
+  redis-server
+  ```
 
 # Project Installation and launch
 
 ```bash
-$ git clone https://github.com/Justas-Kaulakis/iearn-app.git
+git clone https://github.com/Justas-Kaulakis/iearn-app.git
 ```
 
-- ### Configure env variables based on .example files
+- ## Configure env variables based on .example files
+
   - In server/.env  
     And in web/.env.local
   - Set **NODE_ENV** to "production" or "develoment" accordingly. Default is "development".
@@ -67,42 +70,52 @@ $ git clone https://github.com/Justas-Kaulakis/iearn-app.git
 ## Server
 
 ```bash
-$ cd iearn-app/server
-$ yarn install
+cd iearn-app/server
+yarn install
 ```
 
 - ### development
 
-      $ yarn watch
-      $ yarn dev
+  ```bash
+  yarn watch
+  yarn dev
+  ```
 
 - ### production
 
-      $ yarn build
-      $ yarn start
+  ```bash
+  yarn build
+  yarn start
+  ```
 
 ## Web
 
 ```bash
-$ cd iearn-app/web
-$ yarn install
+cd iearn-app/web
+yarn install
 ```
 
 - ### development
 
-      $ yarn dev
+  ```bash
+  yarn dev
+  ```
 
 - ### production
 
-        $ yarn build
-        $ yarn start
+  ```bash
+  yarn build
+  yarn start
+  ```
 
   more info for Next.js [Here](web/README.md)
 
 ---
 
-## Authors:
+## Authors
 
 - ### Justas Kaulakis
+
 - ### Gytis Kaulakis
+
 - ### Lukas Lančinskas

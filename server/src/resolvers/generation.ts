@@ -42,6 +42,7 @@ export class GenerationResolver {
       imageUrls = await Promise.all(
         input.images.map(async (im) => await processUpload("generation", im))
       );
+      console.log("urls: ", imageUrls);
     }
 
     let gen;

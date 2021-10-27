@@ -9,10 +9,17 @@ import AdminTopBar from "../../components/AdminTopBar";
 import DropzoneField, {
   requiredDropzoneValidation,
 } from "../../components/DropzoneField";
+import DropzoneFieldMulti from "../../components/DropzoneFieldMulti";
 import InputField from "../../components/InputField";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 
 interface KartosProps {}
+
+interface KartosFormTypes {
+  images: File[] | null;
+  description: string;
+  projectIds: number[] | null;
+}
 
 const Kartos: FC<KartosProps> = ({}) => {
   return (
@@ -29,7 +36,7 @@ const Kartos: FC<KartosProps> = ({}) => {
         </Button>
         <Stack mt="1em" spacing="1em">
           <Grid
-            templateColumns="1fr 1fr"
+            templateColumns="minmax(300px, 1fr) 1fr"
             shadow="md"
             rounded="md"
             p="1em"
@@ -40,7 +47,14 @@ const Kartos: FC<KartosProps> = ({}) => {
               <Button mb="1em" width="fit-content" size="sm" colorScheme="red">
                 Ištrinti
               </Button>
-              <Formik initialValues={{}} onSubmit={() => {}}>
+              <Formik<KartosFormTypes>
+                initialValues={{
+                  description: "",
+                  images: null,
+                  projectIds: null,
+                }}
+                onSubmit={() => {}}
+              >
                 {() => (
                   <Form style={{ display: "block" }}>
                     <InputField
@@ -50,10 +64,11 @@ const Kartos: FC<KartosProps> = ({}) => {
                     />
                     <Box mt="1em">
                       <Field
-                        name="image"
+                        name="images"
                         validate={requiredDropzoneValidation}
                         required
-                        component={DropzoneField}
+                        component={DropzoneFieldMulti}
+                        maxFiles={2}
                       />
                     </Box>
                   </Form>
@@ -72,28 +87,26 @@ const Kartos: FC<KartosProps> = ({}) => {
                 Pridėti projektą
               </Button>
               <Flex direction="column">
-                <Box>
-                  <ButtonGroup isAttached>
-                    <IconButton
-                      aria-label="Išstrinti"
-                      //variant="outline"
-                      colorScheme="red"
-                      icon={<FaTrashAlt />}
-                      shadow="base"
-                      size="sm"
-                    />
-                    <Button
-                      colorScheme="blue"
-                      size="sm"
-                      shadow="base"
-                      variant="link"
-                    >
-                      <Box mx="0.5em">
-                        Nu labai didelis titulinis cia dabar!
-                      </Box>
-                    </Button>
-                  </ButtonGroup>
-                </Box>
+                <ButtonGroup w="100%" isAttached>
+                  <IconButton
+                    aria-label="Išstrinti"
+                    //variant="outline"
+                    colorScheme="red"
+                    icon={<FaTrashAlt />}
+                    shadow="base"
+                    size="sm"
+                  />
+                  <Button
+                    w="100%"
+                    colorScheme="blue"
+                    size="sm"
+                    shadow="base"
+                    variant="link"
+                    justifyContent="start"
+                  >
+                    <Box mx="0.5em">Nu labai didelis titulinis cia dabar!</Box>
+                  </Button>
+                </ButtonGroup>
               </Flex>
             </Flex>
           </Grid>
