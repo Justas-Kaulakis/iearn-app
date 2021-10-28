@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
 const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
   // console.log("PAGE: ", page);
-  const perPage = 9;
+  const perPage = 6;
   const [{ data, fetching, error }] = useProjectsQuery({
     variables: {
       offset: (page - 1) * perPage,
