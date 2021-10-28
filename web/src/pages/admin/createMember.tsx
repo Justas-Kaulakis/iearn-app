@@ -2,7 +2,6 @@ import { Formik, Form, Field } from "formik";
 import { withUrqlClient } from "next-urql";
 import React, { FC } from "react";
 import DropzoneField, {
-  DropzoneFileType,
   requiredDropzoneValidation,
 } from "../../components/DropzoneField";
 import { useCreateMemberMutation } from "../../generated/graphql";
@@ -10,7 +9,7 @@ import { createUrqlClient } from "../../utils/createUrqlClient";
 interface FormInputType {
   fullName: string;
   description: string;
-  image: DropzoneFileType | null;
+  image: File | null;
 }
 
 const CreateMember: FC = () => {
@@ -25,7 +24,7 @@ const CreateMember: FC = () => {
             input: {
               fullName: values.fullName,
               description: values.description,
-              image: values.image?.file,
+              image: values.image,
             },
           });
           if (error) {

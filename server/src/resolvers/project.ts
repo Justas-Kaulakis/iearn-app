@@ -36,6 +36,16 @@ class ProjectInput {
 }
 
 @ObjectType()
+class SearchProjectRes {
+  @Field()
+  id: number;
+  @Field()
+  title: string;
+  @Field()
+  description: string;
+}
+
+@ObjectType()
 class ProjectRes {
   @Field(() => String, { nullable: true })
   error?: string;
@@ -144,6 +154,21 @@ export class ProjectResolver {
     };
   }
 
+  @Query(() => [SearchProjectRes], { nullable: true })
+  @UseMiddleware(isAuth)
+  async searchProjects(): Promise<SearchProjectRes[] | null> {
+    let data: SearchProjectRes[] = [];
+    await getConnection().transaction(async (tm) => {
+      data = await tm.query(
+        `
+      SELECT id, title , description
+      FROM project
+      ORDER BY "createdAt" DESC;
+      `
+      );
+    });
+    return data;
+  }
   @Query(() => [Project], { nullable: true })
   adminProjects(): Promise<Project[] | undefined> {
     return Project.find({

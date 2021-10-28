@@ -324,6 +324,7 @@ export type Query = {
   isLoggedIn: Scalars['Boolean'];
   project?: Maybe<ProjectRes>;
   projects: ProjectsRes;
+  searchProjects?: Maybe<Array<SearchProjectRes>>;
   adminProjects?: Maybe<Array<Project>>;
   socialLinks: SocialLinks;
   contacts: Array<Contacts>;
@@ -346,6 +347,13 @@ export type QueryProjectArgs = {
 export type QueryProjectsArgs = {
   limit: Scalars['Int'];
   offset: Scalars['Int'];
+};
+
+export type SearchProjectRes = {
+  __typename?: 'SearchProjectRes';
+  id: Scalars['Float'];
+  title: Scalars['String'];
+  description: Scalars['String'];
 };
 
 export type SocialLinks = {
@@ -700,6 +708,17 @@ export type ProjectsQuery = (
       & Pick<Project, 'id' | 'title' | 'description' | 'imageUrl' | 'isPublished' | 'createdAt'>
     )>> }
   ) }
+);
+
+export type SearchProjectsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SearchProjectsQuery = (
+  { __typename?: 'Query' }
+  & { searchProjects?: Maybe<Array<(
+    { __typename?: 'SearchProjectRes' }
+    & Pick<SearchProjectRes, 'id' | 'title' | 'description'>
+  )>> }
 );
 
 export type SocialLinksQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1071,6 +1090,19 @@ export const ProjectsDocument = gql`
 
 export function useProjectsQuery(options: Omit<Urql.UseQueryArgs<ProjectsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<ProjectsQuery>({ query: ProjectsDocument, ...options });
+};
+export const SearchProjectsDocument = gql`
+    query SearchProjects {
+  searchProjects {
+    id
+    title
+    description
+  }
+}
+    `;
+
+export function useSearchProjectsQuery(options: Omit<Urql.UseQueryArgs<SearchProjectsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<SearchProjectsQuery>({ query: SearchProjectsDocument, ...options });
 };
 export const SocialLinksDocument = gql`
     query SocialLinks {

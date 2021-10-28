@@ -46,7 +46,7 @@ const DropzoneFieldMulti: FC<
   const [previews, setPreviews] = useState<{ id: number; prev: string }[]>([]);
   const settings: SliderSettings = {
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
     speed: 1000,
     dots: true,
     useTransform: true,
@@ -66,12 +66,12 @@ const DropzoneFieldMulti: FC<
             /// compress file
             let newPreviews: { id: number; prev: string }[] = [];
             const compressedFiles = await Promise.all(
-              files.map(async (file) => {
+              files.map(async (file, i) => {
                 const resized = props.dim
                   ? await resizeImage(file, props.dim.x, props.dim.y)
                   : file;
                 newPreviews.push({
-                  id: previews.length,
+                  id: previews.length + i,
                   prev: URL.createObjectURL(resized),
                 });
                 return resized;
@@ -137,10 +137,21 @@ const DropzoneFieldMulti: FC<
                               colorScheme="red"
                               icon={<FaTimes />}
                               onClick={() => {
-                                if (prev) URL.revokeObjectURL(prev);
-                                setPreviews(
-                                  previews.filter((item) => item.id != id)
-                                );
+                                if (prev) {
+                                  URL.revokeObjectURL(prev);
+                                  let newPrevs = previews.filter(
+                                    (item) => item.id != id
+                                  );
+                                  newPrevs.forEach((p, i) => {
+                                    p.id = i;
+                                  });
+                                  setPreviews(newPrevs);
+                                }
+                                if (Array.isArray(value))
+                                  setFieldValue(
+                                    name,
+                                    value.filter((file, i) => i !== id)
+                                  );
                               }}
                             />
                             <Button
