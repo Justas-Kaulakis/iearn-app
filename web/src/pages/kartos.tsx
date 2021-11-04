@@ -45,7 +45,7 @@ const Kartos: FC<KartosProps> = ({}) => {
                 <img src={"https://picsum.photos/400/250?random=4"} />
             </Slider>
           </div>
-          <div className="projects-container Kartos">
+          <div className="bottom-container Kartos">
             {/* <Slider {...projectSettings}> */}
               <Card id={5} title="Labas" description="Kaip jumjs sekasi sitoje grazioje girioje" imageUrl="https://picsum.photos/400/250?random=4"/>
               <Card id={4} title="Labas" description="Kaip jumjs sekasi sitoje grazioje girioje" imageUrl="https://picsum.photos/400/250?random=3"/>
