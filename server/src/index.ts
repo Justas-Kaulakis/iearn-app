@@ -62,7 +62,8 @@ const main = async () => {
   console.log("DOMAIN ENV: ", process.env.DOMAIN);
   //await conn.runMigrations();
   /// Delete all posts yyeye
-  //await ProjectImage.delete({});
+  //await Generation.delete({});
+  //await GenerationImage.delete({});
 
   createLinks();
   createContacts();

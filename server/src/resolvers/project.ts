@@ -161,8 +161,9 @@ export class ProjectResolver {
     await getConnection().transaction(async (tm) => {
       data = await tm.query(
         `
-      SELECT id, title , description
+      SELECT id, title, description
       FROM project
+      WHERE "isPublished" = true
       ORDER BY "createdAt" DESC;
       `
       );

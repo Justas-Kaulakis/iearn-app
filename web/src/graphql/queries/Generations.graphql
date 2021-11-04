@@ -1,0 +1,16 @@
+query Generations {
+  generations {
+    id
+    title
+    description
+    images {
+      id
+      imageUrl
+    }
+    projects {
+      id
+      title
+      description
+    }
+  }
+}

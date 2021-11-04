@@ -1,0 +1,3 @@
+mutation UpdateGeneration($id: Int!, $input: GenerationInput!) {
+  updateGeneration(id: $id, input: $input)
+}
