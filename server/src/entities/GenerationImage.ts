@@ -20,7 +20,7 @@ export class GenerationImage extends BaseEntity {
   @Column()
   imageUrl!: string;
 
-  @ManyToOne(() => Generation, (g) => g.images)
+  @ManyToOne(() => Generation, (g) => g.images, { onDelete: "CASCADE" })
   generation: Generation;
 
   @Field()

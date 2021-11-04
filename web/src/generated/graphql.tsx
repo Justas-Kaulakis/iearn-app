@@ -170,6 +170,7 @@ export type Mutation = {
   deleteGalleryImage: Scalars['Boolean'];
   updateAbout: Scalars['Boolean'];
   createGeneration: Scalars['Int'];
+  updateGeneration: Scalars['Boolean'];
 };
 
 
@@ -271,6 +272,12 @@ export type MutationUpdateAboutArgs = {
 
 export type MutationCreateGenerationArgs = {
   input: GenerationInput;
+};
+
+
+export type MutationUpdateGenerationArgs = {
+  input: GenerationInput;
+  id: Scalars['Int'];
 };
 
 export type MyContact = {
@@ -573,6 +580,17 @@ export type UpdateGalleryImageMutation = (
   & Pick<Mutation, 'updateGalleryImage'>
 );
 
+export type UpdateGenerationMutationVariables = Exact<{
+  id: Scalars['Int'];
+  input: GenerationInput;
+}>;
+
+
+export type UpdateGenerationMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateGeneration'>
+);
+
 export type UpdateLinksMutationVariables = Exact<{
   id: Scalars['Int'];
   input: SocialLinksInput;
@@ -642,6 +660,24 @@ export type GalleryImagesQuery = (
   & { galleryImages?: Maybe<Array<(
     { __typename?: 'GalleryImage' }
     & Pick<GalleryImage, 'id' | 'imageUrl' | 'description'>
+  )>> }
+);
+
+export type GenerationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GenerationsQuery = (
+  { __typename?: 'Query' }
+  & { generations?: Maybe<Array<(
+    { __typename?: 'Generation' }
+    & Pick<Generation, 'id' | 'title' | 'description'>
+    & { images?: Maybe<Array<(
+      { __typename?: 'GenerationImage' }
+      & Pick<GenerationImage, 'id' | 'imageUrl'>
+    )>>, projects?: Maybe<Array<(
+      { __typename?: 'Project' }
+      & Pick<Project, 'id' | 'title' | 'description'>
+    )>> }
   )>> }
 );
 
@@ -935,6 +971,15 @@ export const UpdateGalleryImageDocument = gql`
 export function useUpdateGalleryImageMutation() {
   return Urql.useMutation<UpdateGalleryImageMutation, UpdateGalleryImageMutationVariables>(UpdateGalleryImageDocument);
 };
+export const UpdateGenerationDocument = gql`
+    mutation UpdateGeneration($id: Int!, $input: GenerationInput!) {
+  updateGeneration(id: $id, input: $input)
+}
+    `;
+
+export function useUpdateGenerationMutation() {
+  return Urql.useMutation<UpdateGenerationMutation, UpdateGenerationMutationVariables>(UpdateGenerationDocument);
+};
 export const UpdateLinksDocument = gql`
     mutation UpdateLinks($id: Int!, $input: SocialLinksInput!) {
   updateLinks(id: $id, input: $input)
@@ -1014,6 +1059,28 @@ export const GalleryImagesDocument = gql`
 
 export function useGalleryImagesQuery(options: Omit<Urql.UseQueryArgs<GalleryImagesQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<GalleryImagesQuery>({ query: GalleryImagesDocument, ...options });
+};
+export const GenerationsDocument = gql`
+    query Generations {
+  generations {
+    id
+    title
+    description
+    images {
+      id
+      imageUrl
+    }
+    projects {
+      id
+      title
+      description
+    }
+  }
+}
+    `;
+
+export function useGenerationsQuery(options: Omit<Urql.UseQueryArgs<GenerationsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GenerationsQuery>({ query: GenerationsDocument, ...options });
 };
 export const GetAboutDocument = gql`
     query GetAbout {

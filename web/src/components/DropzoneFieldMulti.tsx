@@ -6,6 +6,7 @@ import Slider, { Settings as SliderSettings } from "react-slick";
 import { Box } from "@chakra-ui/layout";
 import { FaAngleLeft, FaAngleRight, FaTimes } from "react-icons/fa";
 import { Button, IconButton } from "@chakra-ui/button";
+import { GenerationImage } from "../generated/graphql";
 
 export const requiredDropzoneValidation = (value: File | null) => {
   if (!value) {
@@ -13,10 +14,7 @@ export const requiredDropzoneValidation = (value: File | null) => {
   }
 };
 
-interface OnClickType {
-  onClick?: React.MouseEventHandler<any>;
-}
-
+export type DropzoneMultiValueType = { file: File; id: number }[];
 const PrevArrow: React.FC<OnClickType> = ({ onClick }) => {
   return (
     <Box top="50%" onClick={onClick} className="priv_arrow">
@@ -31,10 +29,19 @@ const NextArrow: React.FC<OnClickType> = ({ onClick }) => {
     </Box>
   );
 };
+interface OnClickType {
+  onClick?: React.MouseEventHandler<any>;
+}
+type PreviewType = {
+  id: number;
+  isFromDB: boolean;
+  imageUrl: string;
+};
+
 //TODO:(Justas) Make all pictures appear on multiselect, delete file from "value" when clicking button
 const DropzoneFieldMulti: FC<
   FieldProps<DropzoneProps & React.RefAttributes<DropzoneRef> & any> & {
-    imageUrl: string;
+    imageUrls?: { imageUrl: string; id: number }[];
     dim?: { x: number; y: number };
     maxFiles: number;
   }
@@ -43,7 +50,15 @@ const DropzoneFieldMulti: FC<
   form: { setFieldValue, errors, setFieldError },
   ...props
 }) => {
-  const [previews, setPreviews] = useState<{ id: number; prev: string }[]>([]);
+  const [previews, setPreviews] = useState<PreviewType[]>(
+    props?.imageUrls
+      ? props.imageUrls.map(({ imageUrl, id }) => ({
+          id,
+          imageUrl,
+          isFromDB: true,
+        }))
+      : []
+  );
   const settings: SliderSettings = {
     autoplay: true,
     autoplaySpeed: 5000,
@@ -54,7 +69,7 @@ const DropzoneFieldMulti: FC<
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
   };
-  //console.log("Dropzone Props: ", props);
+  //console.log("Dropzone urls: ", props.imageUrls);
   return (
     <>
       <Dropzone
@@ -64,17 +79,27 @@ const DropzoneFieldMulti: FC<
           console.log({ files, fileRejections });
           if (!fileRejections.length) {
             /// compress file
-            let newPreviews: { id: number; prev: string }[] = [];
+            let newPreviews: Array<PreviewType> = [];
             const compressedFiles = await Promise.all(
-              files.map(async (file, i) => {
+              files.map(async (file) => {
                 const resized = props.dim
                   ? await resizeImage(file, props.dim.x, props.dim.y)
                   : file;
+                let newId = 0;
+                let found = false;
+                while (!found) {
+                  for (let i = 0; i < previews.length; i++) {
+                    found = newId !== previews[i].id;
+                    if (!found) break;
+                  }
+                  if (!found) newId++;
+                }
                 newPreviews.push({
-                  id: previews.length + i,
-                  prev: URL.createObjectURL(resized),
+                  id: newId,
+                  imageUrl: URL.createObjectURL(resized),
+                  isFromDB: false,
                 });
-                return resized;
+                return { file: resized, id: newId };
               })
             );
             setPreviews([...previews, ...newPreviews]);
@@ -118,17 +143,14 @@ const DropzoneFieldMulti: FC<
               {!previews ? null : (
                 <div className="dropzone-carousel">
                   <Slider {...settings}>
-                    {previews.map(({ id, prev }) => (
-                      <Fragment key={prev}>
-                        {prev || props.imageUrl ? (
+                    {previews.map(({ id, imageUrl, isFromDB }) => (
+                      <Fragment key={id}>
+                        {imageUrl ? (
                           <div
                             style={{ margin: " 5px auto 0 auto" }}
                             className="img-item"
                           >
-                            <img
-                              src={prev || props.imageUrl}
-                              alt="Uploaded File"
-                            />
+                            <img src={imageUrl} alt="Uploaded File" />
                             <IconButton
                               rounded={0}
                               top="0"
@@ -137,21 +159,20 @@ const DropzoneFieldMulti: FC<
                               colorScheme="red"
                               icon={<FaTimes />}
                               onClick={() => {
-                                if (prev) {
-                                  URL.revokeObjectURL(prev);
-                                  let newPrevs = previews.filter(
-                                    (item) => item.id != id
+                                if (isFromDB) {
+                                  console.log("Is from DB", imageUrl);
+                                } else {
+                                  setPreviews((p) =>
+                                    p.filter((item) => item.id != id)
                                   );
-                                  newPrevs.forEach((p, i) => {
-                                    p.id = i;
-                                  });
-                                  setPreviews(newPrevs);
-                                }
-                                if (Array.isArray(value))
+                                  URL.revokeObjectURL(imageUrl);
                                   setFieldValue(
                                     name,
-                                    value.filter((file, i) => i !== id)
+                                    value.filter(
+                                      ({ id: fileId }) => fileId !== id
+                                    )
                                   );
+                                }
                               }}
                             />
                             <Button
