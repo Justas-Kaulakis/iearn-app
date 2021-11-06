@@ -1,38 +1,14 @@
 import React, { FC, useEffect, useState } from "react";
-import GalleryItem from "../components/GalleryItem";
 import Layout from "../components/Layout";
-// @ts-ignore: Unreachable code error
-import BigPicture from "bigpicture";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utils/createUrqlClient";
 import { useGalleryImagesQuery } from "../generated/graphql";
+import Fancybox from "../components/Fancybox";
 
 interface GalerijaProps {}
 
 const Galerija: FC<GalerijaProps> = ({}) => {
   const [{ data, fetching, error }] = useGalleryImagesQuery();
-
-  const [currentItem, setCurrentItem] = useState<{
-    index: number;
-    e: React.MouseEvent<HTMLDivElement, MouseEvent> | null;
-  }>({
-    index: 0,
-    e: null,
-  });
-
-  useEffect(() => {
-    if (currentItem?.e && data) {
-      BigPicture({
-        el: currentItem.e.target,
-        gallery: data?.galleryImages.map((i) => ({
-          src: i.imageUrl,
-          caption: i.description,
-        })),
-        position: currentItem.index,
-        loop: true,
-      });
-    }
-  }, [currentItem]);
 
   return (
     <Layout active="galerija">
@@ -41,19 +17,40 @@ const Galerija: FC<GalerijaProps> = ({}) => {
           Galerija
         </h1>
         <div className="gallery">
-          {!data?.galleryImages || fetching ? null : (
-            <>
-              {data?.galleryImages.map((item, index) => (
-                <GalleryItem
-                  onClick={(e) => {
-                    setCurrentItem({ index, e });
-                  }}
+          <Fancybox options={{
+          Thumbs: {
+            Carousel: {
+              Sync: {
+                friction: 0.9,
+              },
+            },
+          },
+          Toolbar: {
+            display: [
+              "zoom",
+              "slideshow",
+              "fullscreen",
+              "thumbs",
+              "close",
+            ],
+          },
+        }}>
+            {fetching || !data?.galleryImages ? null : (
+              <>
+                {data?.galleryImages.map((item) => (
+                  <a 
+                  className="gallery-item"
+                  data-fancybox="gallery"
                   key={item.id}
-                  src={item.imageUrl}
-                />
-              ))}
-            </>
-          )}
+                  href={item.imageUrl}
+                  data-caption={item.description}
+                  >
+                    <div className="gallery-image" style={{backgroundImage: `url("${item.imageUrl}")`,}} ></div>
+                  </a>
+                ))}
+              </>
+            )}
+          </Fancybox>
         </div>
       </div>
     </Layout>

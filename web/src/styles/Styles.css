@@ -64,7 +64,7 @@ body {
   clip: rect(1px, 1px, 1px, 1px);
 }
 
-.gallery {
+/* .gallery {
   display: flex;
   flex-wrap: wrap;
   margin: -0.2rem -0.2rem;
@@ -110,7 +110,7 @@ body {
   right: 0.7rem;
   font-size: 1.2rem;
   filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.15));
-}
+} */
 
 .fa-clone,
 .fa-comment {

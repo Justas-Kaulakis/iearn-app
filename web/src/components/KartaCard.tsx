@@ -28,10 +28,10 @@ const KartaCard: FC<CardProps> = ({ id }) => {
           <h3 onClick={() => setShowProjects(!showProjects)} >Projektai</h3>
         </div>
         <Slider {...imageSettings}>
-          <img src={"https://picsum.photos/400/250?random=1"} />
-          <img src={"https://picsum.photos/400/250?random=2"} />
-          <img src={"https://picsum.photos/400/250?random=3"} />
-          <img src={"https://picsum.photos/400/250?random=4"} />
+          <img src={"https://lipsum.app/id/33/400x250"} />
+          <img src={"https://lipsum.app/id/34/400x250"} />
+          <img src={"https://lipsum.app/id/35/400x250"} />
+          <img src={"https://lipsum.app/id/36/400x250"} />
         </Slider>
       </div>
       <AnimatePresence>
@@ -43,10 +43,10 @@ const KartaCard: FC<CardProps> = ({ id }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -100 }}
           >
-          <Card id={5} title="Labas" description="Kaip jumjs sekasi sitoje grazioje girioje" imageUrl="https://picsum.photos/400/250?random=4"/>
-          <Card id={4} title="Labas" description="Kaip jumjs sekasi sitoje grazioje girioje" imageUrl="https://picsum.photos/400/250?random=3"/>
-          <Card id={3} title="Labas" description="Kaip jumjs sekasi sitoje grazioje girioje" imageUrl="https://picsum.photos/400/250?random=2"/>
-          <Card id={2} title="Labas" description="Kaip jumjs sekasi sitoje grazioje girioje" imageUrl="https://picsum.photos/400/250?random=1"/>
+          <Card id={5} title="Labas" description="Kaip jumjs sekasi sitoje grazioje girioje" imageUrl="https://lipsum.app/id/33/400x250"/>
+          <Card id={4} title="Labas" description="Kaip jumjs sekasi sitoje grazioje girioje" imageUrl="https://lipsum.app/id/34/400x250"/>
+          <Card id={3} title="Labas" description="Kaip jumjs sekasi sitoje grazioje girioje" imageUrl="https://lipsum.app/id/35/400x250"/>
+          <Card id={2} title="Labas" description="Kaip jumjs sekasi sitoje grazioje girioje" imageUrl="https://lipsum.app/id/36/400x250"/>
           </motion.div>
         )}
       </AnimatePresence>
