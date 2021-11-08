@@ -47,7 +47,7 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
   if (page > totalPageNum) {
     return <Error statusCode={404} />;
   }
-  // const totalPageNum = 50;
+
   return (
     <Layout active="projektai">
       <div className="Base">

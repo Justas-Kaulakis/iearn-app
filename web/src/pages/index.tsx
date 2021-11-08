@@ -10,13 +10,14 @@ const Index: FC = () => {
   return (
     <Layout active="pagrindinis">
       <section className="top">
-        <div
+        {/* <div
           className="landing-img"
           style={{
             backgroundImage:
               "url('http://localhost:4000/api/images/landing-image.png')",
           }}
-        />
+        /> */}
+        <img className="landing-img" src='http://localhost:4000/api/images/landing-image.png' alt="Landing-image" />
       </section>
       <div className="Base">
         <AboutUs />

@@ -1,13 +1,11 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useRef } from "react";
 import Layout from "../components/Layout";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utils/createUrqlClient";
-import { useGalleryImagesQuery } from "../generated/graphql";
 import Fancybox from "../components/Fancybox";
+import { useGalleryImagesQuery } from "../generated/graphql";
 
-interface GalerijaProps {}
-
-const Galerija: FC<GalerijaProps> = ({}) => {
+const Galerija: FC = ({}) => {
   const [{ data, fetching, error }] = useGalleryImagesQuery();
 
   return (
@@ -17,24 +15,7 @@ const Galerija: FC<GalerijaProps> = ({}) => {
           Galerija
         </h1>
         <div className="gallery">
-          <Fancybox options={{
-          Thumbs: {
-            Carousel: {
-              Sync: {
-                friction: 0.9,
-              },
-            },
-          },
-          Toolbar: {
-            display: [
-              "zoom",
-              "slideshow",
-              "fullscreen",
-              "thumbs",
-              "close",
-            ],
-          },
-        }}>
+          <Fancybox >
             {fetching || !data?.galleryImages ? null : (
               <>
                 {data?.galleryImages.map((item) => (
@@ -45,7 +26,7 @@ const Galerija: FC<GalerijaProps> = ({}) => {
                   href={item.imageUrl}
                   data-caption={item.description}
                   >
-                    <div className="gallery-image" style={{backgroundImage: `url("${item.imageUrl}")`,}} ></div>
+                    <img className="gallery-image" src={item.imageUrl} />
                   </a>
                 ))}
               </>
@@ -57,4 +38,4 @@ const Galerija: FC<GalerijaProps> = ({}) => {
   );
 };
 
-export default withUrqlClient(createUrqlClient, { ssr: false })(Galerija);
+export default withUrqlClient(createUrqlClient)(Galerija);

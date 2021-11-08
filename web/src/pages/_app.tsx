@@ -16,6 +16,7 @@ import "../styles/Aboutus.scss";
 import "../styles/Article.scss";
 import "../styles/Karta.scss";
 import "../styles/Gallery.scss"
+import "../styles/FancyApp.scss"
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />;

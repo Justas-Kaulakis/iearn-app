@@ -1,9 +1,8 @@
 import React from "react";
-import Member from "./Member";
 import Slider, { Settings as SliderSettings } from "react-slick";
 import { useMembersQuery } from "../generated/graphql";
-import { FaAngleRight, FaArrowRight } from "react-icons/fa";
-
+import { Image } from "@chakra-ui/react";
+import { FaUser } from "react-icons/fa";
 interface OnClickType {
   onClick?: React.MouseEventHandler<any>;
 }
@@ -79,10 +78,14 @@ const Members = () => {
   };
   return (
     <section id="Nariai">
-      {!data?.members || fetching ? null : (
+      {fetching || !data?.members ? null : (
         <Slider {...settings}>
           {data.members.map((m) => (
-            <Member key={m.id} data={m} />
+            <div key={m.id} className="Nariai-card">
+              <div>{!m.imageUrl ? <FaUser /> : <Image src={m.imageUrl} />}</div>
+              <h2>{m.fullName || "No Data"}</h2>
+              <p>{m.description || "No Data"}</p>
+            </div>
           ))}
         </Slider>
       )}

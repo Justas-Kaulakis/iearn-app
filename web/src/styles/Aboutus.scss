@@ -15,8 +15,9 @@
 
     flex: 1 0;
 
-    background-size: cover;
-    background-position: center;
+    // background-size: cover;
+    // background-position: center;
+    object-fit: cover;
   }
   .info {
     display: flex;
