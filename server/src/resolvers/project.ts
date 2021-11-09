@@ -100,12 +100,13 @@ export class ProjectResolver {
     @Arg("id", () => Int) id: number,
     @Ctx() { req }: MyContext
   ): Promise<ProjectRes> {
-    const project = await Project.findOne(id);
+    const project = await Project.findOne({ id });
     if (project === undefined) {
       return {
         error: "Projektas nerastas",
       };
     }
+
     let authorized = true;
     if (!project.isPublished) {
       if (!req.session.adminId) authorized = false;

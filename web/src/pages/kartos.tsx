@@ -4,15 +4,23 @@ import Layout from "../components/Layout";
 import { createUrqlClient } from "../utils/createUrqlClient";
 
 import KartaCard from "../components/KartaCard";
+import { useGenerationsQuery } from "../generated/graphql";
 
 interface KartosProps {}
 
 const Kartos: FC<KartosProps> = ({}) => {
+  const [{ data, fetching }] = useGenerationsQuery();
+
   return (
     <Layout active="kartos">
       <div className="Base">
-        <KartaCard key={4538542} id={3}/>
-        <KartaCard key={3548634234} id={2}/>
+        {fetching || !data?.generations ? null : (
+          <>
+            {data?.generations.map((gen) => (
+              <KartaCard key={gen.id} gen={gen} />
+            ))}
+          </>
+        )}
       </div>
     </Layout>
   );

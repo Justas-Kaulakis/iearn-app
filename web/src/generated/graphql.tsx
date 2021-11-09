@@ -171,6 +171,7 @@ export type Mutation = {
   updateAbout: Scalars['Boolean'];
   createGeneration: Scalars['Int'];
   updateGeneration: Scalars['Boolean'];
+  deleteGenenration: Scalars['Boolean'];
   deleteGenImage: Scalars['Boolean'];
   removeGenProject: Scalars['Boolean'];
 };
@@ -279,6 +280,11 @@ export type MutationCreateGenerationArgs = {
 
 export type MutationUpdateGenerationArgs = {
   input: GenerationInput;
+  id: Scalars['Int'];
+};
+
+
+export type MutationDeleteGenenrationArgs = {
   id: Scalars['Int'];
 };
 
@@ -393,6 +399,18 @@ export type SocialLinksInput = {
   iearnGlobal: Scalars['String'];
 };
 
+
+export type GenerationFragment = (
+  { __typename?: 'Generation' }
+  & Pick<Generation, 'id' | 'title' | 'description'>
+  & { images?: Maybe<Array<(
+    { __typename?: 'GenerationImage' }
+    & Pick<GenerationImage, 'id' | 'imageUrl'>
+  )>>, projects?: Maybe<Array<(
+    { __typename?: 'Project' }
+    & Pick<Project, 'id' | 'title' | 'description' | 'imageUrl'>
+  )>> }
+);
 
 export type ProjectResponseFragment = (
   { __typename?: 'Project' }
@@ -706,14 +724,7 @@ export type GenerationsQuery = (
   { __typename?: 'Query' }
   & { generations?: Maybe<Array<(
     { __typename?: 'Generation' }
-    & Pick<Generation, 'id' | 'title' | 'description'>
-    & { images?: Maybe<Array<(
-      { __typename?: 'GenerationImage' }
-      & Pick<GenerationImage, 'id' | 'imageUrl'>
-    )>>, projects?: Maybe<Array<(
-      { __typename?: 'Project' }
-      & Pick<Project, 'id' | 'title' | 'description'>
-    )>> }
+    & GenerationFragment
   )>> }
 );
 
@@ -815,6 +826,23 @@ export type MembersQuery = (
   )>> }
 );
 
+export const GenerationFragmentDoc = gql`
+    fragment Generation on Generation {
+  id
+  title
+  description
+  images {
+    id
+    imageUrl
+  }
+  projects {
+    id
+    title
+    description
+    imageUrl
+  }
+}
+    `;
 export const ProjectResponseFragmentDoc = gql`
     fragment ProjectResponse on Project {
   id
@@ -1117,21 +1145,10 @@ export function useGalleryImagesQuery(options: Omit<Urql.UseQueryArgs<GalleryIma
 export const GenerationsDocument = gql`
     query Generations {
   generations {
-    id
-    title
-    description
-    images {
-      id
-      imageUrl
-    }
-    projects {
-      id
-      title
-      description
-    }
+    ...Generation
   }
 }
-    `;
+    ${GenerationFragmentDoc}`;
 
 export function useGenerationsQuery(options: Omit<Urql.UseQueryArgs<GenerationsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<GenerationsQuery>({ query: GenerationsDocument, ...options });
