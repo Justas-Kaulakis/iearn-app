@@ -19,7 +19,8 @@
 .dropzone-carousel .img-item {
   position: relative;
   img {
-    margin: auto 0;
+    margin: auto;
+    max-height: 400px;
   }
 
   button {

@@ -44,10 +44,12 @@ const DropzoneFieldMulti: FC<
     imageUrls?: { imageUrl: string; id: number }[];
     dim?: { x: number; y: number };
     maxFiles: number;
+    onDeleteDBImage: (id: number) => Promise<void>;
   }
 > = ({
   field: { name, value },
   form: { setFieldValue, errors, setFieldError },
+  onDeleteDBImage,
   ...props
 }) => {
   const [previews, setPreviews] = useState<PreviewType[]>(
@@ -69,6 +71,7 @@ const DropzoneFieldMulti: FC<
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
   };
+  //console.log("Prevs", previews);
   //console.log("Dropzone urls: ", props.imageUrls);
   return (
     <>
@@ -76,24 +79,29 @@ const DropzoneFieldMulti: FC<
         accept="image/*"
         maxFiles={props?.maxFiles}
         onDrop={async (files, fileRejections) => {
-          console.log({ files, fileRejections });
+          //console.log({ files, fileRejections });
+
           if (!fileRejections.length) {
             /// compress file
+
             let newPreviews: Array<PreviewType> = [];
             const compressedFiles = await Promise.all(
               files.map(async (file) => {
                 const resized = props.dim
                   ? await resizeImage(file, props.dim.x, props.dim.y)
                   : file;
+
                 let newId = 0;
                 let found = false;
-                while (!found) {
-                  for (let i = 0; i < previews.length; i++) {
-                    found = newId !== previews[i].id;
-                    if (!found) break;
+                if (previews.length)
+                  while (!found) {
+                    for (let i = 0; i < previews.length; i++) {
+                      found = newId !== previews[i].id;
+                      if (!found) break;
+                    }
+                    if (!found) newId++;
                   }
-                  if (!found) newId++;
-                }
+
                 newPreviews.push({
                   id: newId,
                   imageUrl: URL.createObjectURL(resized),
@@ -158,13 +166,11 @@ const DropzoneFieldMulti: FC<
                               aria-label="close"
                               colorScheme="red"
                               icon={<FaTimes />}
-                              onClick={() => {
+                              onClick={async () => {
                                 if (isFromDB) {
-                                  console.log("Is from DB", imageUrl);
+                                  //console.log("Is from DB", imageUrl);
+                                  await onDeleteDBImage(id);
                                 } else {
-                                  setPreviews((p) =>
-                                    p.filter((item) => item.id != id)
-                                  );
                                   URL.revokeObjectURL(imageUrl);
                                   setFieldValue(
                                     name,
@@ -173,9 +179,12 @@ const DropzoneFieldMulti: FC<
                                     )
                                   );
                                 }
+                                setPreviews((p) =>
+                                  p.filter((item) => item.id != id)
+                                );
                               }}
                             />
-                            <Button
+                            {/* <Button
                               left={0}
                               onClick={() => {
                                 console.log("Previews: ", previews);
@@ -183,7 +192,7 @@ const DropzoneFieldMulti: FC<
                               }}
                             >
                               Values
-                            </Button>
+                            </Button> */}
                           </div>
                         ) : null}
                       </Fragment>

@@ -9,6 +9,8 @@ import {
   GenerationImage,
   Project,
   useCreateGenerationMutation,
+  useDeleteGenImageMutation,
+  useRemoveGenProjectMutation,
   useUpdateGenerationMutation,
 } from "../generated/graphql";
 import { requiredDropzoneValidation } from "./DropzoneField";
@@ -29,6 +31,7 @@ interface AdminGenerationCardProps {
       projects?: Pick<Project, "id" | "title" | "description">[];
     };
   create?: boolean;
+  onCreateExtra?: () => void;
 }
 
 interface KartosFormTypes {
@@ -41,14 +44,29 @@ interface KartosFormTypes {
 const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
   gen,
   create = false,
+  onCreateExtra,
 }) => {
   const [listProjects, setListProjects] = useState<Array<SelectProjectType>>(
-    gen.projects
+    gen ? gen.projects.map((s) => ({ ...s, isFromDB: true })) : []
   );
   const [, createGeneration] = useCreateGenerationMutation();
   const [, updateGeneration] = useUpdateGenerationMutation();
+  const [, deleteGenImage] = useDeleteGenImageMutation();
+  const [, removeGenProject] = useRemoveGenProjectMutation();
+  const [projectsToRemove, setProjectsToRemove] = useState<
+    {
+      genId: number;
+      projId: number;
+    }[]
+  >([]);
+  const [imagesToDelete, setImagesToDelete] = useState<
+    {
+      genId: number;
+      imgId: number;
+    }[]
+  >([]);
 
-  console.log("Gen: ", gen);
+  //console.log("Gen: ", gen);
   const handleCreate = async (values: KartosFormTypes) => {
     const { data, error } = await createGeneration({
       input: {
@@ -64,15 +82,35 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
     if (error) {
       console.log("Error submitting: ", error);
     }
+    onCreateExtra();
     console.log("res data: ", data);
   };
   const handleUpdate = async (values: KartosFormTypes) => {
+    imagesToDelete.forEach(async (img) => {
+      await deleteGenImage(img);
+    });
+
+    projectsToRemove.forEach(async (p) => {
+      await removeGenProject(p);
+    });
+
+    const newLinkedProjects = listProjects.filter((p) => {
+      let isGood = true;
+      gen.projects.every((p2) => {
+        if (p2.id === p.id) {
+          isGood = false;
+          return false;
+        }
+        return true;
+      });
+      return isGood;
+    });
     const { data, error } = await updateGeneration({
       id: gen.id,
       input: {
         title: values.title,
         description: values.description,
-        projectIds: listProjects.map(({ id }) => id),
+        projectIds: newLinkedProjects.map(({ id }) => id),
         images: values.images.map((img) => {
           console.log(img.file);
           return img.file;
@@ -107,22 +145,26 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
           >
             <Flex direction="column">
               <Flex justifyContent="space-between">
-                <Button
-                  mb="1em"
-                  width="fit-content"
-                  size="sm"
-                  colorScheme="red"
-                >
-                  Ištrinti
-                </Button>
+                {create ? null : (
+                  <Button
+                    mb="1em"
+                    width="fit-content"
+                    size="sm"
+                    colorScheme="red"
+                    onClick={() => {}}
+                  >
+                    Ištrinti
+                  </Button>
+                )}
 
                 <Button
                   disabled={isSubmitting}
                   type="submit"
                   colorScheme="blue"
                   size="sm"
+                  mb="1em"
                 >
-                  Išsaugoti
+                  {create ? "Sukurti" : "Išsaugoti"}
                 </Button>
               </Flex>
               <InputField name="title" placeholder="Titulinis" required />
@@ -140,8 +182,17 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
                   validate={requiredDropzoneValidation}
                   required
                   component={DropzoneFieldMulti}
-                  maxFiles={2}
+                  maxFiles={10}
                   imageUrls={gen?.images || undefined}
+                  onDeleteDBImage={(id: number) => {
+                    setImagesToDelete([
+                      ...imagesToDelete,
+                      {
+                        genId: gen.id,
+                        imgId: id,
+                      },
+                    ]);
+                  }}
                 />
               </Box>
             </Flex>
@@ -158,6 +209,20 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
                       icon={<FaTrashAlt />}
                       shadow="base"
                       size="sm"
+                      onClick={() => {
+                        if (p.isFromDB)
+                          setProjectsToRemove([
+                            ...projectsToRemove,
+                            {
+                              genId: gen.id,
+                              projId: p.id,
+                            },
+                          ]);
+
+                        setListProjects(
+                          listProjects.filter((lp) => lp.id !== p.id)
+                        );
+                      }}
                     />
                     <Button
                       w="100%"

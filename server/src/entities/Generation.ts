@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToMany,
 } from "typeorm";
 import { GenerationImage } from "./GenerationImage";
 import { Project } from "./Project";
@@ -31,7 +32,7 @@ export class Generation extends BaseEntity {
   images: GenerationImage[];
 
   @Field(() => [Project], { nullable: true })
-  @OneToMany(() => Project, (p) => p.generation, { nullable: true })
+  @ManyToMany(() => Project, (p) => p.generation, { nullable: true })
   projects: Project[];
 
   @Field()
