@@ -105,7 +105,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
                 </div>
               </div>
               <article className="body">{parse(body)}</article>
-              {/* <Carousel data={
+              <Carousel data={
                 Array(10).fill(0).map((_, i) => ({
                   id: i,
                   imageUrl: `https://lipsum.app/id/${i*2}/1024x768`,
@@ -113,7 +113,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
                   description: `Jonas ${i}`,
                 }))
               }
-              /> */}
+              />
             </>
           )}
         </div>

@@ -15,11 +15,11 @@ const Card: FC<CardProps> = ({ id, title, description, imageUrl }) => {
     // <div className="card">
     <Link href="/projektai/[id]" as={`/projektai/${id}`}>
       <a className="card">
-        {/* <div
+        <div
           className="image"
           style={{ backgroundImage: `url("${imageUrl}")` }}
-        ></div> */}
-        <img className="image" src={imageUrl} alt="image" />
+        ></div>
+        {/* <img className="image" src={imageUrl} alt="image" /> */}
         <div className="info">
           <h2>{title || "No Data"}</h2>
           <p>{description || "No Data"}</p>
