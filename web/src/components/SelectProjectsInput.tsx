@@ -18,6 +18,7 @@ export type SelectProjectType = {
   id: number;
   title: string;
   description: string;
+  isFromDB: boolean;
 };
 
 type SelectProjectsInputProps = FieldHookConfig<string> & {
@@ -36,15 +37,21 @@ const SelectProjectsInput: FC<SelectProjectsInputProps> = ({
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       const trim = field.value.trim();
-      console.log("Filtering!");
+      //console.log("Filtering!");
       if (trim) {
         setSelections(
-          data?.searchProjects.filter(
-            (s) => s.title.includes(trim) || s.description.includes(trim)
-          )
+          data?.searchProjects
+            .filter((s) => {
+              if (s.title.includes(trim)) return true;
+              if (s.description.includes(trim)) return true;
+              return false;
+            })
+            .map((s) => ({ ...s, isFromDB: true }))
         );
       } else {
-        setSelections(data?.searchProjects);
+        setSelections(
+          data?.searchProjects.map((s) => ({ ...s, isFromDB: true }))
+        );
       }
     }, 500);
 
@@ -75,6 +82,7 @@ const SelectProjectsInput: FC<SelectProjectsInputProps> = ({
                 id: p.id,
                 title: p.title,
                 description: p.description,
+                isFromDB: false,
               }))
             );
           }}

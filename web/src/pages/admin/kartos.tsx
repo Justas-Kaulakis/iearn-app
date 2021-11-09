@@ -3,7 +3,7 @@ import { Box, Flex, Grid, Link, Stack } from "@chakra-ui/layout";
 import { Field, Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
 import React, { FC, useState } from "react";
-import { FaPlus, FaTrashAlt } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp, FaPlus, FaTrashAlt } from "react-icons/fa";
 import AdminLayout from "../../components/AdminLayout";
 import AdminTopBar from "../../components/AdminTopBar";
 import { requiredDropzoneValidation } from "../../components/DropzoneField";
@@ -22,7 +22,8 @@ const SelectProjectsInput = dynamic(
 interface KartosProps {}
 
 const Kartos: FC<KartosProps> = ({}) => {
-  const [{ data, fetching, error }] = useGenerationsQuery();
+  const [{ data, fetching, error }, refetchGenerations] = useGenerationsQuery();
+  const [isOpen, setIsOpen] = useState(false);
 
   if (error) {
     console.log("Error fetching Generations: ", error);
@@ -36,12 +37,24 @@ const Kartos: FC<KartosProps> = ({}) => {
           variant="outline"
           size="sm"
           colorScheme="blue"
-          leftIcon={<FaPlus />}
+          leftIcon={!isOpen ? <FaAngleDown /> : <FaAngleUp />}
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
         >
           Pridėti naują kartą
         </Button>
         {fetching || !data?.generations ? null : (
           <Stack maxWidth="800px" mt="1em" spacing="1em">
+            <Box display={!isOpen ? "none" : "block"} mb="1em">
+              <AdminGenerationCard
+                onCreateExtra={() => {
+                  setIsOpen(false);
+                  refetchGenerations({ requestPolicy: "network-only" });
+                }}
+                create
+              />
+            </Box>
             {data?.generations.map((gen) => (
               <AdminGenerationCard key={gen.id} gen={gen} />
             ))}

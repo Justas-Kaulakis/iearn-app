@@ -171,6 +171,9 @@ export type Mutation = {
   updateAbout: Scalars['Boolean'];
   createGeneration: Scalars['Int'];
   updateGeneration: Scalars['Boolean'];
+  deleteGenenration: Scalars['Boolean'];
+  deleteGenImage: Scalars['Boolean'];
+  removeGenProject: Scalars['Boolean'];
 };
 
 
@@ -280,6 +283,23 @@ export type MutationUpdateGenerationArgs = {
   id: Scalars['Int'];
 };
 
+
+export type MutationDeleteGenenrationArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationDeleteGenImageArgs = {
+  imgId: Scalars['Int'];
+  genId: Scalars['Int'];
+};
+
+
+export type MutationRemoveGenProjectArgs = {
+  projId: Scalars['Int'];
+  genId: Scalars['Int'];
+};
+
 export type MyContact = {
   id: Scalars['Int'];
   contact: Scalars['String'];
@@ -379,6 +399,18 @@ export type SocialLinksInput = {
   iearnGlobal: Scalars['String'];
 };
 
+
+export type GenerationFragment = (
+  { __typename?: 'Generation' }
+  & Pick<Generation, 'id' | 'title' | 'description'>
+  & { images?: Maybe<Array<(
+    { __typename?: 'GenerationImage' }
+    & Pick<GenerationImage, 'id' | 'imageUrl'>
+  )>>, projects?: Maybe<Array<(
+    { __typename?: 'Project' }
+    & Pick<Project, 'id' | 'title' | 'description' | 'imageUrl'>
+  )>> }
+);
 
 export type ProjectResponseFragment = (
   { __typename?: 'Project' }
@@ -496,6 +528,17 @@ export type DeleteGalleryImageMutation = (
   & Pick<Mutation, 'deleteGalleryImage'>
 );
 
+export type DeleteGenImageMutationVariables = Exact<{
+  genId: Scalars['Int'];
+  imgId: Scalars['Int'];
+}>;
+
+
+export type DeleteGenImageMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteGenImage'>
+);
+
 export type DeleteMemberMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -546,6 +589,17 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 export type LogoutMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'logout'>
+);
+
+export type RemoveGenProjectMutationVariables = Exact<{
+  genId: Scalars['Int'];
+  projId: Scalars['Int'];
+}>;
+
+
+export type RemoveGenProjectMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeGenProject'>
 );
 
 export type UpdateAboutMutationVariables = Exact<{
@@ -670,14 +724,7 @@ export type GenerationsQuery = (
   { __typename?: 'Query' }
   & { generations?: Maybe<Array<(
     { __typename?: 'Generation' }
-    & Pick<Generation, 'id' | 'title' | 'description'>
-    & { images?: Maybe<Array<(
-      { __typename?: 'GenerationImage' }
-      & Pick<GenerationImage, 'id' | 'imageUrl'>
-    )>>, projects?: Maybe<Array<(
-      { __typename?: 'Project' }
-      & Pick<Project, 'id' | 'title' | 'description'>
-    )>> }
+    & GenerationFragment
   )>> }
 );
 
@@ -779,6 +826,23 @@ export type MembersQuery = (
   )>> }
 );
 
+export const GenerationFragmentDoc = gql`
+    fragment Generation on Generation {
+  id
+  title
+  description
+  images {
+    id
+    imageUrl
+  }
+  projects {
+    id
+    title
+    description
+    imageUrl
+  }
+}
+    `;
 export const ProjectResponseFragmentDoc = gql`
     fragment ProjectResponse on Project {
   id
@@ -894,6 +958,15 @@ export const DeleteGalleryImageDocument = gql`
 export function useDeleteGalleryImageMutation() {
   return Urql.useMutation<DeleteGalleryImageMutation, DeleteGalleryImageMutationVariables>(DeleteGalleryImageDocument);
 };
+export const DeleteGenImageDocument = gql`
+    mutation DeleteGenImage($genId: Int!, $imgId: Int!) {
+  deleteGenImage(genId: $genId, imgId: $imgId)
+}
+    `;
+
+export function useDeleteGenImageMutation() {
+  return Urql.useMutation<DeleteGenImageMutation, DeleteGenImageMutationVariables>(DeleteGenImageDocument);
+};
 export const DeleteMemberDocument = gql`
     mutation DeleteMember($id: Int!) {
   deleteMember(id: $id)
@@ -943,6 +1016,15 @@ export const LogoutDocument = gql`
 
 export function useLogoutMutation() {
   return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
+};
+export const RemoveGenProjectDocument = gql`
+    mutation RemoveGenProject($genId: Int!, $projId: Int!) {
+  removeGenProject(genId: $genId, projId: $projId)
+}
+    `;
+
+export function useRemoveGenProjectMutation() {
+  return Urql.useMutation<RemoveGenProjectMutation, RemoveGenProjectMutationVariables>(RemoveGenProjectDocument);
 };
 export const UpdateAboutDocument = gql`
     mutation UpdateAbout($id: Int!, $input: AboutInput!) {
@@ -1063,21 +1145,10 @@ export function useGalleryImagesQuery(options: Omit<Urql.UseQueryArgs<GalleryIma
 export const GenerationsDocument = gql`
     query Generations {
   generations {
-    id
-    title
-    description
-    images {
-      id
-      imageUrl
-    }
-    projects {
-      id
-      title
-      description
-    }
+    ...Generation
   }
 }
-    `;
+    ${GenerationFragmentDoc}`;
 
 export function useGenerationsQuery(options: Omit<Urql.UseQueryArgs<GenerationsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<GenerationsQuery>({ query: GenerationsDocument, ...options });

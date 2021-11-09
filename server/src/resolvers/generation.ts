@@ -43,11 +43,16 @@ export class GenerationResolver {
 
   @Query(() => [Generation], { nullable: true })
   async generations(): Promise<Generation[] | null> {
-    console.log(await GenerationImage.find({}));
-    return Generation.find({
-      order: { createdAt: "DESC" },
-      relations: ["images", "projects"],
-    });
+    return await Generation.createQueryBuilder("gen")
+      .leftJoinAndSelect("gen.images", "GenerationImage")
+      .leftJoinAndSelect("gen.projects", "project")
+      .orderBy("gen.createdAt", "DESC")
+      .getMany();
+
+    // return Generation.find({
+    //   order: { createdAt: "DESC" },
+    //   relations: ["images", "projects"],
+    // });
   }
 
   @Mutation(() => Int)
@@ -117,10 +122,16 @@ export class GenerationResolver {
         }).save();
       });
 
-    if (input.projectIds.length)
-      input.projectIds.forEach(async (pId) => {
-        await Project.update({ id: pId }, { generation: { id } });
-      });
+    if (input.projectIds.length) {
+      console.log(input.projectIds);
+      await Generation.createQueryBuilder()
+        .relation("projects")
+        .of({ id })
+        .add(input.projectIds)
+        .then(console.log)
+        .catch(console.log);
+    }
+
     await Generation.update(
       { id },
       {
@@ -128,6 +139,25 @@ export class GenerationResolver {
         description: input.description,
       }
     );
+
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
+  async deleteGenenration(@Arg("id", () => Int) id: number): Promise<boolean> {
+    const images = await GenerationImage.find({ generation: { id } });
+    /// Delete images from file system
+    if (images) {
+      const base = `${__dirname}/../../api/images/generation/`;
+      images.forEach(async (img) => {
+        await deleteFile(base + img.imageUrl);
+      });
+    }
+
+    /// Delete Generation
+    /// Generation Images should automaticaly be deleted via cascades
+    await Generation.delete({ id });
 
     return true;
   }
@@ -157,7 +187,11 @@ export class GenerationResolver {
     @Arg("projId", () => Int) projId: number
   ): Promise<boolean> {
     genId;
-    Project.update({ id: projId }, { generation: undefined });
+    await Generation.createQueryBuilder()
+      .relation("projects")
+      .of(genId)
+      .remove(projId);
+
     return true;
   }
 }

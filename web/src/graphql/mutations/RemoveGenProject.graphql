@@ -1,0 +1,3 @@
+mutation RemoveGenProject($genId: Int!, $projId: Int!) {
+  removeGenProject(genId: $genId, projId: $projId)
+}
