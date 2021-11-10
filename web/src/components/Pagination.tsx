@@ -21,7 +21,7 @@ const Pagination: FC<PaginationProps> = ({
   }
   console.log({ totalPageCount });
   return (
-    <Flex mt="-2em" justifyContent="center" width="100%">
+    <Flex mt="1em" justifyContent="center" width="100%">
       <Flex
         bg="white"
         p="0.5em"
@@ -44,7 +44,6 @@ const Pagination: FC<PaginationProps> = ({
           <Link key={num} href={`${href}?page=${num + 1}`}>
             {/* <span style={{ margin: "0 0.2em" }}>{num + 1}</span> */}
             <CLink
-              className="hoverCursor"
               p="0.2em"
               _hover={{ backgroundColor: "#84a98c", color: "white" }}
               px="7px"

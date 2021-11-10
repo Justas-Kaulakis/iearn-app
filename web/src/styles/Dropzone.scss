@@ -18,6 +18,8 @@
 
 .dropzone-carousel .img-item {
   position: relative;
+  display: flex;
+  justify-content: center;
   img {
     margin: auto 0;
   }
