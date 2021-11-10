@@ -1,0 +1,3 @@
+mutation DeleteGenImage($genId: Int!, $imgId: Int!) {
+  deleteGenImage(genId: $genId, imgId: $imgId)
+}

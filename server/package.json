@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "db-connect": "psql --username=postgres --pasword=postgres",
+    "db-connect": "psql --username=postgres --password=postgres",
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
     "build": "tsc",
     "watch": "tsc -w",

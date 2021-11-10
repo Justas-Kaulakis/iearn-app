@@ -1,0 +1,15 @@
+fragment Generation on Generation {
+  id
+  title
+  description
+  images {
+    id
+    imageUrl
+  }
+  projects {
+    id
+    title
+    description
+    imageUrl
+  }
+}

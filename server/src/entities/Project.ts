@@ -5,7 +5,8 @@ import {
   Column,
   CreateDateColumn,
   PrimaryGeneratedColumn,
-  ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
 import { Generation } from "./Generation";
 
@@ -33,7 +34,8 @@ export class Project extends BaseEntity {
   imageUrl: string;
 
   @Field({ nullable: true })
-  @ManyToOne(() => Generation, (g) => g.projects, { nullable: true })
+  @ManyToMany(() => Generation, (g) => g.projects, { nullable: true })
+  @JoinTable()
   generation: Generation;
 
   @Field()

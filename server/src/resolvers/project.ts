@@ -36,6 +36,16 @@ class ProjectInput {
 }
 
 @ObjectType()
+class SearchProjectRes {
+  @Field()
+  id: number;
+  @Field()
+  title: string;
+  @Field()
+  description: string;
+}
+
+@ObjectType()
 class ProjectRes {
   @Field(() => String, { nullable: true })
   error?: string;
@@ -90,12 +100,13 @@ export class ProjectResolver {
     @Arg("id", () => Int) id: number,
     @Ctx() { req }: MyContext
   ): Promise<ProjectRes> {
-    const project = await Project.findOne(id);
+    const project = await Project.findOne({ id });
     if (project === undefined) {
       return {
         error: "Projektas nerastas",
       };
     }
+
     let authorized = true;
     if (!project.isPublished) {
       if (!req.session.adminId) authorized = false;
@@ -144,6 +155,22 @@ export class ProjectResolver {
     };
   }
 
+  @Query(() => [SearchProjectRes], { nullable: true })
+  @UseMiddleware(isAuth)
+  async searchProjects(): Promise<SearchProjectRes[] | null> {
+    let data: SearchProjectRes[] = [];
+    await getConnection().transaction(async (tm) => {
+      data = await tm.query(
+        `
+      SELECT id, title, description
+      FROM project
+      WHERE "isPublished" = true
+      ORDER BY "createdAt" DESC;
+      `
+      );
+    });
+    return data;
+  }
   @Query(() => [Project], { nullable: true })
   adminProjects(): Promise<Project[] | undefined> {
     return Project.find({

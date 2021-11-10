@@ -21,7 +21,8 @@
   display: flex;
   justify-content: center;
   img {
-    margin: auto 0;
+    margin: auto;
+    max-height: 400px;
   }
 
   button {

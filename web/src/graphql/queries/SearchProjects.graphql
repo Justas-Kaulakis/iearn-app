@@ -1,0 +1,7 @@
+query SearchProjects {
+  searchProjects {
+    id
+    title
+    description
+  }
+}

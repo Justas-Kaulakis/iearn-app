@@ -296,7 +296,7 @@ body {
   padding-bottom: 40px;
 }
 
-.content {
+/* .content {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -305,14 +305,13 @@ body {
   width: 1240px;
   height: 320px;
 
-  /* Inside Auto Layout */
 
   flex: none;
   order: 3;
   align-self: stretch;
   flex-grow: 0;
   margin: 25px 0px;
-}
+} */
 
 .hoverCursor:hover {
   cursor: pointer;
