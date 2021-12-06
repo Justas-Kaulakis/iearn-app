@@ -30,6 +30,7 @@
 
     .content {
       display: flex;
+      flex: 1 0;
       flex-direction: column;
       //   align-items: flex-end;
       padding: 0px;
@@ -56,6 +57,23 @@
       width: 50%;
       height: 250px;
 
+      .slick-list{
+        height: 100%;
+      }
+      .slick-slide{
+        div{
+          height: 100%;
+          img{
+            height: 100%;
+            vertical-align: middle;
+            object-fit: cover;
+          }
+        }
+      }
+
+      .slick-track{
+        height: inherit;
+      }
       .slick-dots li button:before {
         color: white;
       }

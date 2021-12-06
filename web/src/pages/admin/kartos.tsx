@@ -19,9 +19,9 @@ const SelectProjectsInput = dynamic(
   { ssr: false }
 );
 
-interface KartosProps {}
+interface KartosProps { }
 
-const Kartos: FC<KartosProps> = ({}) => {
+const Kartos: FC<KartosProps> = ({ }) => {
   const [{ data, fetching, error }, refetchGenerations] = useGenerationsQuery();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -45,7 +45,7 @@ const Kartos: FC<KartosProps> = ({}) => {
           Pridėti naują kartą
         </Button>
         {fetching || !data?.generations ? null : (
-          <Stack maxWidth="800px" mt="1em" spacing="1em">
+          <Stack maxWidth="900px" mx="auto" mt="1em" spacing="1em">
             <Box display={!isOpen ? "none" : "block"} mb="1em">
               <AdminGenerationCard
                 onCreateExtra={() => {

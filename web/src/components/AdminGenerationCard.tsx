@@ -27,9 +27,9 @@ interface AdminGenerationCardProps {
   gen?: {
     __typename?: "Generation";
   } & Pick<Generation, "id" | "title" | "description"> & {
-      images?: Pick<GenerationImage, "id" | "imageUrl">[];
-      projects?: Pick<Project, "id" | "title" | "description">[];
-    };
+    images?: Pick<GenerationImage, "id" | "imageUrl">[];
+    projects?: Pick<Project, "id" | "title" | "description">[];
+  };
   create?: boolean;
   onCreateExtra?: () => void;
 }
@@ -136,7 +136,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
       {({ isSubmitting }) => (
         <Form style={{ display: "block" }}>
           <Grid
-            templateColumns="minmax(300px, 1fr) 1fr"
+            templateColumns="repeat(2, minmax(300px, 1fr))"
             shadow="md"
             rounded="md"
             p="1em"
@@ -151,7 +151,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
                     width="fit-content"
                     size="sm"
                     colorScheme="red"
-                    onClick={() => {}}
+                    onClick={() => { }}
                   >
                     Ištrinti
                   </Button>
@@ -231,6 +231,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
                       shadow="base"
                       variant="link"
                       justifyContent="start"
+                      whiteSpace="normal"
                     >
                       <Link href={`/projektai/${p.id}`} isExternal mx="0.5em">
                         {p.title}
