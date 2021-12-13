@@ -19,6 +19,7 @@ import DropzoneFieldMulti, {
 } from "./DropzoneFieldMulti";
 import InputField from "./InputField";
 import { SelectProjectType } from "./SelectProjectsInput";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 const SelectProjectsInput = dynamic(() => import("./SelectProjectsInput"), {
   ssr: false,
 });
@@ -65,6 +66,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
       imgId: number;
     }[]
   >([]);
+  const [collapsed, setCollapsed] = useState(true);
 
   //console.log("Gen: ", gen);
   const handleCreate = async (values: KartosFormTypes) => {
@@ -122,6 +124,18 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
     }
     console.log("res data: ", data);
   };
+
+  if (collapsed) {
+    return (
+      <Flex onClick={() => {
+        setCollapsed(!collapsed);
+      }} className="hoverCursor" align="center" shadow="md"
+        rounded="md"
+        p="1em"
+        bg="white"> <FaAngleDown /><span style={{ marginLeft: "5px" }}>{gen?.title}</span></Flex >
+    );
+  }
+
   return (
     <Formik<KartosFormTypes>
       initialValues={{
@@ -135,120 +149,128 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
     >
       {({ isSubmitting }) => (
         <Form style={{ display: "block" }}>
-          <Grid
-            templateColumns="repeat(2, minmax(300px, 1fr))"
-            shadow="md"
+          <Box shadow="md"
             rounded="md"
             p="1em"
-            bg="white"
-            columnGap="1em"
-          >
-            <Flex direction="column">
-              <Flex justifyContent="space-between">
-                {create ? null : (
-                  <Button
-                    mb="1em"
-                    width="fit-content"
-                    size="sm"
-                    colorScheme="red"
-                    onClick={() => { }}
-                  >
-                    Ištrinti
-                  </Button>
-                )}
-
-                <Button
-                  disabled={isSubmitting}
-                  type="submit"
-                  colorScheme="blue"
-                  size="sm"
-                  mb="1em"
-                >
-                  {create ? "Sukurti" : "Išsaugoti"}
-                </Button>
-              </Flex>
-              <InputField name="title" placeholder="Titulinis" required />
-              <Box mt="1em">
-                <InputField
-                  name="description"
-                  placeholder="Kartos aprašymas"
-                  isTextarea
-                  required
-                />
-              </Box>
-              <Box mt="1em">
-                <Field
-                  name="images"
-                  validate={requiredDropzoneValidation}
-                  required
-                  component={DropzoneFieldMulti}
-                  maxFiles={10}
-                  imageUrls={gen?.images || undefined}
-                  onDeleteDBImage={(id: number) => {
-                    setImagesToDelete([
-                      ...imagesToDelete,
-                      {
-                        genId: gen.id,
-                        imgId: id,
-                      },
-                    ]);
-                  }}
-                />
-              </Box>
+            bg="white">
+            <Flex align="center" onClick={() => {
+              setCollapsed(!collapsed);
+            }} pb="7px" mb="1em">
+              <FaAngleUp /><span style={{ marginLeft: "5px" }}>{gen?.title}</span>
             </Flex>
-            <Flex direction="column">
-              <Heading textAlign="end" mb="1em" size="md">
-                Kartos projektai
-              </Heading>
+            <Grid
+              templateColumns="repeat(2, minmax(300px, 1fr))"
+              columnGap="1em"
+            >
               <Flex direction="column">
-                {listProjects.map((p) => (
-                  <ButtonGroup mb="0.3em" key={p.id} w="100%" isAttached>
-                    <IconButton
-                      aria-label="Išstrinti"
-                      colorScheme="red"
-                      icon={<FaTrashAlt />}
-                      shadow="base"
-                      size="sm"
-                      onClick={() => {
-                        if (p.isFromDB)
-                          setProjectsToRemove([
-                            ...projectsToRemove,
-                            {
-                              genId: gen.id,
-                              projId: p.id,
-                            },
-                          ]);
-
-                        setListProjects(
-                          listProjects.filter((lp) => lp.id !== p.id)
-                        );
-                      }}
-                    />
+                <Flex justifyContent="space-between">
+                  {create ? null : (
                     <Button
-                      w="100%"
-                      colorScheme="blue"
+                      mb="1em"
+                      width="fit-content"
                       size="sm"
-                      shadow="base"
-                      variant="link"
-                      justifyContent="start"
-                      whiteSpace="normal"
+                      colorScheme="red"
+                      onClick={() => { }}
                     >
-                      <Link href={`/projektai/${p.id}`} isExternal mx="0.5em">
-                        {p.title}
-                      </Link>
+                      Ištrinti
                     </Button>
-                  </ButtonGroup>
-                ))}
+                  )}
+
+                  <Button
+                    disabled={isSubmitting}
+                    type="submit"
+                    colorScheme="blue"
+                    size="sm"
+                    mb="1em"
+                  >
+                    {create ? "Sukurti" : "Išsaugoti"}
+                  </Button>
+                </Flex>
+                <InputField name="title" placeholder="Titulinis" required />
+                <Box mt="1em">
+                  <InputField
+                    name="description"
+                    placeholder="Kartos aprašymas"
+                    isTextarea
+                    required
+                  />
+                </Box>
+                <Box mt="1em">
+                  <Field
+                    name="images"
+                    validate={requiredDropzoneValidation}
+                    required
+                    component={DropzoneFieldMulti}
+                    maxFiles={10}
+                    imageUrls={gen?.images || undefined}
+                    onDeleteDBImage={(id: number) => {
+                      setImagesToDelete([
+                        ...imagesToDelete,
+                        {
+                          genId: gen.id,
+                          imgId: id,
+                        },
+                      ]);
+                    }}
+                  />
+                </Box>
               </Flex>
-              <SelectProjectsInput
-                setListProjects={setListProjects}
-                name="search"
-              />
-            </Flex>
-          </Grid>
+              <Flex direction="column">
+                <Heading textAlign="end" mb="1em" size="md">
+                  Kartos projektai
+                </Heading>
+                <Flex direction="column">
+                  {listProjects.map((p) => (
+                    <ButtonGroup mb="0.3em" key={p.id} w="100%" isAttached>
+                      <IconButton
+                        aria-label="Išstrinti"
+                        colorScheme="red"
+                        icon={<FaTrashAlt />}
+                        shadow="base"
+                        size="sm"
+                        onClick={() => {
+                          if (p.isFromDB)
+                            setProjectsToRemove([
+                              ...projectsToRemove,
+                              {
+                                genId: gen.id,
+                                projId: p.id,
+                              },
+                            ]);
+
+                          setListProjects(
+                            listProjects.filter((lp) => lp.id !== p.id)
+                          );
+                        }}
+                      />
+                      <Button
+                        w="100%"
+                        colorScheme="blue"
+                        size="sm"
+                        shadow="base"
+                        variant="link"
+                        justifyContent="start"
+                        whiteSpace="normal"
+                      >
+                        <Link href={`/projektai/${p.id}`} isExternal mx="0.5em">
+                          {p.title}
+                        </Link>
+                      </Button>
+                    </ButtonGroup>
+                  ))}
+                </Flex>
+                <SelectProjectsInput
+                  setListProjects={setListProjects}
+                  name="search"
+                />
+              </Flex>
+            </Grid>
+          </Box>
+
         </Form>
-      )}
-    </Formik>
+      )
+      }
+    </Formik >
   );
 };
 

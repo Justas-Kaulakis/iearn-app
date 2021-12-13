@@ -1,17 +1,12 @@
-import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
-import { Box, Flex, Grid, Link, Stack } from "@chakra-ui/layout";
-import { Field, Form, Formik } from "formik";
+import { Button } from "@chakra-ui/button";
+import { Box, Stack } from "@chakra-ui/layout";
 import { withUrqlClient } from "next-urql";
 import React, { FC, useState } from "react";
-import { FaAngleDown, FaAngleUp, FaPlus, FaTrashAlt } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import AdminLayout from "../../components/AdminLayout";
 import AdminTopBar from "../../components/AdminTopBar";
-import { requiredDropzoneValidation } from "../../components/DropzoneField";
-import DropzoneFieldMulti from "../../components/DropzoneFieldMulti";
-import InputField from "../../components/InputField";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 import dynamic from "next/dynamic";
-import NextLink from "next/link";
 import { useGenerationsQuery } from "../../generated/graphql";
 import AdminGenerationCard from "../../components/AdminGenerationCard";
 const SelectProjectsInput = dynamic(
