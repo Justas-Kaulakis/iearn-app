@@ -31,7 +31,6 @@ const Istorija: NextPage<{}> = ({}) => {
   const [{ data, fetching, error }] = useHistoryQuery();
   const [, updateHistory] = useUpdateHistoryBodyMutation();
 
-  console.log("saved: ", saved);
   return (
     <AdminLayout active="istorija">
       <AdminTopBar pageName="istorija">
@@ -43,7 +42,6 @@ const Istorija: NextPage<{}> = ({}) => {
               body: callbackEditor.current.getData(),
             });
             setSaved(true);
-            console.log("Submited!: ", callbackEditor.current.getData());
           }}
         >
           {({ isSubmitting }) => (

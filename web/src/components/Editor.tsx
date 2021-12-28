@@ -41,14 +41,8 @@ const Editor: FC<EditorProps> = ({
     );
   }
 
-  console.log(
-    "upload url",
-    `${process.env.NEXT_PUBLIC_BE_URL_BASE}/api/article/upload?id=${id}${
-      isFromHistory ? "&fromHistory=true" : ""
-    }`
-  );
   //console.log("url:", process.env.NEXT_PUBLIC_BE_URL_BASE);
-  //console.log(MyEditor.builtinPlugins.map((plugin) => plugin.pluginName));
+  console.log(MyEditor.builtinPlugins.map((plugin) => plugin.pluginName));
   return (
     <CKEditor
       editor={MyEditor}
@@ -171,7 +165,8 @@ IndentBlock
 listStyle
 imageStyles
 imageResize
-
+TableProperties
+TableCellProperties
 */
 
 export default Editor;
