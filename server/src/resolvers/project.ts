@@ -91,7 +91,7 @@ export class ProjectResolver {
       .createQueryBuilder()
       .select('"imageName"')
       .from(ProjectImage, "p")
-      .where('p."projectId" = :id', { id: id })
+      .where('p."projectId" = :id AND p."isFromHistory = false"', { id: id })
       .getRawMany();
   }
 
@@ -250,7 +250,7 @@ export class ProjectResolver {
       .createQueryBuilder()
       .select('"imageName"')
       .from(ProjectImage, "p")
-      .where('p."projectId" = :id', { id })
+      .where('p."projectId" = :id AND p."isFromHistory = false"', { id })
       .getRawMany();
     const thumbnailImage = await getConnection()
       .createQueryBuilder()
@@ -269,7 +269,7 @@ export class ProjectResolver {
     }
 
     // Delete data from database
-    await ProjectImage.delete({ projectId: id });
+    await ProjectImage.delete({ projectId: id, isFromHistory: false });
     await Project.delete(id);
     return true;
   }

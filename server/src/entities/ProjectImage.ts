@@ -14,4 +14,7 @@ export class ProjectImage extends BaseEntity {
 
   @Column()
   projectId!: number;
+
+  @Column({ default: false })
+  isFromHistory?: boolean;
 }

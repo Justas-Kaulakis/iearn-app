@@ -1,0 +1,6 @@
+query History {
+  history {
+    id
+    body
+  }
+}

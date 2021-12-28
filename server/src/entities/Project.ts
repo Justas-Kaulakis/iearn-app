@@ -12,11 +12,19 @@ import { Generation } from "./Generation";
 
 @ObjectType()
 @Entity()
-export class Project extends BaseEntity {
+export class Article extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id!: number;
 
+  @Field()
+  @Column()
+  body!: string;
+}
+
+@ObjectType()
+@Entity()
+export class Project extends Article {
   @Field()
   @Column()
   title!: string;
@@ -24,10 +32,6 @@ export class Project extends BaseEntity {
   @Field()
   @Column()
   description!: string;
-
-  @Field()
-  @Column()
-  body!: string;
 
   @Field({ nullable: true })
   @Column({ default: "" })

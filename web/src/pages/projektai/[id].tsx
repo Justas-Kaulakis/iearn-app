@@ -10,9 +10,7 @@ import ProjectMeta from "../../components/ProjectMeta";
 import { NextPage } from "next";
 import MediaShare from "../../components/MediaShare";
 import { FaEdit } from "react-icons/fa";
-import { Button, IconButton } from "@chakra-ui/button";
 import NextLink from "next/link";
-import { Link } from "@chakra-ui/react";
 
 interface ProjectPageProps {}
 
