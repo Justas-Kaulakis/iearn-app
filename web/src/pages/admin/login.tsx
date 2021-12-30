@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import {
-  Link,
   Box,
   Button,
   ChakraProvider,
@@ -8,7 +7,6 @@ import {
   Heading,
   useToast,
 } from "@chakra-ui/react";
-import NextLink from "next/link";
 import { Form, Formik } from "formik";
 import InputField from "../../components/InputField";
 import {
@@ -21,7 +19,6 @@ import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 import { toErrorMap } from "../../utils/toErrorMap";
 import { useRouter } from "next/dist/client/router";
-import shortid from "shortid";
 import { myToast } from "../../components/toasts";
 
 interface LoginFormInputType {
@@ -54,12 +51,21 @@ const Login: FC<LoginProps> = ({}) => {
         align="center"
         h="100vh"
         w="100vw"
+        backgroundImage={"url(/login_bg.png)"}
       >
         <Heading mb="1em" textAlign="center">
           Admin prisijungimas
         </Heading>
 
-        <Box boxShadow="lg" mx="1em" w="100%" maxW={400} rounded="lg" p={5} bgColor="white">
+        <Box
+          boxShadow="lg"
+          mx="1em"
+          w="100%"
+          maxW={400}
+          rounded="lg"
+          p={5}
+          bgColor="white"
+        >
           <Formik<AdminLogInput>
             initialValues={{ usernameOrEmail: "", password: "" }}
             validate={(values) => {

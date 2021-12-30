@@ -13,8 +13,9 @@ const Index: FC = () => {
         <div
           className="landing-img"
           style={{
-            backgroundImage:
-              "url('http://localhost:4000/api/images/landing-image.png')",
+            backgroundImage: "url('/landing-image.png')",
+            //backgroundImage:
+            //  "url('http://localhost:4000/api/images/landing-image.png')",
           }}
         />
       </section>

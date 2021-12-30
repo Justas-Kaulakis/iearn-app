@@ -42,7 +42,7 @@ const Editor: FC<EditorProps> = ({
   }
 
   //console.log("url:", process.env.NEXT_PUBLIC_BE_URL_BASE);
-  console.log(MyEditor.builtinPlugins.map((plugin) => plugin.pluginName));
+  //console.log(MyEditor.builtinPlugins.map((plugin) => plugin.pluginName));
   return (
     <CKEditor
       editor={MyEditor}
@@ -124,35 +124,7 @@ const Editor: FC<EditorProps> = ({
           unit: "em",
         },
         table: {
-          contentToolbar: [
-            "tableColumn",
-            "tableRow",
-            "mergeTableCells",
-            "tableProperties",
-            "tableCellProperties",
-          ],
-
-          // Configuration of the TableProperties plugin.
-
-          // The default styles for tables in the editor.
-          // They should be synchronized with the content styles.
-          defaultProperties: {
-            borderStyle: "dashed",
-            borderColor: "hsl(90, 75%, 60%)",
-            borderWidth: "3px",
-            alignment: "left",
-            width: "550px",
-            height: "450px",
-          },
-          // The default styles for table cells in the editor.
-          // They should be synchronized with the content styles.
-          tableCellProperties: {
-            defaultProperties: {
-              horizontalAlignment: "center",
-              verticalAlignment: "bottom",
-              padding: "10px",
-            },
-          },
+          contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
         },
       }}
     />
@@ -161,12 +133,12 @@ const Editor: FC<EditorProps> = ({
 
 /* 
 Needed Plugins:
-IndentBlock
-listStyle
-imageStyles
-imageResize
-TableProperties
-TableCellProperties
+IndentBlock - done
+listStyle   - done
+imageStyles - done
+imageResize - done
+TableProperties - done
+TableCellProperties - done
 */
 
 export default Editor;
