@@ -1,0 +1,3 @@
+mutation updateHistoryBody($id: Int!, $body: String!) {
+  updateHistoryBody(id: $id, body: $body)
+}

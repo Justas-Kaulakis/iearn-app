@@ -6,6 +6,7 @@ interface EditorProps {
   data: string;
   id: number;
   setSavedHandle: (isSaved: boolean) => void;
+  isFromHistory?: boolean;
 }
 
 const Editor: FC<EditorProps> = ({
@@ -13,6 +14,7 @@ const Editor: FC<EditorProps> = ({
   callbackEditor,
   id,
   setSavedHandle,
+  isFromHistory = false,
 }) => {
   const editorRef = useRef<any>();
   const [editorLoaded, setEditorLoaded] = useState(false);
@@ -39,8 +41,8 @@ const Editor: FC<EditorProps> = ({
     );
   }
 
-  console.log("url:", process.env.NEXT_PUBLIC_BE_URL_BASE);
-  //console.log(MyEditor.builtinPlugins.map((plugin) => plugin.pluginName));
+  //console.log("url:", process.env.NEXT_PUBLIC_BE_URL_BASE);
+  console.log(MyEditor.builtinPlugins.map((plugin) => plugin.pluginName));
   return (
     <CKEditor
       editor={MyEditor}
@@ -59,7 +61,11 @@ const Editor: FC<EditorProps> = ({
           previewsInData: true,
         },
         simpleUpload: {
-          uploadUrl: `${process.env.NEXT_PUBLIC_BE_URL_BASE}/api/projects/upload?id=${id}`,
+          uploadUrl: `${
+            process.env.NEXT_PUBLIC_BE_URL_BASE
+          }/api/article/upload?id=${id}${
+            isFromHistory ? "&fromHistory=true" : ""
+          }`,
           withCredentials: true,
         },
         toolbar: {
@@ -119,8 +125,11 @@ const Editor: FC<EditorProps> = ({
         },
         table: {
           contentToolbar: [
-            'tableColumn', 'tableRow', 'mergeTableCells',
-            'tableProperties', 'tableCellProperties'
+            "tableColumn",
+            "tableRow",
+            "mergeTableCells",
+            "tableProperties",
+            "tableCellProperties",
           ],
 
           // Configuration of the TableProperties plugin.
@@ -128,24 +137,23 @@ const Editor: FC<EditorProps> = ({
           // The default styles for tables in the editor.
           // They should be synchronized with the content styles.
           defaultProperties: {
-            borderStyle: 'dashed',
-            borderColor: 'hsl(90, 75%, 60%)',
-            borderWidth: '3px',
-            alignment: 'left',
-            width: '550px',
-            height: '450px'
+            borderStyle: "dashed",
+            borderColor: "hsl(90, 75%, 60%)",
+            borderWidth: "3px",
+            alignment: "left",
+            width: "550px",
+            height: "450px",
           },
           // The default styles for table cells in the editor.
           // They should be synchronized with the content styles.
           tableCellProperties: {
             defaultProperties: {
-              horizontalAlignment: 'center',
-              verticalAlignment: 'bottom',
-              padding: '10px'
-            }
-          }
-        }
-
+              horizontalAlignment: "center",
+              verticalAlignment: "bottom",
+              padding: "10px",
+            },
+          },
+        },
       }}
     />
   );
@@ -157,7 +165,8 @@ IndentBlock
 listStyle
 imageStyles
 imageResize
-
+TableProperties
+TableCellProperties
 */
 
 export default Editor;

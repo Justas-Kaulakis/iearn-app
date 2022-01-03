@@ -8,7 +8,7 @@ import Error from "next/error";
 
 interface AdminLayoutProps {
   active: AdminLinks;
-  
+
   pageTitle?: string;
   bg?: string;
 }
@@ -22,9 +22,11 @@ const AdminLayout: FC<AdminLayoutProps> = ({
   const [{ data, fetching }] = useIsLoggedInQuery();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(true);
+  if (fetching) return null;
   if (!fetching && !data?.isLoggedIn) {
-    //router.replace("/");
-    return <Error statusCode={401} title="Apribotas priėjimas" />;
+    router.replace("/admin/login");
+    return null;
+    //return <Error statusCode={401} title="Apribotas priėjimas" />;
   }
   return (
     <Layout pageTitle={pageTitle} isFooter={false} active="admin">
@@ -40,12 +42,7 @@ const AdminLayout: FC<AdminLayoutProps> = ({
               active={active}
             />
           </GridItem>
-          <GridItem
-            bg="#f1f1f1"
-            
-          >
-            {children}
-          </GridItem>
+          <GridItem bg="#f1f1f1">{children}</GridItem>
         </Grid>
       </ChakraProvider>
     </Layout>

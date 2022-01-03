@@ -19,7 +19,7 @@ const AdminTopBar: FC<AdminTopBarProps> = ({ pageName, children }) => {
       <Box>
         <span style={{ whiteSpace: "nowrap" }}>{pageName}</span>
       </Box>
-      <Flex>{children}</Flex>
+      <Flex width="max-content">{children}</Flex>
     </Flex>
   );
 };

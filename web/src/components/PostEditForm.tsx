@@ -1,10 +1,7 @@
 import { Flex, Box, FormLabel, Checkbox, Button } from "@chakra-ui/react";
 import { Formik, Form, Field, FormikHelpers, FormikBag } from "formik";
 import React, { FC } from "react";
-import DropzoneField, {
-  DropzoneFileType,
-  requiredDropzoneValidation,
-} from "./DropzoneField";
+import DropzoneField, { requiredDropzoneValidation } from "./DropzoneField";
 import InputField from "./InputField";
 import Popup from "./Popup";
 

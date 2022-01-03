@@ -19,6 +19,7 @@
     text-align: justify;
   }
   .intro {
+    margin-bottom: 1em;
     .edit-article {
       margin-left: 10px;
     }
@@ -58,14 +59,13 @@
       text-align: justify;
     }
     figure {
-      margin: 0 auto;
+      margin: 0.9em auto;
       width: 100%;
       figcaption {
         font-size: 0.8em;
       }
     }
     .table {
-      margin: 0.9em auto;
       display: table;
       > figcaption {
         display: table-caption;

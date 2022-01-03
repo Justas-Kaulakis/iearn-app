@@ -57,6 +57,12 @@ export type AdminResponse = {
   admin?: Maybe<Admin>;
 };
 
+export type Article = {
+  __typename?: 'Article';
+  id: Scalars['Float'];
+  body: Scalars['String'];
+};
+
 export type BodyImage = {
   __typename?: 'BodyImage';
   imageName: Scalars['String'];
@@ -174,6 +180,7 @@ export type Mutation = {
   deleteGenenration: Scalars['Boolean'];
   deleteGenImage: Scalars['Boolean'];
   removeGenProject: Scalars['Boolean'];
+  updateHistoryBody: Scalars['Boolean'];
 };
 
 
@@ -300,6 +307,12 @@ export type MutationRemoveGenProjectArgs = {
   genId: Scalars['Int'];
 };
 
+
+export type MutationUpdateHistoryBodyArgs = {
+  body: Scalars['String'];
+  id: Scalars['Int'];
+};
+
 export type MyContact = {
   id: Scalars['Int'];
   contact: Scalars['String'];
@@ -308,9 +321,9 @@ export type MyContact = {
 export type Project = {
   __typename?: 'Project';
   id: Scalars['Float'];
+  body: Scalars['String'];
   title: Scalars['String'];
   description: Scalars['String'];
-  body: Scalars['String'];
   imageUrl?: Maybe<Scalars['String']>;
   generation?: Maybe<Generation>;
   isPublished: Scalars['Boolean'];
@@ -358,6 +371,7 @@ export type Query = {
   galleryImages?: Maybe<Array<GalleryImage>>;
   getAbout: About;
   generations?: Maybe<Array<Generation>>;
+  history?: Maybe<Article>;
 };
 
 
@@ -645,6 +659,17 @@ export type UpdateGenerationMutation = (
   & Pick<Mutation, 'updateGeneration'>
 );
 
+export type UpdateHistoryBodyMutationVariables = Exact<{
+  id: Scalars['Int'];
+  body: Scalars['String'];
+}>;
+
+
+export type UpdateHistoryBodyMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateHistoryBody'>
+);
+
 export type UpdateLinksMutationVariables = Exact<{
   id: Scalars['Int'];
   input: SocialLinksInput;
@@ -737,6 +762,17 @@ export type GetAboutQuery = (
     { __typename?: 'About' }
     & Pick<About, 'id' | 'content' | 'imageUrl'>
   ) }
+);
+
+export type HistoryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HistoryQuery = (
+  { __typename?: 'Query' }
+  & { history?: Maybe<(
+    { __typename?: 'Article' }
+    & Pick<Article, 'id' | 'body'>
+  )> }
 );
 
 export type IsLoggedInQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1062,6 +1098,15 @@ export const UpdateGenerationDocument = gql`
 export function useUpdateGenerationMutation() {
   return Urql.useMutation<UpdateGenerationMutation, UpdateGenerationMutationVariables>(UpdateGenerationDocument);
 };
+export const UpdateHistoryBodyDocument = gql`
+    mutation updateHistoryBody($id: Int!, $body: String!) {
+  updateHistoryBody(id: $id, body: $body)
+}
+    `;
+
+export function useUpdateHistoryBodyMutation() {
+  return Urql.useMutation<UpdateHistoryBodyMutation, UpdateHistoryBodyMutationVariables>(UpdateHistoryBodyDocument);
+};
 export const UpdateLinksDocument = gql`
     mutation UpdateLinks($id: Int!, $input: SocialLinksInput!) {
   updateLinks(id: $id, input: $input)
@@ -1165,6 +1210,18 @@ export const GetAboutDocument = gql`
 
 export function useGetAboutQuery(options: Omit<Urql.UseQueryArgs<GetAboutQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<GetAboutQuery>({ query: GetAboutDocument, ...options });
+};
+export const HistoryDocument = gql`
+    query History {
+  history {
+    id
+    body
+  }
+}
+    `;
+
+export function useHistoryQuery(options: Omit<Urql.UseQueryArgs<HistoryQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<HistoryQuery>({ query: HistoryDocument, ...options });
 };
 export const IsLoggedInDocument = gql`
     query IsLoggedIn {

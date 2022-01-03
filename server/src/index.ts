@@ -16,7 +16,7 @@ import { graphqlUploadExpress } from "graphql-upload";
 import { Admin } from "./entities/Admin";
 import { AdminResolver } from "./resolvers/admin";
 import editorUploadRoutes /*, { check }*/ from "./routes/upload";
-import { Project } from "./entities/Project";
+import { Article as History, Project } from "./entities/Project";
 import { ProjectResolver } from "./resolvers/project";
 import { ProjectImage } from "./entities/ProjectImage";
 import { SocialLinks } from "./entities/SocialLinks";
@@ -34,6 +34,7 @@ import { AboutResolver, createAbout } from "./resolvers/about";
 import { Generation } from "./entities/Generation";
 import { GenerationImage } from "./entities/GenerationImage";
 import { GenerationResolver } from "./resolvers/generation";
+import { createHistory, HistoryResolver } from "./resolvers/history";
 //import { sendEmail } from "./utils/sendEmail";
 
 const main = async () => {
@@ -55,6 +56,7 @@ const main = async () => {
       GalleryImage,
       Generation,
       GenerationImage,
+      History,
     ],
   });
   conn;
@@ -68,6 +70,7 @@ const main = async () => {
   createLinks();
   createContacts();
   createAbout();
+  createHistory();
 
   const app = express();
 
@@ -128,6 +131,7 @@ const main = async () => {
         ContactsResolver,
         GalleryResolver,
         GenerationResolver,
+        HistoryResolver,
       ],
       validate: false,
     }),

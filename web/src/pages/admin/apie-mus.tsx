@@ -7,10 +7,7 @@ import { withUrqlClient } from "next-urql";
 import React, { FC } from "react";
 import AdminLayout from "../../components/AdminLayout";
 import AdminTopBar from "../../components/AdminTopBar";
-import DropzoneField, {
-  DropzoneFileType,
-  requiredDropzoneValidation,
-} from "../../components/DropzoneField";
+import DropzoneField from "../../components/DropzoneField";
 import InputField from "../../components/InputField";
 import { myToast } from "../../components/toasts";
 import {
@@ -19,9 +16,9 @@ import {
 } from "../../generated/graphql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 
-interface apieMusProps {}
+interface apieMusProps { }
 
-const apieMus: FC<apieMusProps> = ({}) => {
+const apieMus: FC<apieMusProps> = ({ }) => {
   const contentLimit = 500;
   const [{ data, fetching, error }] = useGetAboutQuery();
   const [, updateAbout] = useUpdateAboutMutation();
