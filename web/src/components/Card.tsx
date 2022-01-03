@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React, { FC } from "react";
-import { FaFileImage } from "react-icons/fa";
 
 interface CardProps {
   id: number;

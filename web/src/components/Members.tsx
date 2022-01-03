@@ -34,7 +34,7 @@ const Members: FC = () => {
       {fetching || !data?.members ? null : (
         <div ref={memberCarouselRef} className="carousel" id="cardSlider">
           {data.members.map((m) => (
-            <figure className="carousel__slide member-card">
+            <figure key={m.id} className="carousel__slide member-card">
               <img
                 className="mb-4 w-full rounded-lg"
                 src={m.imageUrl}

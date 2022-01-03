@@ -4,7 +4,6 @@ import Layout from "../components/Layout";
 import { createUrqlClient } from "../utils/createUrqlClient";
 
 import KartaCard from "../components/KartaCard";
-import Fancybox from "../components/Fancybox";
 import { useGenerationsQuery } from "../generated/graphql";
 
 interface KartosProps {}
