@@ -1,7 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
 import {Carousel as NativeCarousel} from "@fancyapps/ui";
-// import "@fancyapps/ui/dist/carousel.css";
-// import "@fancyapps/ui/dist/fancybox.css";
 import { Fancybox as NativeFancybox } from "@fancyapps/ui";
 
 

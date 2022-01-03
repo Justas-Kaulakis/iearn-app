@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef } from "react";
 import { useMembersQuery } from "../generated/graphql";
-import { Image } from "@chakra-ui/react";
-import { FaUser } from "react-icons/fa";
+//import { Image } from "@chakra-ui/react";
+//import { FaUser } from "react-icons/fa";
 
 import {Carousel as NativeCarousel} from "@fancyapps/ui";
 // import "@fancyapps/ui/dist/carousel.css";
