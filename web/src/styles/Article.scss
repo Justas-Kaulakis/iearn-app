@@ -2,10 +2,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300;400&display=swap");
 
 .Article-img {
-  height: 550px;
+  height: 600px;
   max-height: 70vh;
-  background-position: center;
-  background-size: cover;
+  //background-position: center;
+  //background-size: cover;
+  object-fit: cover;
 }
 
 .article-box {

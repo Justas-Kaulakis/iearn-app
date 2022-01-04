@@ -1,90 +1,51 @@
-import React from "react";
-import Member from "./Member";
-import Slider, { Settings as SliderSettings } from "react-slick";
+import React, { FC, useEffect, useRef } from "react";
 import { useMembersQuery } from "../generated/graphql";
-import { FaAngleRight, FaArrowRight } from "react-icons/fa";
+//import { Image } from "@chakra-ui/react";
+//import { FaUser } from "react-icons/fa";
 
-interface OnClickType {
-  onClick?: React.MouseEventHandler<any>;
-}
+import {Carousel as NativeCarousel} from "@fancyapps/ui";
+// import "@fancyapps/ui/dist/carousel.css";
 
-const PrevArrow: React.FC<OnClickType> = ({ onClick }) => {
-  return (
-    <span onClick={onClick} className="priv_arrow">
-      <img src="/left button.svg" alt="prev" />
-    </span>
-  );
-};
-const NextArrow: React.FC<OnClickType> = ({ onClick }) => {
-  return (
-    <span onClick={onClick} className="next_arrow">
-      <img src="/right button.svg" alt="next" />
-    </span>
-  );
-};
-
-const Members = () => {
+const Members: FC = () => {
   const [{ data, fetching, error }] = useMembersQuery();
   if (error) {
     console.log("Error on Members Query: ", error);
   }
-  const settings: SliderSettings = {
-    draggable: false,
-    autoplay: false,
-    autoplaySpeed: 5000,
-    speed: 1000,
-    dots: true,
-    infinite: data?.members.length > 5,
-    slidesToShow: 5,
-    slidesToScroll: 5,
-    useTransform: true,
-    cssEase: "ease-out",
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          draggable: true,
-          slidesToShow: 4,
-          slidesToScroll: 4,
 
-          infinite: data?.members.length > 4,
-        },
-      },
-      {
-        breakpoint: 850,
-        settings: {
-          rows: 2,
-          draggable: true,
-          slidesToShow: 3,
-          slidesToScroll: 3,
+  const memberCarouselRef = useRef(null);
+  let memberCarousel: any;
 
-          infinite: data?.members.length > 6,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          arrows: false,
-          draggable: true,
-          rows: 3,
-          slidesToShow: 2,
-          slidesToScroll: 2,
+  // Initialise Carousel
+  useEffect(() => {
+    // Main Carousel
+    memberCarousel = new NativeCarousel(memberCarouselRef.current, {
+      slidesPerPage : "auto",
+      infinite: false,
+      dragfree: false,
+    });
+    
+    return () => {
+      memberCarousel.destroy();
+    };
+  }, []);
 
-          infinite: data?.members.length > 2,
-        },
-      },
-    ],
-  };
   return (
     <section id="Nariai">
-      {!data?.members || fetching ? null : (
-        <Slider {...settings}>
+      {fetching || !data?.members ? null : (
+        <div ref={memberCarouselRef} className="carousel" id="cardSlider">
           {data.members.map((m) => (
-            <Member key={m.id} data={m} />
+            <figure key={m.id} className="carousel__slide member-card">
+              <img
+                className="mb-4 w-full rounded-lg"
+                src={m.imageUrl}
+              />
+              <figcaption>
+                <h3 className="text-lg font-semibold">{m.fullName}</h3>
+                <p>{m.description}</p>
+              </figcaption>
+            </figure>
           ))}
-        </Slider>
+        </div>
       )}
     </section>
   );

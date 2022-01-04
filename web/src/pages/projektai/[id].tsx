@@ -11,6 +11,8 @@ import { NextPage } from "next";
 import MediaShare from "../../components/MediaShare";
 import { FaEdit } from "react-icons/fa";
 import NextLink from "next/link";
+import { Link } from "@chakra-ui/react";
+import Carousel from "../../components/Carousel";
 
 interface ProjectPageProps {}
 
@@ -53,9 +55,14 @@ const ProjectPage: NextPage<{}> = ({}) => {
   return (
     <>
       <Layout active="projektai">
-        <div
+        {/* <div
           className="Article-img"
           style={{ backgroundImage: `url("${project?.imageUrl}")` }}
+        /> */}
+        <img
+          className="Article-img"
+          src={project?.imageUrl}
+          alt={project?.imageUrl}
         />
         <div className="article-box">
           {!project || fetching ? null : (
@@ -101,6 +108,16 @@ const ProjectPage: NextPage<{}> = ({}) => {
                 </div>
               </div>
               <article className="body">{parse(body)}</article>
+              <Carousel
+                data={Array(10)
+                  .fill(0)
+                  .map((_, i) => ({
+                    id: i,
+                    imageUrl: `https://lipsum.app/id/${i * 2}/1024x768`,
+                    thumbnailUrl: `https://lipsum.app/id/${i * 2}/96x64`,
+                    description: `Jonas ${i}`,
+                  }))}
+              />
             </>
           )}
         </div>
