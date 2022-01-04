@@ -17,10 +17,12 @@ const DropzoneField: FC<
 > = ({
   field: { name, value },
   form: { setFieldValue, errors, setFieldError },
+  dim = null,
   ...props
 }) => {
   const [preview, setPreview] = useState("");
   //console.log("Dropzone Props: ", props);
+  //console.log("Dim: ", dim);
   return (
     <>
       <Dropzone
@@ -29,8 +31,8 @@ const DropzoneField: FC<
         onDrop={async ([file], [fileRejection]) => {
           if (!fileRejection) {
             /// compress file
-            const compressedFile = props.dim
-              ? await resizeImage(file, props.dim.x, props.dim.y)
+            const compressedFile = dim
+              ? await resizeImage(file, dim.x, dim.y)
               : file;
             setPreview(URL.createObjectURL(compressedFile));
 

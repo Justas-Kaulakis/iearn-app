@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/button";
-import { Box, Divider, Flex, Heading, VStack } from "@chakra-ui/layout";
-import { ChakraProvider, useToast } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading } from "@chakra-ui/layout";
+import { useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { withUrqlClient } from "next-urql";
 import React, { FC, useState } from "react";
@@ -14,15 +14,14 @@ import {
 } from "../../generated/graphql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 import { toErrorMap } from "../../utils/toErrorMap";
-import { FaCheckCircle } from "react-icons/fa";
-import { myToast } from "../../components/toasts";
+import { myToast } from "../../utils/toasts";
 
 interface ManoInfoProps {}
 
 const ManoInfo: FC<ManoInfoProps> = ({}) => {
   const [{ data, fetching, error }] = useMeQuery();
   const [nameEmailSaved, setNameEmailSaved] = useState(true);
-  const [paswordSaved, setPaswordSaved] = useState(true);
+
   const [, changeUsernameEmail] = useChangeUsernameEmailMutation();
   const [, changePassword] = useChangePasswordMutation();
   /// popping messages

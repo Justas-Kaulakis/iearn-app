@@ -30,7 +30,7 @@ const Nariai: FC<NariaiProps> = ({}) => {
   }
 
   return (
-    <AdminLayout scrollable active="nariai">
+    <AdminLayout active="nariai">
       <AdminTopBar pageName="nariai">
         Narių sk. - {data?.members.length || 0}
       </AdminTopBar>

@@ -14,7 +14,7 @@ import {
   useChangePasswordTokenMutation,
   useForgotPasswordMutation,
 } from "../../../generated/graphql";
-import { myToast } from "../../../components/toasts";
+import { myToast } from "../../../utils/toasts";
 
 const PakeistiSlaptazodi: NextPage<{ token: string }> = ({}) => {
   const router = useRouter();

@@ -14,10 +14,7 @@ import { Formik, Form, Field } from "formik";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import { useCreateProjectMutation } from "../generated/graphql";
-import DropzoneField, {
-  DropzoneFileType,
-  requiredDropzoneValidation,
-} from "./DropzoneField";
+import DropzoneField, { requiredDropzoneValidation } from "./DropzoneField";
 import InputField from "./InputField";
 
 interface PostFormInitValues {
@@ -31,7 +28,7 @@ interface CreateProjectModalProps {}
 interface FormInputType {
   title: string;
   description: string;
-  image: DropzoneFileType | null;
+  image: File | null;
 }
 
 const CreateProjectModal: FC<CreateProjectModalProps> = ({ children }) => {

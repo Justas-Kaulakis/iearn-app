@@ -48,7 +48,7 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
     console.log(cError);
   }
   return (
-    <AdminLayout scrollable active="kontaktai">
+    <AdminLayout active="kontaktai">
       <AdminTopBar pageName="kontaktai" />
       <Flex mt="2em" justifyContent="center" flexWrap="wrap" w="100%">
         {!links?.socialLinks && fLinks ? null : (

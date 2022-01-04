@@ -56,7 +56,7 @@ const SelectProjectsInput: FC<SelectProjectsInputProps> = ({
     }, 500);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [field.value]);
+  }, [field.value, data?.searchProjects]);
 
   return (
     <>
@@ -92,10 +92,10 @@ const SelectProjectsInput: FC<SelectProjectsInputProps> = ({
         <MenuList maxWidth="300px">
           <FormControl isInvalid={!!error}>
             <InputGroup pb="0.2rem">
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaSearch color="gray" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaSearch color="gray" />
+              </InputLeftElement>
+
               <Input
                 {...field}
                 variant="flushed"

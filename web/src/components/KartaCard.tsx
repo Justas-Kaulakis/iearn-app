@@ -30,7 +30,7 @@ const KartaCard: FC<CardProps> = ({ gen }) => {
         </div>
         <Slider {...imageSettings}>
           {gen.images.map((img) => (
-            <img key={img.id} src={img.imageUrl} />
+            <img alt="Profilis" key={img.id} src={img.imageUrl} />
           ))}
         </Slider>
       </div>

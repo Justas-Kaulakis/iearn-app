@@ -19,7 +19,7 @@ import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 import { toErrorMap } from "../../utils/toErrorMap";
 import { useRouter } from "next/dist/client/router";
-import { myToast } from "../../components/toasts";
+import { myToast } from "../../utils/toasts";
 
 interface LoginFormInputType {
   usernameOrEmail: string;

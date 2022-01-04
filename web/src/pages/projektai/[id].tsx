@@ -49,7 +49,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
   }
   const shareUrl = `${process.env.NEXT_PUBLIC_FE_URL_BASE}/projektai/${project?.id}`;
   // const shareUrl = "https://www.youtube.com/watch?v=78oUN6QTKxI";
-  console.log("Authorized: ", authorized);
+  //console.log("Authorized: ", authorized);
   return (
     <>
       <Layout active="projektai">

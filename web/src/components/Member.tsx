@@ -14,7 +14,9 @@ const Member: React.FC<MemberProps> = ({
 }) => {
   return (
     <div className="Nariai-card">
-      <div>{!imageUrl ? <FaUser /> : <Image src={imageUrl} />}</div>
+      <div>
+        {!imageUrl ? <FaUser /> : <Image alt="profilis" src={imageUrl} />}
+      </div>
       <h2>{fullName || "No Data"}</h2>
       <p>{description || "No Data"}</p>
     </div>

@@ -9,16 +9,16 @@ import AdminLayout from "../../components/AdminLayout";
 import AdminTopBar from "../../components/AdminTopBar";
 import DropzoneField from "../../components/DropzoneField";
 import InputField from "../../components/InputField";
-import { myToast } from "../../components/toasts";
+import { myToast } from "../../utils/toasts";
 import {
   useGetAboutQuery,
   useUpdateAboutMutation,
 } from "../../generated/graphql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 
-interface apieMusProps { }
+interface ApieMusProps {}
 
-const apieMus: FC<apieMusProps> = ({ }) => {
+const ApieMus: FC<ApieMusProps> = ({}) => {
   const contentLimit = 500;
   const [{ data, fetching, error }] = useGetAboutQuery();
   const [, updateAbout] = useUpdateAboutMutation();
@@ -115,4 +115,4 @@ const apieMus: FC<apieMusProps> = ({ }) => {
   );
 };
 
-export default withUrqlClient(createUrqlClient, { ssr: false })(apieMus);
+export default withUrqlClient(createUrqlClient, { ssr: false })(ApieMus);

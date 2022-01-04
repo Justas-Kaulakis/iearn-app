@@ -32,7 +32,7 @@ const Galerija: FC<GalerijaProps> = ({}) => {
         loop: true,
       });
     }
-  }, [currentItem]);
+  }, [currentItem, data]);
 
   return (
     <Layout active="galerija">

@@ -1,4 +1,4 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, toast } from "@chakra-ui/react";
 import { Box, Divider, Flex, Heading, VStack } from "@chakra-ui/layout";
 import {
   FaCheckCircle,
@@ -7,11 +7,11 @@ import {
 } from "react-icons/fa";
 import { IconType } from "react-icons";
 
-export const myToast = (
+export function myToast(
   toast: any,
   type: "good" | "bad" | "info",
   title: string
-) => {
+) {
   const themes = {
     good: {
       color: "green.500",
@@ -48,4 +48,4 @@ export const myToast = (
       </ChakraProvider>
     ),
   });
-};
+}

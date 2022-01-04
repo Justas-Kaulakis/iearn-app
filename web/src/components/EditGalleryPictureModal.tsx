@@ -90,6 +90,7 @@ const EditGalleryPictureModal: FC<EditGalleryPictureModalProps> = ({
                       required={create}
                       component={DropzoneField}
                       imageUrl={item?.imageUrl || undefined}
+                      dim={{ x: 800, y: 800 }}
                     />
                   </Box>
                   <Box mt="1em">

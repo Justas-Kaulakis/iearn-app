@@ -20,7 +20,6 @@ import {
   useDeleteMemberMutation,
   useUpdateMemberMutation,
 } from "../generated/graphql";
-import { DropzoneFileType } from "./DropzoneField";
 import EditAvatar from "./EditAvatar";
 import InputField from "./InputField";
 

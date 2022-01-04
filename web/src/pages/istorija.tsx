@@ -9,8 +9,6 @@ interface IstorijaProps {}
 
 const Istorija: FC<IstorijaProps> = ({}) => {
   const [{ data, fetching, error }] = useHistoryQuery();
-
-  if (!fetching) console.log(data?.history);
   return (
     <Layout active="istorija">
       <div className="Base">
