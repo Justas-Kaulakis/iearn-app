@@ -3,6 +3,7 @@ import Slider, { Settings as SliderSettings } from "react-slick";
 import Card from "../components/Card";
 import { motion, AnimatePresence } from "framer-motion";
 import { GenerationFragment } from "../generated/graphql";
+import Carousel, { CarouselSlide } from "./Carousel";
 
 interface CardProps {
   gen: GenerationFragment;
@@ -10,30 +11,30 @@ interface CardProps {
 
 const KartaCard: FC<CardProps> = ({ gen }) => {
   const [showProjects, setShowProjects] = useState(false);
-  const imageSettings: SliderSettings = {
-    dots: true,
-    fade: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 7000,
-  };
   return (
     <div className="Karta_container">
       <div className="top_container">
         <div className="content">
           <h2>{gen.title}</h2>
           <p>{gen.description}</p>
-          <h3 onClick={() => setShowProjects(!showProjects)}>Projektai</h3>
         </div>
-        <Slider {...imageSettings}>
+        <Carousel
+          classNames=" generation-images"
+          options={{
+            fill: true,
+            dots: false,
+            dragfree: false,
+          }}
+        >
           {gen.images.map((img) => (
-            <img alt="Profilis" key={img.id} src={img.imageUrl} />
+            <CarouselSlide classNames=" generetion-slide my-slide" key={img.id}>
+              <img alt="Profilis" src={img.imageUrl} />
+            </CarouselSlide>
           ))}
-        </Slider>
+        </Carousel>
       </div>
+      <h3 onClick={() => setShowProjects(!showProjects)}>Projektai</h3>
+
       <AnimatePresence>
         {showProjects && (
           <motion.div

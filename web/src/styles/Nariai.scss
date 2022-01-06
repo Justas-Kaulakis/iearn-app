@@ -94,3 +94,8 @@
     width: 50%;
   }
 }
+@media only screen and (max-width: 450px) {
+  .member-card img {
+    height: 150px;
+  }
+}

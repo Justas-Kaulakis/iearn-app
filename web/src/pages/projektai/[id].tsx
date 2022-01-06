@@ -12,7 +12,7 @@ import MediaShare from "../../components/MediaShare";
 import { FaEdit } from "react-icons/fa";
 import NextLink from "next/link";
 import { Link } from "@chakra-ui/react";
-import Carousel from "../../components/Carousel";
+import GalleryCarousel from "../../components/GalleryCarousel";
 
 interface ProjectPageProps {}
 
@@ -108,16 +108,18 @@ const ProjectPage: NextPage<{}> = ({}) => {
                 </div>
               </div>
               <article className="body">{parse(body)}</article>
-              <Carousel
-                data={Array(10)
-                  .fill(0)
-                  .map((_, i) => ({
-                    id: i,
-                    imageUrl: `https://lipsum.app/id/${i * 2}/1024x768`,
-                    thumbnailUrl: `https://lipsum.app/id/${i * 2}/96x64`,
-                    description: `Jonas ${i}`,
-                  }))}
-              />
+              <section className="bottom-pictures">
+                <GalleryCarousel
+                  data={Array(10)
+                    .fill(0)
+                    .map((_, i) => ({
+                      id: i,
+                      imageUrl: `https://lipsum.app/id/${i * 2}/1024x768`,
+                      thumbnailUrl: `https://lipsum.app/id/${i * 2}/96x64`,
+                      description: `Jonas ${i}`,
+                    }))}
+                />
+              </section>
             </>
           )}
         </div>

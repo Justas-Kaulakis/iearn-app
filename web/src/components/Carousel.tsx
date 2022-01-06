@@ -1,80 +1,62 @@
 import React, { FC, useEffect, useRef } from "react";
-import {Carousel as NativeCarousel} from "@fancyapps/ui";
-import { Fancybox as NativeFancybox } from "@fancyapps/ui";
-
+import { Carousel as NativeCarousel } from "@fancyapps/ui";
 
 interface CarouselProps {
-  data?: ({id: number; imageUrl: string; thumbnailUrl: string; description?: string;} | any)[] ;
+  classNames?: string;
+  nav?: boolean;
+  dots?: boolean;
+  options?: any;
+  dependency?: any;
 }
 
-const Carousel: FC<React.HTMLAttributes<HTMLDivElement> & CarouselProps> = ({data, ...props}) => {
-  const mainCarouselRef = useRef(null);
-  const thumbnailCarouselRef = useRef(null);
-  let mainCarousel: any;
-  let thumbCarousel: any;
-  // Initialise Carousel
+const Carousel: FC<CarouselProps> = ({
+  classNames = "",
+  dots = false,
+  nav = true,
+  options,
+  dependency = null,
+  children,
+}) => {
+  const carousel = useRef(null);
+  let myCarousel: any = null;
+
   useEffect(() => {
-    // Main Carousel
-    mainCarousel = new NativeCarousel(mainCarouselRef.current, {
-      Dots: false,
-    });
-    // Thumbnails
-    thumbCarousel = new NativeCarousel(thumbnailCarouselRef.current, {
-      Sync: {
-        target: mainCarousel,
-        friction: 0,
-      },
-      Dots: false,
-      Navigation: false,
+    myCarousel = new NativeCarousel(carousel.current, {
+      dots: dots,
       center: true,
+      fill: true,
+      infinite: true,
       slidesPerPage: 1,
-      infinite: false,
+      ...options,
     });
-    // Customize Fancybox
-    NativeFancybox.bind('[data-fancybox="gallery"]', {
-      Carousel: {
-        on: {
-          change: (that) => {
-            mainCarousel.slideTo(mainCarousel.findPageForSlide(that.page), {
-              friction: 0,
-            });
-          },
-        },
-      },
-    });
-    
+
+    console.log("Carousel: ", myCarousel);
+    console.log("Previews: ", dependency);
+    myCarousel.init();
+    myCarousel.updateMetrics();
+
     return () => {
-      mainCarousel.destroy();
-      thumbCarousel.destroy();
-      NativeFancybox.destroy();
+      myCarousel.destroy();
     };
-  }, []);
+  }, [dependency]);
 
   return (
-    <div {...props}>
-      <div ref={mainCarouselRef} id="mainCarousel" className="carousel w-10/12 max-w-5xl mx-auto">
-        {data.map(({id, imageUrl, description}) => (
-          <div
-            className="carousel__slide"
-            data-src={imageUrl}
-            data-fancybox="gallery"
-            data-caption={description || undefined}
-            key={id}
-          >
-            <img src={imageUrl} />
-          </div>
-        ))}
-      </div>
-
-      <div ref={thumbnailCarouselRef} id="thumbCarousel" className="carousel max-w-xl mx-auto">
-        {data.map(({id, thumbnailUrl}) => (
-          <div className="carousel__slide" key={id}>
-            <img className="panzoom__content" src={thumbnailUrl} />
-          </div>
-        ))}
-      </div>
+    <div
+      className={`carousel ${classNames} ${dots ? "" : "no-dots"} ${
+        nav ? "" : "no-nav"
+      }`}
+      ref={carousel}
+    >
+      {children}
     </div>
-  )
-}
+  );
+};
 
 export default Carousel;
+
+export const CarouselSlide: FC<CarouselProps> = ({
+  classNames = "",
+  children,
+}) => {
+  return <div className={`carousel__slide ${classNames}`}>{children}</div>;
+};

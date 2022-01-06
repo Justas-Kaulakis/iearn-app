@@ -20,10 +20,8 @@
   position: relative;
   display: flex;
   justify-content: center;
-  img {
-    margin: auto;
-    max-height: 400px;
-  }
+  padding: 0;
+  --carousel-slide-width: 300px;
 
   button {
     position: absolute;
