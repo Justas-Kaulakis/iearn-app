@@ -1,11 +1,12 @@
-import React, { FC, Fragment, useState, useEffect, useRef } from "react";
+import React, { FC, Fragment, useState } from "react";
 import { FieldProps } from "formik";
 import Dropzone, { DropzoneProps, DropzoneRef } from "react-dropzone";
 import { resizeImage } from "../utils/resizeImage";
-import { FaTimes } from "react-icons/fa";
-import { IconButton } from "@chakra-ui/button";
-import { Carousel as NativeCarousel } from "@fancyapps/ui";
-import Carousel, { CarouselSlide } from "./Carousel";
+import Slider, { Settings as SliderSettings } from "react-slick";
+import { Box } from "@chakra-ui/layout";
+import { FaAngleLeft, FaAngleRight, FaTimes } from "react-icons/fa";
+import { Button, IconButton } from "@chakra-ui/button";
+import { GenerationImage } from "../generated/graphql";
 
 export const requiredDropzoneValidation = (value: File | null) => {
   if (!value) {
@@ -14,6 +15,20 @@ export const requiredDropzoneValidation = (value: File | null) => {
 };
 
 export type DropzoneMultiValueType = { file: File; id: number }[];
+const PrevArrow: React.FC<OnClickType> = ({ onClick }) => {
+  return (
+    <Box top="50%" onClick={onClick} className="priv_arrow">
+      <FaAngleLeft size="30px" />
+    </Box>
+  );
+};
+const NextArrow: React.FC<OnClickType> = ({ onClick }) => {
+  return (
+    <Box top="50%" onClick={onClick} className="next_arrow">
+      <FaAngleRight size="30px" />
+    </Box>
+  );
+};
 interface OnClickType {
   onClick?: React.MouseEventHandler<any>;
 }
@@ -46,11 +61,16 @@ const DropzoneFieldMulti: FC<
         }))
       : []
   );
-
-  useEffect(() => {
-    console.log("drpozone uuseEffect!");
-  }, [previews]);
-
+  const settings: SliderSettings = {
+    autoplay: true,
+    autoplaySpeed: 5000,
+    speed: 1000,
+    dots: true,
+    useTransform: true,
+    cssEase: "ease-out",
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+  };
   //console.log("Prevs", previews);
   //console.log("Dropzone urls: ", props.imageUrls);
   return (
@@ -130,14 +150,14 @@ const DropzoneFieldMulti: FC<
 
               {!previews ? null : (
                 <div className="dropzone-carousel">
-                  <Carousel
-                    dependency={previews}
-                    classNames=" KartosCarouselAdmin"
-                  >
+                  <Slider {...settings}>
                     {previews.map(({ id, imageUrl, isFromDB }) => (
                       <Fragment key={id}>
                         {imageUrl ? (
-                          <CarouselSlide classNames="img-item">
+                          <div
+                            style={{ margin: " 5px auto 0 auto" }}
+                            className="img-item"
+                          >
                             <img src={imageUrl} alt="Uploaded File" />
                             <IconButton
                               rounded={0}
@@ -148,6 +168,7 @@ const DropzoneFieldMulti: FC<
                               icon={<FaTimes />}
                               onClick={async () => {
                                 if (isFromDB) {
+                                  //console.log("Is from DB", imageUrl);
                                   await onDeleteDBImage(id);
                                 } else {
                                   URL.revokeObjectURL(imageUrl);
@@ -163,11 +184,20 @@ const DropzoneFieldMulti: FC<
                                 );
                               }}
                             />
-                          </CarouselSlide>
+                            {/* <Button
+                              left={0}
+                              onClick={() => {
+                                console.log("Previews: ", previews);
+                                console.log("Value: ", value);
+                              }}
+                            >
+                              Values
+                            </Button> */}
+                          </div>
                         ) : null}
                       </Fragment>
                     ))}
-                  </Carousel>
+                  </Slider>
                 </div>
               )}
             </section>
