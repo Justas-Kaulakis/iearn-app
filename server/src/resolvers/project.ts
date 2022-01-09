@@ -208,6 +208,9 @@ export class ProjectResolver {
     let imageUrl = "";
 
     if (image) {
+      // delete old thumbnail
+      await this.deleteThumbnailImage(id);
+      // save new thumbnail
       imageUrl = await processUpload("project", image);
     }
 
@@ -252,6 +255,22 @@ export class ProjectResolver {
       .from(ProjectImage, "p")
       .where('p."projectId" = :id AND p."isFromHistory = false"', { id })
       .getRawMany();
+
+    await this.deleteThumbnailImage(id);
+
+    // Delete images in the article from the filesystem
+    const base = `${__dirname}/../../api/images/project/`;
+    for (let i = 0; i < bodyImages.length; i++) {
+      await deleteFile(base + bodyImages[i].imageName);
+    }
+
+    // Delete data from database
+    await ProjectImage.delete({ projectId: id, isFromHistory: false });
+    await Project.delete(id);
+    return true;
+  }
+
+  async deleteThumbnailImage(id: number) {
     const thumbnailImage = await getConnection()
       .createQueryBuilder()
       .select('"imageUrl"')
@@ -264,13 +283,5 @@ export class ProjectResolver {
     if (thumbnailImage?.imageUrl) {
       await deleteFile(base + thumbnailImage.imageUrl);
     }
-    for (let i = 0; i < bodyImages.length; i++) {
-      await deleteFile(base + bodyImages[i].imageName);
-    }
-
-    // Delete data from database
-    await ProjectImage.delete({ projectId: id, isFromHistory: false });
-    await Project.delete(id);
-    return true;
   }
 }

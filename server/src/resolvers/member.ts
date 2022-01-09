@@ -80,6 +80,9 @@ export class MemberResolver {
     let imageUrl = "";
 
     if (image) {
+      // delete old profile picture
+      await this.deletProfilePicture(id);
+      // save new profile picture
       imageUrl = await processUpload("member", image);
     }
     console.log("Saving to database...");
@@ -100,6 +103,15 @@ export class MemberResolver {
   @UseMiddleware(isAuth)
   async deleteMember(@Arg("id", () => Int) id: number): Promise<Boolean> {
     // Delete Files from filesystem
+    await this.deletProfilePicture(id);
+
+    // Delete from database
+    await Member.delete({ id });
+    return true;
+  }
+
+  async deletProfilePicture(id: number) {
+    // Delete Files from filesystem
     const avatarImage = await getConnection()
       .createQueryBuilder()
       .select('"imageUrl"')
@@ -111,9 +123,5 @@ export class MemberResolver {
     if (avatarImage?.imageUrl) {
       await deleteFile(base + avatarImage.imageUrl);
     }
-
-    // Delete from database
-    await Member.delete({ id });
-    return true;
   }
 }
