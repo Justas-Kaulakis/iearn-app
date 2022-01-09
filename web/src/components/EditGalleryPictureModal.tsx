@@ -25,7 +25,7 @@ import InputField from "./InputField";
 import Popup from "./Popup";
 
 interface EditGalleryPictureModalProps {
-  item?: { id: number; imageUrl: string; description?: string };
+  item?: { id: number; resizedUrl: string; description?: string };
   create?: boolean;
   redoQuery: (opts?: Partial<OperationContext>) => void;
 }
@@ -41,23 +41,24 @@ const EditGalleryPictureModal: FC<EditGalleryPictureModalProps> = ({
   redoQuery,
   children,
 }) => {
+  const maxW = 400;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [, createGalleryImage] = useCreateGalleryImageMutation();
   const [, updateGalleryImage] = useUpdateGalleryImageMutation();
   const [, deleteGalleryImage] = useDeleteGalleryImageMutation();
-  async function handleCreate(values: GalleryInput) {
+  async function handleCreate(values: Omit<GalleryInput, "maxW">) {
     //console.log("Bam!: ", values);
     await createGalleryImage({
-      input: values,
+      input: { ...values, maxW },
     });
     redoQuery({ requestPolicy: "network-only" });
     onClose();
   }
-  async function handleUpdate(values: GalleryInput) {
+  async function handleUpdate(values: Omit<GalleryInput, "maxW">) {
     //console.log("Bam!: ", values);
     await updateGalleryImage({
       id: item.id,
-      input: values,
+      input: { ...values, maxW },
     });
     redoQuery({ requestPolicy: "network-only" });
     onClose();
@@ -89,8 +90,7 @@ const EditGalleryPictureModal: FC<EditGalleryPictureModalProps> = ({
                       validate={create && requiredDropzoneValidation}
                       required={create}
                       component={DropzoneField}
-                      imageUrl={item?.imageUrl || undefined}
-                      dim={{ x: 800, y: 800 }}
+                      imageUrl={item?.resizedUrl || undefined}
                     />
                   </Box>
                   <Box mt="1em">

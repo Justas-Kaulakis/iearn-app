@@ -105,11 +105,13 @@ export type GalleryImage = {
   imageUrl: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
+  resizedUrl: Scalars['String'];
 };
 
 export type GalleryInput = {
   description: Scalars['String'];
   image?: Maybe<Scalars['Upload']>;
+  maxW: Scalars['Int'];
 };
 
 export type Generation = {
@@ -738,7 +740,7 @@ export type GalleryImagesQuery = (
   { __typename?: 'Query' }
   & { galleryImages?: Maybe<Array<(
     { __typename?: 'GalleryImage' }
-    & Pick<GalleryImage, 'id' | 'imageUrl' | 'description'>
+    & Pick<GalleryImage, 'id' | 'imageUrl' | 'resizedUrl' | 'description'>
   )>> }
 );
 
@@ -1179,6 +1181,7 @@ export const GalleryImagesDocument = gql`
   galleryImages {
     id
     imageUrl
+    resizedUrl
     description
   }
 }

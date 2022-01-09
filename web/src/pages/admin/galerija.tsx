@@ -24,7 +24,10 @@ const Galerija: FC = ({}) => {
       <div className="Admin-content korteles galerija">
         <EditGalleryPictureModal create redoQuery={redoQuery}>
           {(onOpen) => (
-            <div onClick={onOpen} className="new-project hoverCursor image-card">
+            <div
+              onClick={onOpen}
+              className="new-project hoverCursor image-card"
+            >
               <span>
                 <FaPlus />
               </span>
@@ -41,10 +44,13 @@ const Galerija: FC = ({}) => {
                 key={i.id}
               >
                 {(onOpen) => (
-                  <div onClick={onOpen} className="korta image-card hoverCursor">
+                  <div
+                    onClick={onOpen}
+                    className="korta image-card hoverCursor"
+                  >
                     <div className="img-con">
-                      {i.imageUrl ? (
-                        <img src={i.imageUrl} alt="nuotrauka" />
+                      {i.resizedUrl ? (
+                        <img src={i.resizedUrl} alt="galerijos Nuotrauka" />
                       ) : (
                         <FaFileImage />
                       )}

@@ -108,7 +108,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
                 </div>
               </div>
               <article className="body">{parse(body)}</article>
-              <section className="bottom-pictures">
+              {/* <section className="bottom-pictures">
                 <GalleryCarousel
                   data={Array(10)
                     .fill(0)
@@ -119,7 +119,7 @@ const ProjectPage: NextPage<{}> = ({}) => {
                       description: `Jonas ${i}`,
                     }))}
                 />
-              </section>
+              </section> */}
             </>
           )}
         </div>

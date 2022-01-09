@@ -2,6 +2,7 @@ query GalleryImages {
   galleryImages {
     id
     imageUrl
+    resizedUrl
     description
   }
 }

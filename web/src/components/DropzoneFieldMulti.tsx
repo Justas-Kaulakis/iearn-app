@@ -62,10 +62,10 @@ const DropzoneFieldMulti: FC<
       : []
   );
   const settings: SliderSettings = {
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 5000,
     speed: 1000,
-    dots: true,
+    dots: false,
     useTransform: true,
     cssEase: "ease-out",
     prevArrow: <PrevArrow />,
@@ -154,10 +154,7 @@ const DropzoneFieldMulti: FC<
                     {previews.map(({ id, imageUrl, isFromDB }) => (
                       <Fragment key={id}>
                         {imageUrl ? (
-                          <div
-                            style={{ margin: " 5px auto 0 auto" }}
-                            className="img-item"
-                          >
+                          <div className="img-item">
                             <img src={imageUrl} alt="Uploaded File" />
                             <IconButton
                               rounded={0}
@@ -184,15 +181,6 @@ const DropzoneFieldMulti: FC<
                                 );
                               }}
                             />
-                            {/* <Button
-                              left={0}
-                              onClick={() => {
-                                console.log("Previews: ", previews);
-                                console.log("Value: ", value);
-                              }}
-                            >
-                              Values
-                            </Button> */}
                           </div>
                         ) : null}
                       </Fragment>

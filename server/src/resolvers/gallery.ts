@@ -18,15 +18,34 @@ import { isAuth } from "../utils/isAuth";
 import { deleteFile } from "../utils/deleteFile";
 
 @InputType()
+export class Dim {
+  @Field(() => Int)
+  x: number;
+  @Field(() => Int)
+  y: number;
+}
+
+@InputType()
 class GalleryInput {
   @Field()
   description: string;
   @Field(() => GraphQLUpload, { nullable: true })
   image?: FileUpload;
+  @Field(() => Int)
+  maxW?: number;
 }
 
 @Resolver(GalleryImage)
 export class GalleryResolver {
+  @FieldResolver(() => String)
+  resizedUrl(@Root() { imageUrl }: Project) {
+    return imageUrl
+      ? `http://localhost:${
+          process.env.SERVER_PORT
+        }/api/images/gallery/${imageUrl.replace(".", "-resized.")}`
+      : "";
+  }
+
   @FieldResolver(() => String)
   imageUrl(@Root() { imageUrl }: Project) {
     return imageUrl
@@ -42,11 +61,13 @@ export class GalleryResolver {
   @Mutation(() => Int)
   @UseMiddleware(isAuth)
   async createGalleryImage(
-    @Arg("input") { image, description }: GalleryInput
+    @Arg("input") { image, description, maxW }: GalleryInput
   ): Promise<number> {
+    console.log(process.cwd());
     let imageUrl = "";
     if (image) {
-      imageUrl = await processUpload("gallery", image);
+      imageUrl = await processUpload("gallery", image, maxW);
+      console.log("Returned path in resolver: ", imageUrl);
     }
 
     const { id } = await GalleryImage.create({
@@ -63,11 +84,14 @@ export class GalleryResolver {
   @UseMiddleware(isAuth)
   async updateGalleryImage(
     @Arg("id", () => Int) id: number,
-    @Arg("input") { image, description }: GalleryInput
+    @Arg("input") { image, description, maxW }: GalleryInput
   ): Promise<boolean> {
     let imageUrl = "";
     if (image) {
-      imageUrl = await processUpload("gallery", image);
+      //Delete old images
+      await this.deleteOnlyImages(id);
+      // Add new images
+      imageUrl = await processUpload("gallery", image, maxW);
     }
 
     await GalleryImage.update(
@@ -87,14 +111,17 @@ export class GalleryResolver {
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   async deleteGalleryImage(@Arg("id", () => Int) id: number): Promise<boolean> {
-    const image = await GalleryImage.findOne({ id });
-
-    const base = `${__dirname}/../../api/images/gallery/`;
-    if (image?.imageUrl) {
-      await deleteFile(base + image?.imageUrl);
-    }
+    await this.deleteOnlyImages(id);
 
     await GalleryImage.delete(id);
     return true;
+  }
+  async deleteOnlyImages(id: number) {
+    const image = await GalleryImage.findOne({ id });
+    const base = `${__dirname}/../../api/images/gallery/`;
+    if (image?.imageUrl) {
+      await deleteFile(base + image?.imageUrl);
+      await deleteFile(base + image?.imageUrl.replace(".", "-resized."));
+    }
   }
 }

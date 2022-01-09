@@ -26,7 +26,7 @@ const Galerija: FC = ({}) => {
                     href={item.imageUrl}
                     data-caption={item.description}
                   >
-                    <img className="gallery-image" src={item.imageUrl} />
+                    <img className="gallery-image" src={item.resizedUrl} />
                   </a>
                 ))}
               </>

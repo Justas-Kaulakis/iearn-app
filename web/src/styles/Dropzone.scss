@@ -16,22 +16,36 @@
   }
 }
 
-.dropzone-carousel .img-item {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  padding: 0;
-  //--carousel-slide-width: 300px;
-
-  button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    opacity: 0;
+.dropzone-carousel {
+  .priv-arrow,
+  .next-arrow {
+    z-index: 500;
+  }
+  .slick-slide {
+    height: 100%;
   }
 
-  &:hover button {
-    opacity: 100%;
+  .img-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 5px auto 0 auto;
+
+    img {
+      margin: auto;
+      max-height: 300px;
+    }
+
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: 0;
+    }
+
+    &:hover button {
+      opacity: 100%;
+    }
   }
 }
 
