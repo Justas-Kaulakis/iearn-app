@@ -1,9 +1,11 @@
 import { Flex, Box, FormLabel, Checkbox, Button } from "@chakra-ui/react";
 import { Formik, Form, Field, FormikHelpers, FormikBag } from "formik";
+import dynamic from "next/dynamic";
 import React, { FC } from "react";
 import DropzoneField, { requiredDropzoneValidation } from "./DropzoneField";
 import InputField from "./InputField";
-import Popup from "./Popup";
+//import Popup from "./Popup";
+const Popup = dynamic(() => import("./Popup"));
 
 interface FormInputType {
   title: string;

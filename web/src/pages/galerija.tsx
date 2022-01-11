@@ -18,7 +18,7 @@ const Galerija: FC = ({}) => {
           <Fancybox>
             {fetching || !data?.galleryImages ? null : (
               <>
-                {data?.galleryImages.map((item) => (
+                {data?.galleryImages.map((item, index) => (
                   <a
                     className="gallery-item"
                     data-fancybox="gallery"
@@ -26,7 +26,12 @@ const Galerija: FC = ({}) => {
                     href={item.imageUrl}
                     data-caption={item.description}
                   >
-                    <img className="gallery-image" src={item.resizedUrl} />
+                    <img
+                      className="gallery-image"
+                      loading={index > 9 ? "lazy" : undefined}
+                      src={item.resizedUrl}
+                      alt="nuotrauka"
+                    />
                   </a>
                 ))}
               </>

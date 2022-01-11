@@ -37,7 +37,7 @@ const Galerija: FC = ({}) => {
         </EditGalleryPictureModal>
         {!data?.galleryImages || fetching ? null : (
           <>
-            {data.galleryImages.map((i) => (
+            {data.galleryImages.map((i, index) => (
               <EditGalleryPictureModal
                 redoQuery={redoQuery}
                 item={i}
@@ -50,7 +50,11 @@ const Galerija: FC = ({}) => {
                   >
                     <div className="img-con">
                       {i.resizedUrl ? (
-                        <img src={i.resizedUrl} alt="galerijos Nuotrauka" />
+                        <img
+                          src={i.resizedUrl}
+                          loading={index > 4 ? "lazy" : undefined}
+                          alt="galerijos Nuotrauka"
+                        />
                       ) : (
                         <FaFileImage />
                       )}

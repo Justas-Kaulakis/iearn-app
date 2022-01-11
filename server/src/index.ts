@@ -11,7 +11,6 @@ import "dotenv-safe/config"; /// loads env variables
 import { createConnection } from "typeorm";
 import { MemberResolver } from "./resolvers/member";
 import { Member } from "./entities/Member";
-import { PictureResolver } from "./resolvers/picture";
 import { graphqlUploadExpress } from "graphql-upload";
 import { Admin } from "./entities/Admin";
 import { AdminResolver } from "./resolvers/admin";
@@ -124,7 +123,6 @@ const main = async () => {
       resolvers: [
         AboutResolver,
         MemberResolver,
-        PictureResolver,
         AdminResolver,
         ProjectResolver,
         SocialLinksResolver,

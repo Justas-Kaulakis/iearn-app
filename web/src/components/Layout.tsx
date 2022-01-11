@@ -1,8 +1,11 @@
 import React, { FC } from "react";
-import Footer from "./Footer";
+//import Footer from "./Footer";
 import Header, { HeaderProps } from "./Header";
-import Head from "next/head";
+const Footer = dynamic(() => import("./Footer"));
+const Head = dynamic(() => import("next/head"));
+//import Head from "next/head";
 import { capitalize } from "../utils/capitalize";
+import dynamic from "next/dynamic";
 
 type LayoutProps = {
   isFooter?: boolean;

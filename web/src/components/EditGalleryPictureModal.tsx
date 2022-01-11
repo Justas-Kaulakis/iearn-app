@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -11,6 +10,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
+
 import { OperationContext } from "@urql/core";
 import { Field, Form, Formik } from "formik";
 import React, { FC } from "react";
@@ -66,70 +66,72 @@ const EditGalleryPictureModal: FC<EditGalleryPictureModalProps> = ({
   return (
     <>
       {(children as any)(onOpen)}
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent m="1em">
-          <ModalHeader>
-            {create ? "Pridėti nuotrauką" : "Redagavimas"}
-          </ModalHeader>
-          <ModalCloseButton />
-          <Formik<galleryItemFormType>
-            initialValues={{
-              image: null,
-              description: item?.description || "",
-            }}
-            onSubmit={create ? handleCreate : handleUpdate}
-            validateOnBlur={false}
-          >
-            {({ isSubmitting }) => (
-              <Form style={{ display: "block" }}>
-                <ModalBody>
-                  <Box>
-                    <Field
-                      name="image"
-                      validate={create && requiredDropzoneValidation}
-                      required={create}
-                      component={DropzoneField}
-                      imageUrl={item?.resizedUrl || undefined}
-                    />
-                  </Box>
-                  <Box mt="1em">
-                    <InputField
-                      placeholder="Aprašymas"
-                      name="description"
-                      label="Vaizdo aprašymas"
-                      isTextarea
-                    />
-                  </Box>
-                </ModalBody>
-                <ModalFooter>
-                  <Button
-                    disabled={isSubmitting}
-                    type="submit"
-                    colorScheme="blue"
-                  >
-                    {create ? "Pridėti nuotrauką" : "Išsaugoti"}
-                  </Button>
-                  {create ? null : (
+      {isOpen && (
+        <Modal isCentered isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent m="1em">
+            <ModalHeader>
+              {create ? "Pridėti nuotrauką" : "Redagavimas"}
+            </ModalHeader>
+            <ModalCloseButton />
+            <Formik<galleryItemFormType>
+              initialValues={{
+                image: null,
+                description: item?.description || "",
+              }}
+              onSubmit={create ? handleCreate : handleUpdate}
+              validateOnBlur={false}
+            >
+              {({ isSubmitting }) => (
+                <Form style={{ display: "block" }}>
+                  <ModalBody>
+                    <Box>
+                      <Field
+                        name="image"
+                        validate={create && requiredDropzoneValidation}
+                        required={create}
+                        component={DropzoneField}
+                        imageUrl={item?.resizedUrl || undefined}
+                      />
+                    </Box>
+                    <Box mt="1em">
+                      <InputField
+                        placeholder="Aprašymas"
+                        name="description"
+                        label="Vaizdo aprašymas"
+                        isTextarea
+                      />
+                    </Box>
+                  </ModalBody>
+                  <ModalFooter>
                     <Button
-                      ml={3}
                       disabled={isSubmitting}
-                      colorScheme="red"
-                      onClick={async () => {
-                        await deleteGalleryImage({ id: item.id });
-                        onClose();
-                        redoQuery({ requestPolicy: "network-only" });
-                      }}
+                      type="submit"
+                      colorScheme="blue"
                     >
-                      Išstrinti
+                      {create ? "Pridėti nuotrauką" : "Išsaugoti"}
                     </Button>
-                  )}
-                </ModalFooter>
-              </Form>
-            )}
-          </Formik>
-        </ModalContent>
-      </Modal>
+                    {create ? null : (
+                      <Button
+                        ml={3}
+                        disabled={isSubmitting}
+                        colorScheme="red"
+                        onClick={async () => {
+                          await deleteGalleryImage({ id: item.id });
+                          onClose();
+                          redoQuery({ requestPolicy: "network-only" });
+                        }}
+                      >
+                        Išstrinti
+                      </Button>
+                    )}
+                  </ModalFooter>
+                </Form>
+              )}
+            </Formik>
+          </ModalContent>
+        </Modal>
+      )}
     </>
   );
 };

@@ -1,9 +1,10 @@
 import React, { FC, useState } from "react";
-import Slider, { Settings as SliderSettings } from "react-slick";
-import Card from "../components/Card";
 import { motion, AnimatePresence } from "framer-motion";
 import { GenerationFragment } from "../generated/graphql";
 import Carousel, { CarouselSlide } from "./Carousel";
+import dynamic from "next/dynamic";
+
+const Card = dynamic(() => import("../components/Card"));
 
 interface CardProps {
   gen: GenerationFragment;

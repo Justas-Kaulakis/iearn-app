@@ -8,7 +8,12 @@ import AdminLayout from "../../../components/AdminLayout";
 import AdminTopBar from "../../../components/AdminTopBar";
 import { createUrqlClient } from "../../../utils/createUrqlClient";
 import { formatDate } from "../../../utils/stringToDate";
-import CreateProjectModal from "../../../components/CreateProjectModal";
+//import CreateProjectModal from "../../../components/CreateProjectModal";
+import dynamic from "next/dynamic";
+
+const CreateProjectModal = dynamic(
+  () => import("../../../components/CreateProjectModal")
+);
 
 interface ProjektaiProps {}
 

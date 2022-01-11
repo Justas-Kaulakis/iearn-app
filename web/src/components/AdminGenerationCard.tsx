@@ -28,9 +28,9 @@ interface AdminGenerationCardProps {
   gen?: {
     __typename?: "Generation";
   } & Pick<Generation, "id" | "title" | "description"> & {
-    images?: Pick<GenerationImage, "id" | "imageUrl">[];
-    projects?: Pick<Project, "id" | "title" | "description">[];
-  };
+      images?: Pick<GenerationImage, "id" | "imageUrl">[];
+      projects?: Pick<Project, "id" | "title" | "description">[];
+    };
   create?: boolean;
   onCreateExtra?: () => void;
 }
@@ -127,12 +127,21 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
 
   if (collapsed) {
     return (
-      <Flex onClick={() => {
-        setCollapsed(!collapsed);
-      }} className="hoverCursor" align="center" shadow="md"
+      <Flex
+        onClick={() => {
+          setCollapsed(!collapsed);
+        }}
+        className="hoverCursor"
+        align="center"
+        shadow="md"
         rounded="md"
         p="1em"
-        bg="white"> <FaAngleDown /><span style={{ marginLeft: "5px" }}>{gen?.title}</span></Flex >
+        bg="white"
+      >
+        {" "}
+        <FaAngleDown />
+        <span style={{ marginLeft: "5px" }}>{gen?.title}</span>
+      </Flex>
     );
   }
 
@@ -149,14 +158,19 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
     >
       {({ isSubmitting }) => (
         <Form style={{ display: "block" }}>
-          <Box shadow="md"
-            rounded="md"
-            p="1em"
-            bg="white">
-            <Flex align="center" onClick={() => {
-              setCollapsed(!collapsed);
-            }} pb="7px" mb="1em">
-              <FaAngleUp /><span style={{ marginLeft: "5px" }}>{gen?.title}</span>
+          <Box shadow="md" rounded="md" p="1em" bg="white">
+            <Flex
+              align="center"
+              onClick={() => {
+                setCollapsed(!collapsed);
+              }}
+              pb="7px"
+              mb="1em"
+            >
+              <FaAngleUp />
+              <span style={{ marginLeft: "5px" }}>
+                {gen?.title || "Naujas"}
+              </span>
             </Flex>
             <Grid
               templateColumns="repeat(2, minmax(300px, 1fr))"
@@ -170,7 +184,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
                       width="fit-content"
                       size="sm"
                       colorScheme="red"
-                      onClick={() => { }}
+                      onClick={() => {}}
                     >
                       Ištrinti
                     </Button>
@@ -266,11 +280,9 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
               </Flex>
             </Grid>
           </Box>
-
         </Form>
-      )
-      }
-    </Formik >
+      )}
+    </Formik>
   );
 };
 

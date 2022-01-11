@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { FieldProps } from "formik";
 import Dropzone, { DropzoneProps, DropzoneRef } from "react-dropzone";
-import { resizeImage } from "../utils/resizeImage";
+//import {resizeImage} from "../utils/resizeImage";
 
 export const requiredDropzoneValidation = (value: File | null) => {
   if (!value) {
@@ -21,8 +21,7 @@ const DropzoneField: FC<
   ...props
 }) => {
   const [preview, setPreview] = useState("");
-  //console.log("Dropzone Props: ", props);
-  //console.log("Dim: ", dim);
+
   return (
     <>
       <Dropzone
@@ -30,10 +29,16 @@ const DropzoneField: FC<
         multiple={false}
         onDrop={async ([file], [fileRejection]) => {
           if (!fileRejection) {
-            /// compress file
-            const compressedFile = dim
-              ? await resizeImage(file, dim.x, dim.y)
-              : file;
+            let compressedFile: File;
+            if (dim) {
+              console.log("importing!...");
+              const resizeImage = (await import("../utils/resizeImage"))
+                .resizeImage;
+              /// compress file
+
+              compressedFile = await resizeImage(file, dim.x, dim.y);
+            } else compressedFile = file;
+
             setPreview(URL.createObjectURL(compressedFile));
 
             setFieldValue(name, compressedFile);

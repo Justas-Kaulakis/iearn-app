@@ -27,7 +27,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 };
 
 const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
-  // console.log("PAGE: ", page);
   const perPage = 9;
   const [{ data, fetching, error }] = useProjectsQuery({
     variables: {
@@ -41,7 +40,6 @@ const Projektai: NextPage<ProjektaiProps> = ({ page }) => {
   if (fetching) {
     return null;
   }
-  //if(data?.projects?.projects?.size)
 
   const totalPageNum = Math.max(1, Math.ceil(data?.projects?.total / perPage));
   if (page > totalPageNum) {

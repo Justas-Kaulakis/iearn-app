@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC } from "react";
 import { useMembersQuery } from "../generated/graphql";
 import Carousel from "./Carousel";
 
@@ -23,7 +23,11 @@ const Members: FC = () => {
         >
           {data.members.map((m) => (
             <figure key={m.id} className="carousel__slide member-card">
-              <img className="mb-4 w-full rounded-lg" src={m.imageUrl} />
+              <img
+                className="mb-4 w-full rounded-lg"
+                alt="Nuotrauka"
+                src={m.imageUrl}
+              />
               <figcaption>
                 <h3 className="text-lg font-semibold">{m.fullName}</h3>
                 <p>{m.description}</p>

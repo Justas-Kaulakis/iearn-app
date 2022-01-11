@@ -52,7 +52,7 @@ const Header: FC<HeaderProps> = ({ active }) => {
           ))}
           {!data?.isLoggedIn ? null : (
             <li className={active === "admin" ? "active" : undefined}>
-              <Link href={"/admin/projektai"}>
+              <Link href={active === "admin" ? "#" : "/admin/projektai"}>
                 <a className="nav-link">ADMIN</a>
               </Link>
             </li>

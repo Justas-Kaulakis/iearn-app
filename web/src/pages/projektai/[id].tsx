@@ -7,7 +7,7 @@ import Layout from "../../components/Layout";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 import parse from "html-react-parser";
 import ProjectMeta from "../../components/ProjectMeta";
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import MediaShare from "../../components/MediaShare";
 import { FaEdit } from "react-icons/fa";
 import NextLink from "next/link";
@@ -16,9 +16,9 @@ import GalleryCarousel from "../../components/GalleryCarousel";
 
 interface ProjectPageProps {}
 
-export function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   return { props: {} };
-}
+};
 
 const ProjectPage: NextPage<{}> = ({}) => {
   const router = useRouter();

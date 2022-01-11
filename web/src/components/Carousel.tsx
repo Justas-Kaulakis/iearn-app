@@ -18,10 +18,9 @@ const Carousel: FC<CarouselProps> = ({
   children,
 }) => {
   const carousel = useRef(null);
-  let myCarousel: any = null;
 
   useEffect(() => {
-    myCarousel = new NativeCarousel(carousel.current, {
+    const myCarousel = new NativeCarousel(carousel.current, {
       dots: dots,
       center: true,
       fill: true,
@@ -29,11 +28,6 @@ const Carousel: FC<CarouselProps> = ({
       slidesPerPage: 1,
       ...options,
     });
-
-    console.log("Carousel: ", myCarousel);
-    console.log("Previews: ", dependency);
-    myCarousel.init();
-    myCarousel.updateMetrics();
 
     return () => {
       myCarousel.destroy();

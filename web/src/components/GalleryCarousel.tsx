@@ -19,16 +19,14 @@ const GalleryCarousel: FC<
 > = ({ data, ...props }) => {
   const mainCarouselRef = useRef(null);
   const thumbnailCarouselRef = useRef(null);
-  let mainCarousel: any;
-  let thumbCarousel: any;
   // Initialise Carousel
   useEffect(() => {
     // Main Carousel
-    mainCarousel = new NativeCarousel(mainCarouselRef.current, {
+    const mainCarousel = new NativeCarousel(mainCarouselRef.current, {
       Dots: false,
     });
     // Thumbnails
-    thumbCarousel = new NativeCarousel(
+    const thumbCarousel = new NativeCarousel(
       thumbnailCarouselRef.current,
       {
         Sync: {
