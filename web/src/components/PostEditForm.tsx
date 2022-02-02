@@ -99,14 +99,7 @@ const PostEditForm: FC<PostEditFormProps> = ({
               <Box mt="1em">
                 <Field name="publish">
                   {({ field }: any) => (
-                    <Checkbox
-                      isChecked={field.value}
-                      name="publish"
-                      onClick={() => {
-                        console.log(field);
-                      }}
-                      {...field}
-                    >
+                    <Checkbox isChecked={field.value} name="publish" {...field}>
                       Ar paskelbti?
                     </Checkbox>
                   )}

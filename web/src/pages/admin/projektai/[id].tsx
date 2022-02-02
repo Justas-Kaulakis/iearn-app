@@ -51,7 +51,7 @@ const Redaguoti: NextPage<{}> = ({}) => {
     return <Error statusCode={404} title={data?.project?.error} />;
   }
   const { project } = data?.project || { project: null };
-  console.log("Project: ", project);
+  //console.log("Project: ", project);
   return (
     <AdminLayout active="projektai">
       <AdminTopBar pageName={`projektai / ${project?.title}`}>
@@ -119,8 +119,7 @@ const Redaguoti: NextPage<{}> = ({}) => {
               }
             }}
             onSubmit={async (values) => {
-              console.log("Values: ", values);
-              //console.log(callbackEditor.current.getData());
+              console.log("submiting");
               const { data: response, error } = await updateProject({
                 id: projectId as number,
                 input: {
@@ -135,8 +134,6 @@ const Redaguoti: NextPage<{}> = ({}) => {
                 console.log("UPDATE ERROR: ", error);
               }
               setSaved(true);
-              //router.reload();
-              console.log(response);
             }}
           />
         </GridItem>
