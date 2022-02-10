@@ -39,8 +39,13 @@ import { createHistory, HistoryResolver } from "./resolvers/history";
 const main = async () => {
   //sendEmail("just.kaulakis@gmail.com", "CIU BIBI KUIWA!");
   const conn = await createConnection({
-    type: "postgres",
+    type: "mysql",
     url: process.env.DATABASE_URL,
+    // host: "localhost",
+    // port: 3306,
+    // username: "justas",
+    // password: "justassql",
+    // database: "iearn",
     migrations: [path.join(__dirname, "./migrations/*")],
     logging: ["query", "log", "error", "warn", "info", "migration"],
     synchronize: true,

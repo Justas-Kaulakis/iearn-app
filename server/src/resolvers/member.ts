@@ -59,23 +59,25 @@ export class MemberResolver {
     }
     console.log("Saving to database...");
 
+    /*
     const result = await getConnection()
       .createQueryBuilder()
       .insert()
       .into(Member)
       .values({ imageUrl, ...input })
-      .returning("*")
+      //.returning("*")
       .execute();
     return result.raw[0];
-    //return await Member.create({ imageUrl, ...input }).save();
+    */
+    return await Member.create({ imageUrl, ...input }).save();
   }
 
-  @Mutation(() => Member)
+  @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   async updateMember(
     @Arg("id", () => Int) id: number,
     @Arg("input") { image, ...input }: MemberInput
-  ): Promise<Member> {
+  ): Promise<boolean> {
     console.log("In resolver...");
     let imageUrl = "";
 
@@ -85,18 +87,9 @@ export class MemberResolver {
       // save new profile picture
       imageUrl = await processUpload("member", image);
     }
-    console.log("Saving to database...");
 
-    const result = await getConnection()
-      .createQueryBuilder()
-      .update(Member)
-      .set(image ? { imageUrl, ...input } : input)
-      .where("id = :id", {
-        id,
-      })
-      .returning("*")
-      .execute();
-    return result.raw[0];
+    await await Member.update({ id }, image ? { imageUrl, ...input } : input);
+    return true;
   }
 
   @Mutation(() => Boolean)
@@ -111,17 +104,23 @@ export class MemberResolver {
   }
 
   async deletProfilePicture(id: number) {
-    // Delete Files from filesystem
-    const avatarImage = await getConnection()
-      .createQueryBuilder()
-      .select('"imageUrl"')
-      .from(Member, "m")
-      .where("m.id = :id", { id })
-      .getRawOne();
+    let data: any;
+    await getConnection().transaction(async (tm) => {
+      data = await tm.query(
+        `
+      SELECT \`imageUrl\` 
+      FROM member 
+      WHERE id = ?
+      LIMIT 1;
+      `,
+        [id]
+      );
+    });
+    const avatarImage: string = data[0].imageUrl;
 
     const base = `${__dirname}/../../api/images/member/`;
-    if (avatarImage?.imageUrl) {
-      await deleteFile(base + avatarImage.imageUrl);
-    }
+    if (avatarImage) {
+      await deleteFile(base + avatarImage);
+    } else console.log("No image in db to delete");
   }
 }
