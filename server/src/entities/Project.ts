@@ -18,7 +18,7 @@ export class Article extends BaseEntity {
   id!: number;
 
   @Field()
-  @Column()
+  @Column({ type: "text" })
   body!: string;
 }
 
