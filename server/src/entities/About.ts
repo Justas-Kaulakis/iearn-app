@@ -9,7 +9,7 @@ export class About extends BaseEntity {
   id!: number;
 
   @Field()
-  @Column()
+  @Column({ type: "text" })
   content!: string;
 
   @Field()

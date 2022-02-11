@@ -9,6 +9,7 @@ import {
   GenerationImage,
   Project,
   useCreateGenerationMutation,
+  useDeleteGenerationMutation,
   useDeleteGenImageMutation,
   useRemoveGenProjectMutation,
   useUpdateGenerationMutation,
@@ -20,6 +21,7 @@ import DropzoneFieldMulti, {
 import InputField from "./InputField";
 import { SelectProjectType } from "./SelectProjectsInput";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import { OperationContext } from "urql";
 const SelectProjectsInput = dynamic(() => import("./SelectProjectsInput"), {
   ssr: false,
 });
@@ -33,6 +35,7 @@ interface AdminGenerationCardProps {
     };
   create?: boolean;
   onCreateExtra?: () => void;
+  redoQuery?: (opts?: Partial<OperationContext>) => void;
 }
 
 interface KartosFormTypes {
@@ -46,6 +49,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
   gen,
   create = false,
   onCreateExtra,
+  redoQuery,
 }) => {
   const [listProjects, setListProjects] = useState<Array<SelectProjectType>>(
     gen ? gen.projects.map((s) => ({ ...s, isFromDB: true })) : []
@@ -53,6 +57,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
   const [, createGeneration] = useCreateGenerationMutation();
   const [, updateGeneration] = useUpdateGenerationMutation();
   const [, deleteGenImage] = useDeleteGenImageMutation();
+  const [, deleteGeneration] = useDeleteGenerationMutation();
   const [, removeGenProject] = useRemoveGenProjectMutation();
   const [projectsToRemove, setProjectsToRemove] = useState<
     {
@@ -184,7 +189,19 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
                       width="fit-content"
                       size="sm"
                       colorScheme="red"
-                      onClick={() => {}}
+                      onClick={async () => {
+                        console.log("trinam");
+                        const { error } = await deleteGeneration({
+                          id: gen.id,
+                        });
+
+                        if (error) {
+                          console.log("Error Deleting Generation: ", error);
+                        } else {
+                          if (redoQuery)
+                            redoQuery({ requestPolicy: "network-only" });
+                        }
+                      }}
                     >
                       Ištrinti
                     </Button>

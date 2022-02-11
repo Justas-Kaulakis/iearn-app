@@ -539,6 +539,16 @@ export type DeleteGenImageMutation = (
   & Pick<Mutation, 'deleteGenImage'>
 );
 
+export type DeleteGenerationMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeleteGenerationMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteGenenration'>
+);
+
 export type DeleteMemberMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -976,6 +986,15 @@ export const DeleteGenImageDocument = gql`
 
 export function useDeleteGenImageMutation() {
   return Urql.useMutation<DeleteGenImageMutation, DeleteGenImageMutationVariables>(DeleteGenImageDocument);
+};
+export const DeleteGenerationDocument = gql`
+    mutation DeleteGeneration($id: Int!) {
+  deleteGenenration(id: $id)
+}
+    `;
+
+export function useDeleteGenerationMutation() {
+  return Urql.useMutation<DeleteGenerationMutation, DeleteGenerationMutationVariables>(DeleteGenerationDocument);
 };
 export const DeleteMemberDocument = gql`
     mutation DeleteMember($id: Int!) {
