@@ -168,7 +168,7 @@ export type Mutation = {
   forgotPassword: Scalars['Boolean'];
   changePasswordToken?: Maybe<Array<FieldError>>;
   createProject: Project;
-  updateProject: Project;
+  updateProject: Scalars['Boolean'];
   deleteProject: Scalars['Boolean'];
   updateLinks: Scalars['Boolean'];
   updateContacts: Scalars['Boolean'];
@@ -696,10 +696,7 @@ export type UpdateProjectMutationVariables = Exact<{
 
 export type UpdateProjectMutation = (
   { __typename?: 'Mutation' }
-  & { updateProject: (
-    { __typename?: 'Project' }
-    & Pick<Project, 'id' | 'title' | 'description' | 'imageUrl' | 'body' | 'isPublished'>
-  ) }
+  & Pick<Mutation, 'updateProject'>
 );
 
 export type AdminProjectsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1120,14 +1117,7 @@ export function useUpdateMemberMutation() {
 };
 export const UpdateProjectDocument = gql`
     mutation UpdateProject($id: Int!, $input: ProjectInput!) {
-  updateProject(id: $id, input: $input) {
-    id
-    title
-    description
-    imageUrl
-    body
-    isPublished
-  }
+  updateProject(id: $id, input: $input)
 }
     `;
 

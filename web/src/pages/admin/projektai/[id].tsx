@@ -120,7 +120,7 @@ const Redaguoti: NextPage<{}> = ({}) => {
             }}
             onSubmit={async (values) => {
               console.log("submiting");
-              const { data: response, error } = await updateProject({
+              const { error } = await updateProject({
                 id: projectId as number,
                 input: {
                   title: values.title,

@@ -189,22 +189,25 @@ export class ProjectResolver {
     if (image) {
       imageUrl = await processUpload("project", image);
     }
-    const result = await getConnection()
-      .createQueryBuilder()
-      .insert()
-      .into(Project)
-      .values({ imageUrl, ...input })
-      .returning("*")
-      .execute();
-    return result.raw[0];
+
+    return await Project.create({ imageUrl, ...input }).save();
+
+    // const result = await getConnection()
+    //   .createQueryBuilder()
+    //   .insert()
+    //   .into(Project)
+    //   .values({ imageUrl, ...input })
+    //   .returning("*")
+    //   .execute();
+    // return result.raw[0];
   }
 
-  @Mutation(() => Project)
+  @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   async updateProject(
     @Arg("id", () => Int) id: number,
     @Arg("input") { image, ...input }: ProjectInput
-  ): Promise<Project> {
+  ): Promise<boolean> {
     let imageUrl = "";
 
     if (image) {
@@ -225,7 +228,7 @@ export class ProjectResolver {
       firstPublished = new Date();
     }
 
-    const result = await getConnection()
+    await getConnection()
       .createQueryBuilder()
       .update(Project)
       .set(
@@ -240,9 +243,8 @@ export class ProjectResolver {
       .where("id = :id", {
         id,
       })
-      .returning("*")
       .execute();
-    return result.raw[0];
+    return true;
   }
 
   @Mutation(() => Boolean)
@@ -251,9 +253,9 @@ export class ProjectResolver {
     // Select files to delete
     const bodyImages: Array<{ imageName: string }> = await getConnection()
       .createQueryBuilder()
-      .select('"imageName"')
+      .select("`imageName`")
       .from(ProjectImage, "p")
-      .where('p."projectId" = :id AND p."isFromHistory = false"', { id })
+      .where("p.`projectId` = :id AND p.`isFromHistory` = false", { id })
       .getRawMany();
 
     await this.deleteThumbnailImage(id);
@@ -273,7 +275,7 @@ export class ProjectResolver {
   async deleteThumbnailImage(id: number) {
     const thumbnailImage = await getConnection()
       .createQueryBuilder()
-      .select('"imageUrl"')
+      .select("`imageUrl`")
       .from(Project, "p")
       .where("p.id = :id", { id })
       .getRawOne();
