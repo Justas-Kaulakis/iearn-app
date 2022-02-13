@@ -9,7 +9,7 @@ Meant for the "iearn Žiežmariai" club.
 For development, you will need:
 
 1. **Node.js** and a node global package, Yarn, installed in your environement.
-2. **Postgres** database.
+2. **MySQL** database.
 3. **Redis** for storing string based keyed data (cookies)
 
 # Node setup
@@ -40,7 +40,7 @@ npm install -g yarn
 
 For now the project is using postgres 13.
 
-- Download and install from [HERE](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+- Download and install from [HERE](https://dev.mysql.com/downloads/mysql/)
 - After logging in create database of name "iearn"
 
 # Redis setup
@@ -117,5 +117,3 @@ yarn install
 - ### Justas Kaulakis
 
 - ### Gytis Kaulakis
-
-- ### Lukas Lančinskas

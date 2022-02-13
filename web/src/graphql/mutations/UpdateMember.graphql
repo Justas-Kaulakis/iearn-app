@@ -1,8 +1,3 @@
 mutation UpdateMember($id: Int!, $input: MemberInput!) {
-  updateMember(id: $id, input: $input) {
-    id
-    fullName
-    description
-    createdAt
-  }
+  updateMember(id: $id, input: $input)
 }

@@ -24,7 +24,7 @@ export class Generation extends BaseEntity {
   title!: string;
 
   @Field()
-  @Column()
+  @Column({ type: "text" })
   description!: string;
 
   @Field(() => [GenerationImage], { nullable: true })

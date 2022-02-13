@@ -33,6 +33,12 @@ const Layout: FC<LayoutProps> = ({
             type="image/svg + xml"
             href="/Circle-Icon.svg"
           />
+          {active === "admin" ? (
+            <>
+              <meta name="robots" content="noindex" />
+              <meta name="googlebot" content="noindex" />
+            </>
+          ) : null}
           <meta property="og:url" content={link} />
           <meta property="og:type" content="website" />
           <meta property="og:locale" content="lt_LT" />

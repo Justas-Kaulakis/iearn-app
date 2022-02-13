@@ -18,7 +18,7 @@ export class Article extends BaseEntity {
   id!: number;
 
   @Field()
-  @Column()
+  @Column({ type: "text" })
   body!: string;
 }
 
@@ -55,6 +55,6 @@ export class Project extends Article {
   createdAt: Date;
 
   @Field(() => String, { nullable: true })
-  @Column({ type: "timestamp without time zone", nullable: true })
+  @Column({ type: "timestamp", nullable: true })
   publishedAt?: Date;
 }

@@ -8,8 +8,10 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
-        <Head />
+      <Html lang="lt">
+        <Head>
+          <link rel="shortcut icon" href="#" />
+        </Head>
         <body>
           <Main />
           <NextScript />

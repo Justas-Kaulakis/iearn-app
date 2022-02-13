@@ -43,22 +43,28 @@ router.post("/article/upload", fileUpload(), check, async (req, res) => {
 
   /// check if project of "id" exists
   let data: any;
+  let selectS: string;
   if (!fromHistory) {
+    /// Returns '0' or '1' inside object
+    selectS = `EXISTS(SELECT * FROM project WHERE id=${intId})`;
     data = await getConnection()
       .createQueryBuilder()
-      .select(`EXISTS(SELECT 1 FROM project WHERE id=${intId})`)
+      .select(selectS)
       .from(Project, "project")
       .getRawOne();
   } else {
+    selectS = `EXISTS(SELECT * FROM article WHERE id=${intId})`;
     data = await getConnection()
       .createQueryBuilder()
-      .select(`EXISTS(SELECT 1 FROM article WHERE id=${intId})`)
+      .select(selectS)
       .from(Article, "article")
       .getRawOne();
-    console.log("Does exist from history: ", data);
+
+    console.log("Does exist from history: ", data[selectS]);
   }
 
-  if (!data.exists) {
+  const exists = !!parseInt(data[selectS]);
+  if (!exists) {
     return res.json({
       error: {
         data: { title: "Blogas ID:" },

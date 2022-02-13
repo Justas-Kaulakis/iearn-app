@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { useMembersQuery } from "../generated/graphql";
 import Carousel from "./Carousel";
+import { FaUser } from "react-icons/fa";
 
 const Members: FC = () => {
   const [{ data, fetching, error }] = useMembersQuery();
@@ -23,11 +24,17 @@ const Members: FC = () => {
         >
           {data.members.map((m) => (
             <figure key={m.id} className="carousel__slide member-card">
-              <img
-                className="mb-4 w-full rounded-lg"
-                alt="Nuotrauka"
-                src={m.imageUrl}
-              />
+              {m?.imageUrl ? (
+                <img
+                  className="mb-4 w-full rounded-lg"
+                  alt="Nuotrauka"
+                  src={m.imageUrl}
+                />
+              ) : (
+                <div className="icon-box">
+                  <FaUser className="member-icon" />
+                </div>
+              )}
               <figcaption>
                 <h3 className="text-lg font-semibold">{m.fullName}</h3>
                 <p>{m.description}</p>

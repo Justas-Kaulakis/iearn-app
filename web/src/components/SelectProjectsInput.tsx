@@ -8,6 +8,7 @@ import {
   InputLeftElement,
   FormControl,
   Input,
+  Flex,
 } from "@chakra-ui/react";
 import { FieldHookConfig, useField } from "formik";
 import React, { FC, useEffect, useState } from "react";
@@ -107,26 +108,34 @@ const SelectProjectsInput: FC<SelectProjectsInputProps> = ({
               />
             </InputGroup>
           </FormControl>
-          {fetching || !selections ? null : (
+          {fetching ? null : (
             <>
-              {selections.map((p) => (
-                <MenuItem
-                  onClick={() => {
-                    console.log("selected: ", p.id);
-                    setListProjects((projects) => {
-                      for (let i = 0; i < projects.length; i++) {
-                        if (projects[i].id === p.id) return projects;
-                      }
+              {!selections.length ? (
+                <Flex justify="center">
+                  <b>-- projektų nėra --</b>
+                </Flex>
+              ) : (
+                <>
+                  {selections.map((p) => (
+                    <MenuItem
+                      onClick={() => {
+                        console.log("selected: ", p.id);
+                        setListProjects((projects) => {
+                          for (let i = 0; i < projects.length; i++) {
+                            if (projects[i].id === p.id) return projects;
+                          }
 
-                      return [...projects, p];
-                    });
-                  }}
-                  py="0.1rem"
-                  key={p.id}
-                >
-                  {p.title}
-                </MenuItem>
-              ))}
+                          return [...projects, p];
+                        });
+                      }}
+                      py="0.1rem"
+                      key={p.id}
+                    >
+                      {p.title}
+                    </MenuItem>
+                  ))}
+                </>
+              )}
             </>
           )}
         </MenuList>

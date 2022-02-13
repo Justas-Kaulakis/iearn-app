@@ -14,9 +14,9 @@ const SelectProjectsInput = dynamic(
   { ssr: false }
 );
 
-interface KartosProps { }
+interface KartosProps {}
 
-const Kartos: FC<KartosProps> = ({ }) => {
+const Kartos: FC<KartosProps> = ({}) => {
   const [{ data, fetching, error }, refetchGenerations] = useGenerationsQuery();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -51,7 +51,11 @@ const Kartos: FC<KartosProps> = ({ }) => {
               />
             </Box>
             {data?.generations.map((gen) => (
-              <AdminGenerationCard key={gen.id} gen={gen} />
+              <AdminGenerationCard
+                redoQuery={refetchGenerations}
+                key={gen.id}
+                gen={gen}
+              />
             ))}
           </Stack>
         )}

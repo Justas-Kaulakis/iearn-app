@@ -158,8 +158,7 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
               validate={() => {
                 setKSaved(false);
               }}
-              onSubmit={async (values, { setSubmitting }) => {
-                console.log("Values", values);
+              onSubmit={async (values) => {
                 updateContacts({
                   contacts: [
                     { contact: values.contact1, id: contacts.contacts[0].id },

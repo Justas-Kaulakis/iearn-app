@@ -158,9 +158,8 @@ export type MemberInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createMember: Member;
-  updateMember: Member;
+  updateMember: Scalars['Boolean'];
   deleteMember: Scalars['Boolean'];
-  addPicture: Scalars['Boolean'];
   register: AdminResponse;
   login: AdminResponse;
   logout: Scalars['Boolean'];
@@ -169,7 +168,7 @@ export type Mutation = {
   forgotPassword: Scalars['Boolean'];
   changePasswordToken?: Maybe<Array<FieldError>>;
   createProject: Project;
-  updateProject: Project;
+  updateProject: Scalars['Boolean'];
   deleteProject: Scalars['Boolean'];
   updateLinks: Scalars['Boolean'];
   updateContacts: Scalars['Boolean'];
@@ -199,11 +198,6 @@ export type MutationUpdateMemberArgs = {
 
 export type MutationDeleteMemberArgs = {
   id: Scalars['Int'];
-};
-
-
-export type MutationAddPictureArgs = {
-  upload: Scalars['Upload'];
 };
 
 
@@ -438,16 +432,6 @@ export type TableMemberFragment = (
   & Pick<Member, 'id' | 'fullName' | 'description' | 'imageUrl'>
 );
 
-export type AddPictureMutationVariables = Exact<{
-  upload: Scalars['Upload'];
-}>;
-
-
-export type AddPictureMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'addPicture'>
-);
-
 export type ChangePasswordMutationVariables = Exact<{
   input: ChangePasswordInput;
 }>;
@@ -553,6 +537,16 @@ export type DeleteGenImageMutationVariables = Exact<{
 export type DeleteGenImageMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'deleteGenImage'>
+);
+
+export type DeleteGenerationMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeleteGenerationMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteGenenration'>
 );
 
 export type DeleteMemberMutationVariables = Exact<{
@@ -691,10 +685,7 @@ export type UpdateMemberMutationVariables = Exact<{
 
 export type UpdateMemberMutation = (
   { __typename?: 'Mutation' }
-  & { updateMember: (
-    { __typename?: 'Member' }
-    & Pick<Member, 'id' | 'fullName' | 'description' | 'createdAt'>
-  ) }
+  & Pick<Mutation, 'updateMember'>
 );
 
 export type UpdateProjectMutationVariables = Exact<{
@@ -705,10 +696,7 @@ export type UpdateProjectMutationVariables = Exact<{
 
 export type UpdateProjectMutation = (
   { __typename?: 'Mutation' }
-  & { updateProject: (
-    { __typename?: 'Project' }
-    & Pick<Project, 'id' | 'title' | 'description' | 'imageUrl' | 'body' | 'isPublished'>
-  ) }
+  & Pick<Mutation, 'updateProject'>
 );
 
 export type AdminProjectsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -898,15 +886,6 @@ export const TableMemberFragmentDoc = gql`
   imageUrl
 }
     `;
-export const AddPictureDocument = gql`
-    mutation AddPicture($upload: Upload!) {
-  addPicture(upload: $upload)
-}
-    `;
-
-export function useAddPictureMutation() {
-  return Urql.useMutation<AddPictureMutation, AddPictureMutationVariables>(AddPictureDocument);
-};
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($input: ChangePasswordInput!) {
   changePassword(input: $input) {
@@ -1004,6 +983,15 @@ export const DeleteGenImageDocument = gql`
 
 export function useDeleteGenImageMutation() {
   return Urql.useMutation<DeleteGenImageMutation, DeleteGenImageMutationVariables>(DeleteGenImageDocument);
+};
+export const DeleteGenerationDocument = gql`
+    mutation DeleteGeneration($id: Int!) {
+  deleteGenenration(id: $id)
+}
+    `;
+
+export function useDeleteGenerationMutation() {
+  return Urql.useMutation<DeleteGenerationMutation, DeleteGenerationMutationVariables>(DeleteGenerationDocument);
 };
 export const DeleteMemberDocument = gql`
     mutation DeleteMember($id: Int!) {
@@ -1120,12 +1108,7 @@ export function useUpdateLinksMutation() {
 };
 export const UpdateMemberDocument = gql`
     mutation UpdateMember($id: Int!, $input: MemberInput!) {
-  updateMember(id: $id, input: $input) {
-    id
-    fullName
-    description
-    createdAt
-  }
+  updateMember(id: $id, input: $input)
 }
     `;
 
@@ -1134,14 +1117,7 @@ export function useUpdateMemberMutation() {
 };
 export const UpdateProjectDocument = gql`
     mutation UpdateProject($id: Int!, $input: ProjectInput!) {
-  updateProject(id: $id, input: $input) {
-    id
-    title
-    description
-    imageUrl
-    body
-    isPublished
-  }
+  updateProject(id: $id, input: $input)
 }
     `;
 

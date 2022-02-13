@@ -49,7 +49,6 @@ const NariaiTableRow: FC<NariaiTableRowProps> = ({
         setSaved(false);
       }}
       onSubmit={async (values) => {
-        console.log(`Submiting ${m.id}:`, values);
         const { error } = await updateMember({
           id: m.id,
           input: values,

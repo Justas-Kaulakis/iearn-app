@@ -104,9 +104,9 @@ export async function createContacts() {
   getConnection().transaction(async (tm) => {
     tm.query(
       `
-      INSERT INTO "contacts"("contact") 
+      INSERT INTO contacts (contact) 
       VALUES 
-        ${defaultValues ? `${defaultValues.map(() => "('')")},` : ""}('');
+        ${defaultValues ? `${defaultValues.map(() => " ('')")}, ` : ""}('');
     `
     );
   });
