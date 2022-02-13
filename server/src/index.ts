@@ -80,7 +80,10 @@ const main = async () => {
 
   const RedisStore = connectRedis(session);
   const redis = new Redis(process.env.REDIS_URL);
-  //app.set("proxy", 1);
+
+  // Tell the server that there is a proxy
+  // in front to let cookies work
+  app.set("proxy", 1);
 
   /// EXPRESS MIDLEWARE
 
