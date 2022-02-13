@@ -37,7 +37,7 @@ export class Project extends Article {
   @Column({ default: "" })
   imageUrl: string;
 
-  @Field({ nullable: true })
+  @Field(() => Generation, { nullable: true })
   @ManyToMany(() => Generation, (g) => g.projects, { nullable: true })
   @JoinTable()
   generation: Generation;

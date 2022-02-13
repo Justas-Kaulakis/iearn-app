@@ -22,18 +22,18 @@ import { SocialLinks } from "./entities/SocialLinks";
 import { Contacts } from "./entities/Contacts";
 import {
   ContactsResolver,
-  createContacts,
-  createLinks,
+  //createContacts,
+  //createLinks,
   SocialLinksResolver,
 } from "./resolvers/footer";
 import { GalleryImage } from "./entities/GalleryImage";
 import { GalleryResolver } from "./resolvers/gallery";
 import { About } from "./entities/About";
-import { AboutResolver, createAbout } from "./resolvers/about";
+import { AboutResolver /*createAbout*/ } from "./resolvers/about";
 import { Generation } from "./entities/Generation";
 import { GenerationImage } from "./entities/GenerationImage";
 import { GenerationResolver } from "./resolvers/generation";
-import { createHistory, HistoryResolver } from "./resolvers/history";
+import { /*createHistory,*/ HistoryResolver } from "./resolvers/history";
 //import { sendEmail } from "./utils/sendEmail";
 
 const main = async () => {
@@ -41,14 +41,9 @@ const main = async () => {
   const conn = await createConnection({
     type: "mysql",
     url: process.env.DATABASE_URL,
-    // host: "localhost",
-    // port: 3306,
-    // username: "justas",
-    // password: "justassql",
-    // database: "iearn",
     migrations: [path.join(__dirname, "./migrations/*")],
     logging: ["query", "log", "error", "warn", "info", "migration"],
-    synchronize: true,
+    //synchronize: true,
     entities: [
       About,
       Member,
@@ -63,6 +58,7 @@ const main = async () => {
       History,
     ],
   });
+
   conn;
 
   console.log("DOMAIN ENV: ", process.env.DOMAIN);
@@ -71,10 +67,10 @@ const main = async () => {
   //await Generation.delete({});
   //await GenerationImage.delete({});
 
-  createLinks();
-  createContacts();
-  createAbout();
-  createHistory();
+  // createLinks();
+  // createContacts();
+  // createAbout();
+  // createHistory();
 
   const app = express();
 
