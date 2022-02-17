@@ -1,8 +1,10 @@
 {
-  "type": "postgres",
+  "type": "mysql",
   "host": "localhost",
-  "port": 5432,
-  "username": "potgres",
-  "password": "potgres",
-  "database": "iearn"
+  "port": 3306,
+  "username": "justas",
+  "password": "justassql",
+  "database": "iearn",
+  "entities": ["dist/entities/*js"],
+  "migrations": ["dist/migrations/*js"]
 }

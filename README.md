@@ -38,7 +38,7 @@ npm install -g yarn
 
 # Database setup
 
-For now the project is using postgres 13.
+The project is using MySQL.
 
 - Download and install from [HERE](https://dev.mysql.com/downloads/mysql/)
 - After logging in create database of name "iearn"
@@ -75,18 +75,42 @@ yarn install
 ```
 
 - ### development
-
+  Automatically watch for each change in the src folder and recompile typesript to the "dist/" folder:
   ```bash
   yarn watch
+  ```
+  If you havent yet ran any migrations, then so far there are no tables created for the "iearn" database. To create them from the migration files int the src code do:
+  ```bash
+  npx typeorm migration:run
+  ```
+  To revert the last migration do:
+  ```bash
+  npx typeorm migration:revert
+  ```
+  Then run the server:
+  ```bash
   yarn dev
   ```
 
 - ### production
-
+  Compile Typescript to Javascript in the "dist/" folder:
   ```bash
   yarn build
+  ```
+   If you havent yet ran any migrations, then so far there are no tables created for the "iearn" database. To create them from the migration files int the src code do:
+  ```bash
+  npx typeorm migration:run
+  ```
+  To revert the last migration do:
+  ```bash
+  npx typeorm migration:revert
+  ```
+  Run the server:
+  ```bash
   yarn start
   ```
+  More info on the migration commands [HERE](https://typeorm.io/#/migrations).
+
 
 ## Web
 
@@ -108,7 +132,7 @@ yarn install
   yarn start
   ```
 
-  more info for Next.js [Here](web/README.md)
+  more info for Next.js [HERE](web/README.md)
 
 ---
 
