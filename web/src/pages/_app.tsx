@@ -16,6 +16,7 @@ import "../styles/Aboutus.scss";
 import "../styles/Article.scss";
 import "../styles/Karta.scss";
 import "../styles/Gallery.scss";
+import "../styles/Admin-Menu.scss";
 
 import "@fancyapps/ui/dist/carousel.css";
 // import "@fancyapps/ui/dist/fancybox.css";

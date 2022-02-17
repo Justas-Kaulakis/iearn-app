@@ -26,8 +26,8 @@ export type AdminLinks =
   | "galerija"
   | "kartos"
   | "istorija"
-  | "mano-info"
-  | "apie-mus";
+  | "mano info"
+  | "apie mus";
 
 export interface SideBarProps {
   active: AdminLinks;
@@ -39,21 +39,22 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
   const [, logout] = useLogoutMutation();
   const router = useRouter();
   const links: { name: AdminLinks; icon: IconType }[] = [
-    { name: "apie-mus", icon: FaInfo },
+    { name: "apie mus", icon: FaInfo },
     { name: "nariai", icon: FaUsers },
     { name: "projektai", icon: FaEdit },
     { name: "galerija", icon: FaImages },
     { name: "kartos", icon: FaThList },
     { name: "istorija", icon: FaHistory },
     { name: "kontaktai", icon: FaLink },
-    { name: "mano-info", icon: FaUserCog },
+    { name: "mano info", icon: FaUserCog },
   ];
 
   const TopIcon = collapsed ? FaBars : FaTimes;
 
   return (
     <Flex bgColor="#427a7e" h="100%" w="100%" direction="column">
-      <Flex justifyContent={collapsed ? "space-around" : "flex-end"}>
+      {/* <Flex justifyContent={collapsed ? "space-around" : "flex-end"}> */}
+      {/* <Flex justifyContent="flex-start"> */}
         <Box fontSize="1.5em" m="0.5em">
           <TopIcon
             className="hoverCursor"
@@ -63,7 +64,7 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
             }}
           />
         </Box>
-      </Flex>
+      {/* </Flex> */}
       {links.map((link, i) => (
         <SideBarLink
           selected={active === link.name}
