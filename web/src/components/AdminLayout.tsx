@@ -33,7 +33,7 @@ const AdminLayout: FC<AdminLayoutProps> = ({
       <ChakraProvider>
         <Grid
           h="calc(100vh - 3em)"
-          gridTemplateColumns={`${collapsed ? 60 : 200}px auto`}
+          gridTemplateColumns={`${collapsed ? 55 : 200}px auto`}
         >
           <GridItem>
             <SideBar
