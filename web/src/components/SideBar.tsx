@@ -53,18 +53,9 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
 
   return (
     <Flex bgColor="#427a7e" h="100%" w="100%" direction="column">
-      {/* <Flex justifyContent={collapsed ? "space-around" : "flex-end"}> */}
-      {/* <Flex justifyContent="flex-start"> */}
-        <div className="hoverCursor Admin-links">
-          <TopIcon
-            //className="hoverCursor Admin-links"
-            color="white"
-            onClick={() => {
-              setCollapsed(!collapsed);
-            }}
-          />
-        </div>
-      {/* </Flex> */}
+      <div className="hoverCursor hoverDarken Admin-links">
+        <TopIcon color="white" onClick={() => setCollapsed(!collapsed)}/>
+      </div>
       {links.map((link, i) => (
         <SideBarLink
           selected={active === link.name}
@@ -86,25 +77,10 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
         }}
       >
         {(onOpen: () => void) => (
-          <Flex
-            px="1em"
-            direction="row"
-            justifyContent={collapsed ? "center" : undefined}
-            mt="auto"
-            fontSize="1.2em"
-            align="center"
-            mb="1em"
-            color="white"
-            className="hoverCursor"
-            onClick={onOpen}
-          >
+          <div className="hoverCursor hoverDarken Admin-links" onClick={onOpen} style={{ margin: "auto 0 0 0" }}>
             <FaSignOutAlt />
-            {collapsed ? null : (
-              <Box ml="0.5em" fontSize="1.2em">
-                Atsijungti
-              </Box>
-            )}
-          </Flex>
+            {collapsed ? null : "Atsijungti"}
+          </div>
         )}
       </Popup>
     </Flex>

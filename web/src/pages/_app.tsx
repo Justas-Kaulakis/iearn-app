@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import "../styles/Styles.css";
-import "../styles/Admin-Members.css";
+import "../styles/Admin-Members.scss";
 import "../styles/Dropzone.scss";
 import "../styles/Carousel.scss";
 import "slick-carousel/slick/slick.css";
