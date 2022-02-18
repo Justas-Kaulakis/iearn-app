@@ -1,4 +1,3 @@
-import { Box, Flex } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { FC } from "react";
 import { IconType } from "react-icons/lib";
@@ -16,37 +15,10 @@ const SideBarLink: FC<SideBarLinkProps> = ({
   selected,
 }) => {
   return (
-    // <Link href={`/admin/${name}`}>
-    //   <Flex
-    //     className="hoverCursor hoverDarken"
-    //     justifyContent={collapsed ? "center" : undefined}
-    //     direction="row"
-    //     color={selected ? "#cad2c5" : "white"}
-    //     px="1em"
-    //     py="0.5em"
-    //   >
-    //     <Icon style={{ width: "1.4em", height: "1.4em" }} />
-    //     {collapsed ? null : (
-    //       <Box ml="0.5em" >
-    //         {capitalize(name)}
-    //       </Box>
-    //     )}
-    //   </Flex>
-    // </Link>
     <Link href={`/admin/${name}`}>
-      <div
-        className={`hoverCursor hoverDarken Admin-links ${selected ? "selectedLink" : ""}`}
-        // px="1em"
-        // py="0.5em"
-      >
+      <div className={`hoverCursor hoverDarken Admin-links ${selected ? "selectedLink" : ""}`}>
         <Icon />
-        {collapsed ? null : (
-          //<div ml="0.5em" >
-          <>
-            {capitalize(name)}
-          </>
-          //</div>
-        )}
+        {collapsed ? null : capitalize(name).replace("-", " ")}
       </div>
     </Link>
   );

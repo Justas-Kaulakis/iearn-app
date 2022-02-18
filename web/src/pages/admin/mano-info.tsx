@@ -159,33 +159,28 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
             >
               {({ isSubmitting }) => (
                 <Form style={{ display: "block" }}>
-                  <Box mt="0.5em" minWidth="150px">
+                  <Flex mt="0.5em" minWidth="150px" sx={{gap: "1em"}} flexDirection='column'>
                     <InputField
-                      label="Dabartinis slaptažodis:"
                       name="password"
-                      placeholder="dabartinis slaptažodis"
+                      placeholder="Dabartinis slaptažodis"
                       required
                       size="sm"
                       type="password"
                     />
                     <InputField
-                      label="Naujas slaptažodis:"
                       name="newPassword"
-                      placeholder="naujas slaptažodis"
+                      placeholder="Naujas slaptažodis"
                       required
                       size="sm"
                       type="password"
                     />
-                    <Box mt="0.5em">
                       <InputField
-                        label="Pakartoti naują slaptažodį:"
                         name="repeatNewPassword"
-                        placeholder="pakartoti naują slaptažodį"
+                        placeholder="Pakartoti naują slaptažodį"
                         required
                         size="sm"
                         type="password"
                       />
-                    </Box>
                     <Flex mt="1em" justifyContent="end">
                       <Button
                         disabled={isSubmitting}
@@ -196,7 +191,7 @@ const ManoInfo: FC<ManoInfoProps> = ({}) => {
                         Atnaujinti slaptažodį
                       </Button>
                     </Flex>
-                  </Box>
+                  </Flex>
                 </Form>
               )}
             </Formik>
