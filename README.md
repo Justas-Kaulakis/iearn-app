@@ -21,10 +21,14 @@ For development, you will need:
 
 - #### Node installation on Ubuntu
 
-  You can install nodejs and npm easily with apt install, just run the following commands.
+  For Node you will need a version ^12.0.0, so intstall it via this curl command:
+  ```bash
+  curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+  ```
+  You can install  npm easily with apt install, just run the following commands.
 
   ```bash
-  sudo apt install nodejs
   sudo apt install npm
   ```
 
