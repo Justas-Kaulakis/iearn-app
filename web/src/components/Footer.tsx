@@ -5,17 +5,29 @@ import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 interface FooterProps {}
 type LinkType = { text: string; link: string | null; iconSrc: string | null };
 const Footer: FC<FooterProps> = ({}) => {
-
   const [{ data: links, fetching: fLinks, error: lError }] =
     useSocialLinksQuery();
   const [{ data: contacts, fetching: fcontacts, error: cError }] =
     useContactsQuery();
 
+  let showContacts = true;
+  if (!fcontacts) {
+    let all = "";
+    for (let i = 0; i < 4; i++) all += contacts?.contacts[i].contact;
+    if (all === "") showContacts = false;
+  }
+  let showLinks = true;
+  if (!fLinks) {
+    const { facebook, iearnGlobal, instagram, youtube } = links?.socialLinks;
+    const all = facebook + iearnGlobal + instagram + youtube;
+    if (all === "") showLinks = false;
+  }
+
   return (
     <footer className="footer">
       <div className="footer-links">
         <div>
-          <h3>Socialiniai Tinklai</h3>
+          {showLinks ? <h3>Socialiniai Tinklai</h3> : null}
           <ul>
             {!links?.socialLinks.instagram ? null : (
               <li>
@@ -69,7 +81,7 @@ const Footer: FC<FooterProps> = ({}) => {
             )}
           </ul>
         </div>
-        {!contacts ? null : (
+        {!showContacts ? null : (
           <div>
             <h3>Kontaktai</h3>
             <ul>
