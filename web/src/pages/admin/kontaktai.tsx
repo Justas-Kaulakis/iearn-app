@@ -50,15 +50,15 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
   return (
     <AdminLayout active="kontaktai">
       <AdminTopBar pageName="kontaktai" />
-      <Flex mt="2em" justifyContent="center" flexWrap="wrap" w="100%">
+      <Flex mt="1em" justifyContent="center" flexWrap="wrap" w="100%" p="1em" gridGap="2em">
         {!links?.socialLinks && fLinks ? null : (
           <Box
             width="100%"
             minW="210px"
             maxW="300px"
             p="0.5em"
-            mt="1em"
-            mr="1em"
+            //mt="1em"
+            //mr="1em"
             rounded="md"
             boxShadow="md"
             bg="white"
@@ -88,7 +88,7 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <Flex width="100%" fontSize="0.8em" direction="column">
+                  <Flex width="100%" fontSize="0.8em" direction="column" gridGap="1em">
                     <InputField
                       type="url"
                       //label="Instagram"
@@ -120,7 +120,6 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
                     <Button
                       leftIcon={<FaSave />}
                       colorScheme="blue"
-                      mt="2em"
                       size="sm"
                       type="submit"
                       isDisabled={isSubmitting}
@@ -139,8 +138,8 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
             minW="210px"
             maxW="300px"
             p="0.5em"
-            mt="1em"
-            mr="1em"
+            //mt="1em"
+            //mr="1em"
             rounded="md"
             boxShadow="md"
             bg="white"
@@ -174,24 +173,22 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <Flex width="100%" fontSize="0.8em" direction="column">
+                  <Flex width="100%" fontSize="0.8em" direction="column" gridGap="1em">
                     {contacts.contacts?.map((c, i) => (
-                      //<Box key={c.id} mt="1.5em">
                         <InputField
                           type="text"
                           name={`contact${i + 1}`}
                           placeholder="Numeris ar el. paštas"
                           size={inputSize}
+                          key={i}
                         />
-                      //</Box>
                     ))}
                     <Button
                       leftIcon={<FaSave />}
                       colorScheme="blue"
-                      mt="2em"
                       size="sm"
                       type="submit"
-                      isDisabled={isSubmitting}
+                      isLoading={isSubmitting}
                     >
                       "Išsaugoti"
                     </Button>

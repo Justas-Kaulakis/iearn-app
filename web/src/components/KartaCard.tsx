@@ -35,31 +35,31 @@ const KartaCard: FC<CardProps> = ({ gen }) => {
         </Carousel>
       </div>
       {!gen.projects.length ? null : (
-        <>
-          <h3 onClick={() => setShowProjects(!showProjects)}>Projektai</h3>
+      <>
+        <h3 onClick={() => setShowProjects(!showProjects)}>Projektai</h3>
 
-          <AnimatePresence>
-            {showProjects && (
-              <motion.div
-                className="bottom-container Kartos"
-                transition={{ duration: 0.5 }}
-                initial={{ opacity: 0, y: -100 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -100 }}
-              >
-                {gen.projects.map((p) => (
-                  <Card
-                    key={p.id}
-                    id={p.id}
-                    title={p.title}
-                    description={p.description}
-                    imageUrl={p.imageUrl}
-                  />
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </>
+        <AnimatePresence>
+          {showProjects && (
+            <motion.div
+              className="bottom-container Kartos"
+              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, y: -100 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -100 }}
+            >
+              {gen.projects.map((p) => (
+                <Card
+                  key={p.id}
+                  id={p.id}
+                  title={p.title}
+                  description={p.description}
+                  imageUrl={p.imageUrl}
+                />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </>
       )}
     </div>
   );

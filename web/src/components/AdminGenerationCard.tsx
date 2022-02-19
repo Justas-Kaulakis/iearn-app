@@ -145,7 +145,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
       >
         {" "}
         <FaAngleDown />
-        <span style={{ marginLeft: "5px" }}>{gen?.title}</span>
+        <span style={{ marginLeft: "5px" }}>{create? "Nauja karta" : gen?.title}</span>
       </Flex>
     );
   }
@@ -164,19 +164,21 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
       {({ isSubmitting }) => (
         <Form style={{ display: "block" }}>
           <Box shadow="md" rounded="md" p="1em" bg="white">
-            <Flex
-              align="center"
-              onClick={() => {
-                setCollapsed(!collapsed);
-              }}
-              pb="7px"
-              mb="1em"
-            >
-              <FaAngleUp />
-              <span style={{ marginLeft: "5px" }}>
-                {gen?.title || "Naujas"}
-              </span>
-            </Flex>
+            {create? null : (
+              <Flex
+                align="center"
+                onClick={() => {
+                  setCollapsed(!collapsed);
+                }}
+                pb="7px"
+                mb="1em"
+              >
+                <FaAngleUp />
+                <span style={{ marginLeft: "5px" }}>
+                  {gen?.title}
+                </span>
+              </Flex>
+            )}
             <Grid
               templateColumns="repeat(2, minmax(300px, 1fr))"
               columnGap="1em"
@@ -214,7 +216,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
                     size="sm"
                     mb="1em"
                   >
-                    {create ? "Sukurti" : "Išsaugoti"}
+                    {create ? "Sukurti naują" : "Išsaugoti"}
                   </Button>
                 </Flex>
                 <InputField name="title" placeholder="Titulinis" required />

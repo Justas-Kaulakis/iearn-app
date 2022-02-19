@@ -11,16 +11,16 @@ interface KartosProps {}
 const Kartos: FC<KartosProps> = ({}) => {
   const [{ data, fetching }] = useGenerationsQuery();
 
+  if (fetching || !data?.generations) {
+    return null;
+  }
+
   return (
     <Layout active="kartos">
       <div className="Base">
-        {fetching || !data?.generations ? null : (
-          <>
-            {data?.generations.map((gen) => (
-              <KartaCard key={gen.id} gen={gen} />
-            ))}
-          </>
-        )}
+        {data?.generations.map((gen) => (
+          <KartaCard key={gen.id} gen={gen} />
+        ))}
       </div>
     </Layout>
   );

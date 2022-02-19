@@ -18,7 +18,6 @@ interface KartosProps {}
 
 const Kartos: FC<KartosProps> = ({}) => {
   const [{ data, fetching, error }, refetchGenerations] = useGenerationsQuery();
-  const [isOpen, setIsOpen] = useState(false);
 
   if (error) {
     console.log("Error fetching Generations: ", error);
@@ -28,23 +27,11 @@ const Kartos: FC<KartosProps> = ({}) => {
     <AdminLayout active="kartos" pageTitle="Kartos">
       <AdminTopBar pageName="Kartos" />
       <div className="Admin-content">
-        <Button
-          variant="outline"
-          size="sm"
-          colorScheme="blue"
-          leftIcon={!isOpen ? <FaAngleDown /> : <FaAngleUp />}
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        >
-          Pridėti naują kartą
-        </Button>
         {fetching || !data?.generations ? null : (
-          <Stack maxWidth="900px" mx="auto" mt="1em" spacing="1em">
-            <Box display={!isOpen ? "none" : "block"} mb="1em">
+          <Stack maxWidth="900px" mx="auto" spacing="1em">
+            <Box display="block" >
               <AdminGenerationCard
                 onCreateExtra={() => {
-                  setIsOpen(false);
                   refetchGenerations({ requestPolicy: "network-only" });
                 }}
                 create
