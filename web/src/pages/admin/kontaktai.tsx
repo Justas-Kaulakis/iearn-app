@@ -63,7 +63,7 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
             boxShadow="md"
             bg="white"
           >
-            <Heading textAlign="center" size="md">
+            <Heading textAlign="center" size="md" mb="1em">
               {!lSaved && "*"}Socialiniai Tinklai
             </Heading>
             <Formik<MediaFormTypes>
@@ -91,28 +91,28 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
                   <Flex width="100%" fontSize="0.8em" direction="column">
                     <InputField
                       type="url"
-                      label="Instagram"
+                      //label="Instagram"
                       name="instagram"
                       placeholder="Instagram profilio nuoroda"
                       size={inputSize}
                     />
                     <InputField
                       type="url"
-                      label="Facebook"
+                      //label="Facebook"
                       name="facebook"
                       placeholder="Facebook profilio nuoroda"
                       size={inputSize}
                     />
                     <InputField
                       type="url"
-                      label="Youtube"
+                      //label="Youtube"
                       name="youtube"
                       placeholder="Youtube profilio nuoroda"
                       size={inputSize}
                     />
                     <InputField
                       type="url"
-                      label="iEARN (globalus)"
+                      // label="iEARN (globalus)"
                       name="iearnGlobal"
                       placeholder='Mūsų "iearn.org" profilis'
                       size={inputSize}
@@ -120,12 +120,12 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
                     <Button
                       leftIcon={<FaSave />}
                       colorScheme="blue"
-                      mt="1em"
+                      mt="2em"
                       size="sm"
                       type="submit"
                       isDisabled={isSubmitting}
                     >
-                      {!lSaved ? "Išsaugoti" : "Išsaugota"}
+                      "Išsaugoti"
                     </Button>
                   </Flex>
                 </Form>
@@ -145,7 +145,7 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
             boxShadow="md"
             bg="white"
           >
-            <Heading textAlign="center" size="md">
+            <Heading textAlign="center" size="md" mb="1em">
               {!kSaved && "*"}Kontaktai
             </Heading>
             <Formik<ContactFormTypes>
@@ -176,14 +176,14 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
                 <Form>
                   <Flex width="100%" fontSize="0.8em" direction="column">
                     {contacts.contacts?.map((c, i) => (
-                      <Box key={c.id} mt="1.5em">
+                      //<Box key={c.id} mt="1.5em">
                         <InputField
                           type="text"
                           name={`contact${i + 1}`}
                           placeholder="Numeris ar el. paštas"
                           size={inputSize}
                         />
-                      </Box>
+                      //</Box>
                     ))}
                     <Button
                       leftIcon={<FaSave />}
@@ -193,7 +193,7 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
                       type="submit"
                       isDisabled={isSubmitting}
                     >
-                      {!kSaved ? "Išsaugoti" : "Išsaugota"}
+                      "Išsaugoti"
                     </Button>
                   </Flex>
                 </Form>

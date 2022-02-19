@@ -84,7 +84,7 @@ const Footer: FC<FooterProps> = ({}) => {
           </div>
         )}
       </div>
-      <p>©2021 iEARN Žiežmarių klubas. Visos teisės saugomos.</p>
+      <p>©2022 iEARN Žiežmarių klubas. Visos teisės saugomos.</p>
     </footer>
   );
 };
