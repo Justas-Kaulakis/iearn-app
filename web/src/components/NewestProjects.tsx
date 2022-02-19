@@ -13,28 +13,31 @@ const NewestProjects: FC<NewestProjectsProps> = ({}) => {
     },
   });
   if (error) {
-    console.log("ERROR FETCHING PROJECTS: ", error);
+    console.log("Error on New Projects Query: ", error);
   }
   if (fetching) {
     return null;
   }
   return (
-    <section className="projects-container">
-      {data.projects?.projects?.map((p) => (
-        <Card
-          key={p.id}
-          id={p.id}
-          title={p.title}
-          description={p.description}
-          imageUrl={p.imageUrl}
-        />
-      ))}
-      <Link href="/projektai">
-        <a className="card daugiau_projektu">
-          <h2>Daugiau projektų</h2>
-        </a>
-      </Link>
-    </section>
+    <>
+      <h1 className="green-heading">Naujausi Projektai</h1>
+      <section className="projects-container">
+        {data.projects?.projects?.map((p) => (
+          <Card
+            key={p.id}
+            id={p.id}
+            title={p.title}
+            description={p.description}
+            imageUrl={p.imageUrl}
+          />
+        ))}
+        <Link href="/projektai">
+          <a className="card daugiau_projektu">
+            <h2>Daugiau projektų</h2>
+          </a>
+        </Link>
+      </section>
+    </>
   );
 };
 

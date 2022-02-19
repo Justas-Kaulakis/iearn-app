@@ -8,10 +8,14 @@ const Members: FC = () => {
   if (error) {
     console.log("Error on Members Query: ", error);
   }
+  if (fetching) {
+    return null;
+  }
 
   return (
-    <section id="Nariai">
-      {fetching || !data?.members ? null : (
+    <>
+      <h1 className="green-heading">Klubo nariai</h1>
+      <section id="Nariai">
         <Carousel
           nav={false}
           dots
@@ -25,11 +29,7 @@ const Members: FC = () => {
           {data.members.map((m) => (
             <figure key={m.id} className="carousel__slide member-card">
               {m?.imageUrl ? (
-                <img
-                  className="mb-4 w-full rounded-lg"
-                  alt="Nuotrauka"
-                  src={m.imageUrl}
-                />
+                <img className="mb-4 w-full rounded-lg" alt="Nuotrauka" src={m.imageUrl}/>
               ) : (
                 <div className="icon-box">
                   <FaUser className="member-icon" />
@@ -42,8 +42,8 @@ const Members: FC = () => {
             </figure>
           ))}
         </Carousel>
-      )}
-    </section>
+      </section>
+    </>
   );
 };
 

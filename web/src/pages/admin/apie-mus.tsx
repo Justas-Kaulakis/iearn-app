@@ -30,7 +30,7 @@ const ApieMus: FC<ApieMusProps> = ({}) => {
   return (
     <>
       <AdminLayout active="apie-mus">
-        <AdminTopBar pageName={"mano-info / Apie mus"} />
+        <AdminTopBar pageName={"Apie mus"} />
         {fetching ? null : (
           <div className="Admin-content">
             <Flex

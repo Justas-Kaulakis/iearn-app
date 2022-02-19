@@ -18,9 +18,7 @@ const Index: FC = () => {
       </section>
       <div className="Base">
         <AboutUs />
-        <h1 className="green-heading">Naujausi Projektai</h1>
         <NewestProjects />
-        <h1 className="green-heading">Klubo nariai</h1>
         <Members />
       </div>
     </Layout>
