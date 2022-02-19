@@ -43,7 +43,7 @@ const main = async () => {
     url: process.env.DATABASE_URL,
     migrations: [path.join(__dirname, "./migrations/*")],
     logging: ["query", "log", "error", "warn", "info", "migration"],
-    //synchronize: true,
+    synchronize: true,
     entities: [
       About,
       Member,

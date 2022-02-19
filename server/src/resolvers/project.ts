@@ -89,9 +89,9 @@ export class ProjectResolver {
     // const data = await ProjectImage.find({ where: { projectId: id } });
     return getConnection()
       .createQueryBuilder()
-      .select('"imageName"')
+      .select("`imageName`")
       .from(ProjectImage, "p")
-      .where('p."projectId" = :id AND p."isFromHistory = false"', { id: id })
+      .where("p.`projectId` = :id AND p.`isFromHistory` = false", { id: id })
       .getRawMany();
   }
 
@@ -164,8 +164,8 @@ export class ProjectResolver {
         `
       SELECT id, title, description
       FROM project
-      WHERE "isPublished" = true
-      ORDER BY "createdAt" DESC;
+      WHERE \`isPublished\` = true
+      ORDER BY \`createdAt\` DESC;
       `
       );
     });
