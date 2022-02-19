@@ -100,6 +100,7 @@ const EditGalleryPictureModal: FC<EditGalleryPictureModalProps> = ({
                         name="description"
                         label="Vaizdo aprašymas"
                         isTextarea
+                        maxLength={300}
                       />
                     </Box>
                   </ModalBody>

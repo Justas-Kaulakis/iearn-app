@@ -53,8 +53,8 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
 
   return (
     <Flex bgColor="#427a7e" h="100%" w="100%" direction="column">
-      <div className="hoverCursor hoverDarken Admin-links">
-        <TopIcon color="white" onClick={() => setCollapsed(!collapsed)}/>
+      <div className="hoverCursor hoverDarken Admin-links" onClick={() => setCollapsed(!collapsed)}>
+        <TopIcon color="white"/>
       </div>
       {links.map((link, i) => (
         <SideBarLink
@@ -65,9 +65,7 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
         />
       ))}
       <Popup
-        title={"Ar tikrai norite atsijungti?"}
-        closeText={"Ne"}
-        okText="Taip, atsijungti"
+        title={"Ar tikrai norite atsijungti?"} closeText={"Ne"} okText="Taip, atsijungti"
         action={async () => {
           const { error } = await logout();
           if (error) {

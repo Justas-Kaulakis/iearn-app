@@ -19,7 +19,7 @@ export class GalleryImage extends BaseEntity {
   imageUrl!: string;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "text" })
   description: string;
 
   @Field()
