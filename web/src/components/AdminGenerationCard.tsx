@@ -71,7 +71,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
       imgId: number;
     }[]
   >([]);
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(!create);
 
   //console.log("Gen: ", gen);
   const handleCreate = async (values: KartosFormTypes) => {
@@ -210,7 +210,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
                   <Button
                     disabled={isSubmitting}
                     type="submit"
-                    colorScheme="blue"
+                    colorScheme={create ? "green" : "blue"}
                     size="sm"
                     mb="1em"
                   >

@@ -164,8 +164,8 @@ export class ProjectResolver {
         `
       SELECT id, title, description
       FROM project
-      WHERE "isPublished" = true
-      ORDER BY "createdAt" DESC;
+      WHERE \`isPublished\` = true
+      ORDER BY \`createdAt\` DESC;
       `
       );
     });
