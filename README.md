@@ -26,11 +26,6 @@ For development, you will need:
   curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
   sudo apt-get install -y nodejs
   ```
-  You can install  npm easily with apt install, just run the following commands.
-
-  ```bash
-  sudo apt install npm
-  ```
 
 ### Yarn installation
 
