@@ -1,4 +1,4 @@
-# iEARN tinklapis
+# iEARN Žiežmariai tinklapis Ⓒ 2021
 
 Meant for the "iearn Žiežmariai" club.
 
