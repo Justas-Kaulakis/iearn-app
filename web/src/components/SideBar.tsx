@@ -53,7 +53,7 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
 
   return (
     <Flex bgColor="#427a7e" h="100%" w="100%" direction="column">
-      <div className="hoverCursor hoverDarken Admin-links" onClick={() => setCollapsed(!collapsed)}>
+      <div title={collapsed ? "Menu" : "Uždaryti"} className="hoverCursor hoverDarken Admin-links" onClick={() => setCollapsed(!collapsed)}>
         <TopIcon color="white"/>
       </div>
       {links.map((link, i) => (
@@ -75,7 +75,7 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
         }}
       >
         {(onOpen: () => void) => (
-          <div className="hoverCursor hoverDarken Admin-links" onClick={onOpen} style={{ margin: "auto 0 0 0" }}>
+          <div title="Atsijungti" className="hoverCursor hoverDarken Admin-links" onClick={onOpen} style={{ margin: "auto 0 0 0" }}>
             <FaSignOutAlt />
             {collapsed ? null : "Atsijungti"}
           </div>
