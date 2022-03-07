@@ -79,7 +79,7 @@ const main = async () => {
 
   // Tell the server that there is a proxy
   // in front to let cookies work
-  app.set("proxy", 1);
+  app.set("trust proxy", 1);
 
   /// EXPRESS MIDLEWARE
 

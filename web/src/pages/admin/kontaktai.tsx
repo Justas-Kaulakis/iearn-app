@@ -50,7 +50,14 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
   return (
     <AdminLayout active="kontaktai">
       <AdminTopBar pageName="kontaktai" />
-      <Flex mt="1em" justifyContent="center" flexWrap="wrap" w="100%" p="1em" gridGap="2em">
+      <Flex
+        mt="1em"
+        justifyContent="center"
+        flexWrap="wrap"
+        w="100%"
+        p="1em"
+        gridGap="2em"
+      >
         {!links?.socialLinks && fLinks ? null : (
           <Box
             width="100%"
@@ -88,7 +95,12 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <Flex width="100%" fontSize="0.8em" direction="column" gridGap="1em">
+                  <Flex
+                    width="100%"
+                    fontSize="0.8em"
+                    direction="column"
+                    gridGap="1em"
+                  >
                     <InputField
                       type="url"
                       //label="Instagram"
@@ -124,7 +136,7 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
                       type="submit"
                       isDisabled={isSubmitting}
                     >
-                      "Išsaugoti"
+                      Išsaugoti
                     </Button>
                   </Flex>
                 </Form>
@@ -173,15 +185,20 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <Flex width="100%" fontSize="0.8em" direction="column" gridGap="1em">
+                  <Flex
+                    width="100%"
+                    fontSize="0.8em"
+                    direction="column"
+                    gridGap="1em"
+                  >
                     {contacts.contacts?.map((c, i) => (
-                        <InputField
-                          type="text"
-                          name={`contact${i + 1}`}
-                          placeholder="Numeris ar el. paštas"
-                          size={inputSize}
-                          key={i}
-                        />
+                      <InputField
+                        type="text"
+                        name={`contact${i + 1}`}
+                        placeholder="Numeris ar el. paštas"
+                        size={inputSize}
+                        key={i}
+                      />
                     ))}
                     <Button
                       leftIcon={<FaSave />}
@@ -190,7 +207,7 @@ const Kontaktai: FC<kontaktaiProps> = ({}) => {
                       type="submit"
                       isLoading={isSubmitting}
                     >
-                      "Išsaugoti"
+                      Išsaugoti
                     </Button>
                   </Flex>
                 </Form>
