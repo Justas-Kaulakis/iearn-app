@@ -43,7 +43,7 @@ const main = async () => {
     url: process.env.DATABASE_URL,
     migrations: [path.join(__dirname, "./migrations/*")],
     logging: ["query", "log", "error", "warn", "info", "migration"],
-    synchronize: true,
+    synchronize: false,
     entities: [
       About,
       Member,
@@ -137,7 +137,7 @@ const main = async () => {
       ],
       validate: false,
     }),
-    playground: true,
+    playground: !__prod__,
     introspection: !__prod__,
     context: ({ req, res }) => ({
       req,

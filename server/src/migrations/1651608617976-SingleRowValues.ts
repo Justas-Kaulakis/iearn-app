@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class SingleRowValues1644786533298 implements MigrationInterface {
+export class SingleRowValues1651608617976 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       'INSERT INTO `social_links`(`id`, `instagram`, `facebook`, `youtube`, `iearnGlobal`) VALUES (DEFAULT, "", "", "", "")'
