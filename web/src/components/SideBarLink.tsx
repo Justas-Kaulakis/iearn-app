@@ -15,12 +15,10 @@ const SideBarLink: FC<SideBarLinkProps> = ({
   link: { icon: Icon, name },
   selected,
 }) => {
-  let renamed: string;
-  renamed = capitalize(name).replace("-", " ");
+  const renamed: string = capitalize(name).replace("-", " ");
   return (
-    // <Tooltip label={renamed} openDelay={1000} placement='right' >
     <Link href={`/admin/${name}`}>
-        <div className={`hoverCursor hoverDarken Admin-links ${selected ? "selectedLink" : ""}`}>
+        <div title={renamed} className={`hoverCursor hoverDarken Admin-links ${selected ? "selectedLink" : ""}`}>
           {collapsed ? <Icon /> : (
             <>
               <Icon />
@@ -29,7 +27,6 @@ const SideBarLink: FC<SideBarLinkProps> = ({
           )}
         </div>
     </Link>
-    // </Tooltip>
   );
 };
 

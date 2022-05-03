@@ -54,6 +54,7 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
   return (
     <Flex bgColor="#427a7e" h="100%" w="100%" direction="column">
       <div
+        title={collapsed ? "Menu" : "Uždaryti"}
         className="hoverCursor hoverDarken Admin-links"
         onClick={() => setCollapsed(!collapsed)}
       >
@@ -81,6 +82,7 @@ const SideBar: FC<SideBarProps> = ({ collapsed, setCollapsed, active }) => {
       >
         {(onOpen: () => void) => (
           <div
+            title="Atsijungti"
             className="hoverCursor hoverDarken Admin-links"
             onClick={onOpen}
             style={{ margin: "auto 0 0 0" }}
