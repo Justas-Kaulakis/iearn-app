@@ -22,7 +22,7 @@ const Fancybox: FC<FancyBoxProps> = ({
     return () => {
       NativeFancybox.destroy();
     };
-  }, []);
+  }, [delegate, options]);
 
   return <>{children}</>;
 };

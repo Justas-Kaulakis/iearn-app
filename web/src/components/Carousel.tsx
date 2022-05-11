@@ -32,7 +32,7 @@ const Carousel: FC<CarouselProps> = ({
     return () => {
       myCarousel.destroy();
     };
-  }, [dependency]);
+  }, [dependency, dots, options]);
 
   return (
     <div

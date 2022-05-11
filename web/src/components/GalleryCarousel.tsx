@@ -76,7 +76,7 @@ const GalleryCarousel: FC<
             data-caption={description || undefined}
             key={id}
           >
-            <img src={imageUrl} />
+            <img src={imageUrl} alt="" />
           </div>
         ))}
       </div>
@@ -88,7 +88,7 @@ const GalleryCarousel: FC<
       >
         {data.map(({ id, thumbnailUrl }) => (
           <div className="carousel__slide" key={id}>
-            <img className="panzoom__content" src={thumbnailUrl} />
+            <img className="panzoom__content" src={thumbnailUrl} alt="" />
           </div>
         ))}
       </div>
