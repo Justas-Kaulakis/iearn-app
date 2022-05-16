@@ -31,7 +31,7 @@ const invalidateProjects = (cache: Cache) => {
 
 export const createUrqlClient = (ssrExchange: any, ctx: any): ClientOptions => {
   return {
-    url: "http://localhost:4000/graphql",
+    url: "http://localhost/graphql",
     fetchOptions: {
       credentials: "include" as const,
     },

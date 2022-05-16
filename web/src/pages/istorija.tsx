@@ -18,7 +18,7 @@ const Istorija: FC<IstorijaProps> = ({}) => {
         <div className="article-box">
           <article className="body">
             {fetching && !data?.history ? null : (
-              <>{parse(data?.history.body) || ""}</>
+              <>{parse(data?.history.body || "")}</>
             )}
           </article>
         </div>
