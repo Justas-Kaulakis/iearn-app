@@ -8,6 +8,5 @@ declare namespace NodeJS {
     DOMAIN: string;
     EMAIL_ADRESS: string;
     EMAIL_PASSWORD: string;
-    NODE_ENV: string;
   }
 }

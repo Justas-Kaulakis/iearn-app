@@ -147,6 +147,8 @@ const main = async () => {
     uploads: false,
   });
 
+  console.log("__prod__: ", __prod__);
+
   apolloServer.applyMiddleware({
     app,
     cors: false,
