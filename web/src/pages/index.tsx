@@ -12,7 +12,7 @@ const Index: FC = () => {
       <section className="top">
         <img
           className="landing-img"
-          src="http://localhost:4000/api/images/landing-image.png"
+          src="/landing-image.png"
           alt="Landing-image"
         />
       </section>
