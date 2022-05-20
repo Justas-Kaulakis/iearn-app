@@ -23,7 +23,7 @@ For development, you will need:
 
   For Node you will need a version ^12.0.0, so intstall it via this curl command:
   
-  ```bash
+  ```shell
   curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
   sudo apt-get install -y nodejs
   ```
@@ -32,8 +32,8 @@ For development, you will need:
 
 After installing node, this project will need yarn too, so just run the following command.
 
-```bash
-npm install -g yarn
+```console
+sudo npm install -g yarn
 ```
 
 # Database setup
