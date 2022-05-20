@@ -147,6 +147,7 @@ const main = async () => {
     uploads: false,
   });
 
+  console.log("NODE_ENV: ", process.env.NODE_ENV);
   console.log("__prod__: ", __prod__);
 
   apolloServer.applyMiddleware({
