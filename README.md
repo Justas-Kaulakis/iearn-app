@@ -52,6 +52,7 @@ Redis is a light and fast caching system. This project is uing it to send and re
 - Start the redis server from the binary file:
 
   ```bash
+  
   redis-server
   ```
 
@@ -119,7 +120,7 @@ yarn install
   ```
 
   Run the server:
-`
+
   ```bash
   yarn start
   ```
