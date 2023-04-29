@@ -13,7 +13,8 @@
     "prod": "NODE_ENV=production node dist/index.js",
     "start2": "ts-node src/index.ts",
     "dev2": "nodemon --exec ts-node src/index.ts",
-    "run:mig": "npx typeorm migration:create"
+    "run:mig": "npx typeorm migration:run",
+    "rev:mig": "npx typeorm migration:revert"
   },
   "keywords": [],
   "author": "",

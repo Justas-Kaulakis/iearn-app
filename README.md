@@ -52,6 +52,7 @@ Redis is a light and fast caching system. This project is uing it to send and re
 - Start the redis server from the binary file:
 
   ```bash
+  
   redis-server
   ```
 
@@ -84,13 +85,13 @@ yarn install
   If you havent yet ran any migrations, then so far there are no tables created for the "iearn" database. To create them from the migration files int the src code do:
 
   ```bash
-  npx typeorm migration:run
+  yarn run:mig
   ```
 
   To revert the last migration do:
 
   ```bash
-  npx typeorm migration:revert
+  yarn rev:mig
   ```
 
   Then run the server:
@@ -109,13 +110,13 @@ yarn install
    If you havent yet ran any migrations, then so far there are no tables created for the "iearn" database. To create them from the migration files int the src code do:
 
   ```bash
-  npx typeorm migration:run
+  yarn run:mig
   ```
 
   To revert the last migration do:
 
   ```bash
-  npx typeorm migration:revert
+  yarn rev:mig
   ```
 
   Run the server:
@@ -153,6 +154,5 @@ yarn install
 
 ## Authors
 
-- ### Justas Kaulakis
-
-- ### Gytis Kaulakis
+ ### [<span style="display: flex; align-items: center;"><img style="border-radius: 50%" height="50" src="https://avatars.githubusercontent.com/u/63920269?v=4">&nbsp;&nbsp;Justas Kaulakis</span>](https://github.com/Justas-Kaulakis)
+ ### [<span style="display: flex; align-items: center;"><img style="border-radius: 50%" height="50" src="https://avatars.githubusercontent.com/u/42701017?v=4">&nbsp;&nbsp;Gytis Kaulakis</span>](https://github.com/GytisKau)

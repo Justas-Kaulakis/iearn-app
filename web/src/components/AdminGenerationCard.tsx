@@ -145,7 +145,9 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
       >
         {" "}
         <FaAngleDown />
-        <span style={{ marginLeft: "5px" }}>{create? "Nauja karta" : gen?.title}</span>
+        <span style={{ marginLeft: "5px" }}>
+          {create ? "Nauja karta" : gen?.title}
+        </span>
       </Flex>
     );
   }
@@ -164,7 +166,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
       {({ isSubmitting }) => (
         <Form style={{ display: "block" }}>
           <Box shadow="md" rounded="md" p="1em" bg="white">
-            {create? null : (
+            {create ? null : (
               <Flex
                 align="center"
                 onClick={() => {
@@ -174,9 +176,7 @@ const AdminGenerationCard: FC<AdminGenerationCardProps> = ({
                 mb="1em"
               >
                 <FaAngleUp />
-                <span style={{ marginLeft: "5px" }}>
-                  {gen?.title}
-                </span>
+                <span style={{ marginLeft: "5px" }}>{gen?.title}</span>
               </Flex>
             )}
             <Grid
