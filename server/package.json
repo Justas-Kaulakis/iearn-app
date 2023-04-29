@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "db-connect": "psql --username=postgres --password=postgres",
+    "db-connect": "mysql -u mokinys --password=\"iearn-db-2022\" -D iearn",
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
     "build": "tsc",
     "watch": "tsc -w",

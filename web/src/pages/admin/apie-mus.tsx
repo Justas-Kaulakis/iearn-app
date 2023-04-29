@@ -90,7 +90,7 @@ const ApieMus: FC<ApieMusProps> = ({}) => {
                           name="image"
                           component={DropzoneField}
                           imageUrl={data?.getAbout.imageUrl}
-                          dim={{ x: 600, y: 600 }}
+			  dim={{x: 1000, y: 1000}}
                         />
                       </Box>
                       <Flex mt="1em" justifyContent="end">

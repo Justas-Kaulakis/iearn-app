@@ -17,7 +17,8 @@ import { processUpload } from "../utils/processUpload";
 import { GenerationImage } from "../entities/GenerationImage";
 import { isAuth } from "../utils/isAuth";
 import { deleteFile } from "../utils/deleteFile";
-//import { getConnection } from "typeorm";
+import { __prod__ } from "../constants";
+
 
 @InputType()
 class GenerationInput {
@@ -37,7 +38,8 @@ export class GenerationResolver {
   images(@Root() gen: Generation) {
     return gen.images.map((img) => ({
       ...img,
-      imageUrl: `http://localhost:${process.env.SERVER_PORT}/api/images/generation/${img.imageUrl}`,
+      imageUrl: (__prod__ ? "" : `http://localhost:${process.env.SERVER_PORT}`) +
+          `/api/images/generation/${img.imageUrl}`,
     }));
   }
 

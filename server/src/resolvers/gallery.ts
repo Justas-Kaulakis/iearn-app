@@ -16,6 +16,7 @@ import { processUpload } from "../utils/processUpload";
 import { Project } from "../entities/Project";
 import { isAuth } from "../utils/isAuth";
 import { deleteFile } from "../utils/deleteFile";
+import { __prod__ } from "../constants";
 
 @InputType()
 export class Dim {
@@ -40,16 +41,16 @@ export class GalleryResolver {
   @FieldResolver(() => String)
   resizedUrl(@Root() { imageUrl }: Project) {
     return imageUrl
-      ? `http://localhost:${
-          process.env.SERVER_PORT
-        }/api/images/gallery/${imageUrl.replace(".", "-resized.")}`
+      ? (__prod__ ? "" : `http://localhost:${process.env.SERVER_PORT}`) +
+          `/api/images/gallery/${imageUrl.replace(".", "-resized.")}`
       : "";
   }
 
   @FieldResolver(() => String)
   imageUrl(@Root() { imageUrl }: Project) {
     return imageUrl
-      ? `http://localhost:${process.env.SERVER_PORT}/api/images/gallery/${imageUrl}`
+      ? (__prod__ ? "" : `http://localhost:${process.env.SERVER_PORT}`) +
+          `/api/images/gallery/${imageUrl}`
       : "";
   }
 

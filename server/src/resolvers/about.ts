@@ -15,6 +15,7 @@ import { processUpload } from "../utils/processUpload";
 import { isAuth } from "../utils/isAuth";
 import { About } from "../entities/About";
 import { deleteFile } from "../utils/deleteFile";
+import { __prod__ } from "../constants";
 
 @InputType()
 class AboutInput {
@@ -29,7 +30,8 @@ export class AboutResolver {
   @FieldResolver(() => String)
   imageUrl(@Root() { imageUrl }: About) {
     return imageUrl.trim()
-      ? `http://localhost:${process.env.SERVER_PORT}/api/images/about/${imageUrl}`
+      ? (__prod__ ? "" : `http://localhost:${process.env.SERVER_PORT}`) +
+          `/api/images/about/${imageUrl}`
       : "";
   }
   @Query(() => About)

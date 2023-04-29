@@ -22,7 +22,7 @@ const NewestProjects: FC<NewestProjectsProps> = ({}) => {
     <>
       <h1 className="green-heading">Naujausi Projektai</h1>
       <section className="projects-container">
-        {data.projects?.projects?.map((p) => (
+        {data?.projects?.projects?.map((p) => (
           <Card
             key={p.id}
             id={p.id}

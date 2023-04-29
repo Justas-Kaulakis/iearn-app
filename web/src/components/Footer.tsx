@@ -18,9 +18,11 @@ const Footer: FC<FooterProps> = ({}) => {
   }
   let showLinks = true;
   if (!fLinks) {
+    if(links?.socialLinks) {
     const { facebook, iearnGlobal, instagram, youtube } = links?.socialLinks;
     const all = facebook + iearnGlobal + instagram + youtube;
     if (all === "") showLinks = false;
+    } else showLinks = false;
   }
 
   return (

@@ -39,12 +39,16 @@ const Layout: FC<LayoutProps> = ({
               <meta name="googlebot" content="noindex" />
             </>
           ) : null}
-          <meta property="og:url" content={link} />
-          <meta property="og:type" content="website" />
-          <meta property="og:locale" content="lt_LT" />
-          <meta property="og:title" content="iEARN Žiežmariai klubas!" />
-          <meta property="og:description" content={null} />
-          <meta property="og:image" content={null} />
+	  {active !== "projektai" ? (
+	  <>
+            <meta property="og:url" content={link} />
+            <meta property="og:type" content="website" />
+            <meta property="og:locale" content="lt_LT" />
+            <meta property="og:title" content="iEARN Žiežmariai klubas!" />
+            <meta property="og:description" content={null} />
+            <meta property="og:image" content={null} />
+	  </>
+          ) : null}
         </Head>
       )}
       <Header active={active} />
