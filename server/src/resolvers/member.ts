@@ -17,6 +17,8 @@ import { processUpload } from "../utils/processUpload";
 import { getConnection } from "typeorm";
 import { deleteFile } from "../utils/deleteFile";
 import { isAuth } from "../utils/isAuth";
+import { __prod__ } from "../constants";
+
 
 @InputType()
 class MemberInput {
@@ -33,7 +35,8 @@ export class MemberResolver {
   @FieldResolver(() => String)
   imageUrl(@Root() { imageUrl }: Member) {
     return imageUrl
-      ? `http://localhost:${process.env.SERVER_PORT}/api/images/member/${imageUrl}`
+      ? (__prod__ ? "" : `http://localhost:${process.env.SERVER_PORT}`) +
+          `/api/images/member/${imageUrl}`
       : "";
   }
 

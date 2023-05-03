@@ -20,7 +20,7 @@ const ProjectMeta: FC<ProjectMetaProps> = ({ project }) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={project?.title} />
         <meta property="og:description" content={project?.description} />
-        <meta property="og:image" content={project?.imageUrl} />
+        <meta property="og:image" itemProp="image" content={project?.imageUrl} />
       </Head>
     </>
   );

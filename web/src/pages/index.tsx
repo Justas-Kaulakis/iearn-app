@@ -12,7 +12,7 @@ const Index: FC = () => {
       <section className="top">
         <img
           className="landing-img"
-          src="/landing-image.png"
+          src="/landing-image.webp"
           alt="Landing-image"
         />
       </section>

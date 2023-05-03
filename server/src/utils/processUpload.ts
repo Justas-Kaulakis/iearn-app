@@ -4,7 +4,9 @@ import shortid from "shortid";
 //import { copyResizedImage } from "./resizeImage";
 import path from "path";
 import { copyResizedImage } from "./resizeImage";
-const uploadDir = __dirname + "../../../api/images";
+
+
+const uploadDir = __dirname + "/../../api/images";
 
 /**
  * Stores file in the "images/" folder.

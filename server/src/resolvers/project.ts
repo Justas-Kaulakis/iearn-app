@@ -20,6 +20,7 @@ import { ProjectImage } from "../entities/ProjectImage";
 import { deleteFile } from "../utils/deleteFile";
 import { MyContext } from "../types";
 import { isAuth } from "../utils/isAuth";
+import { __prod__ } from "../constants";
 
 @InputType()
 class ProjectInput {
@@ -75,7 +76,8 @@ export class ProjectResolver {
   @FieldResolver(() => String)
   imageUrl(@Root() { imageUrl }: Project) {
     return imageUrl
-      ? `http://localhost:${process.env.SERVER_PORT}/api/images/project/${imageUrl}`
+      ? (__prod__ ? "" : `http://localhost:${process.env.SERVER_PORT}`) +
+          `/api/images/project/${imageUrl}`
       : "";
   }
   @FieldResolver(() => String)

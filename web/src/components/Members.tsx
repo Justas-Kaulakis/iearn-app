@@ -26,7 +26,7 @@ const Members: FC = () => {
             dragfree: false,
           }}
         >
-          {data.members.map((m) => (
+          {data?.members.map((m) => (
             <figure key={m.id} className="carousel__slide member-card">
               {m?.imageUrl ? (
                 <img className="mb-4 w-full rounded-lg" alt="Nuotrauka" src={m.imageUrl}/>

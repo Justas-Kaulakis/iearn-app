@@ -6,8 +6,8 @@ import express from "express";
 import session from "express-session";
 import { buildSchema } from "type-graphql";
 import path from "path";
-import { COOKIE_NAME, /*SERVER_URL,*/ __prod__ } from "./constants";
 import "dotenv-safe/config"; /// loads env variables
+import { COOKIE_NAME, /*SERVER_URL,*/ __prod__ } from "./constants";
 import { createConnection } from "typeorm";
 import { MemberResolver } from "./resolvers/member";
 import { Member } from "./entities/Member";
@@ -103,7 +103,7 @@ const main = async () => {
         //maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
         httpOnly: true,
         sameSite: "lax", // csrf
-        secure: __prod__, // cookie only works in https
+        secure: false, // SUTVARKYTI ->__prod__ <-, // cookie only works in https
         domain: __prod__ ? process.env.DOMAIN : undefined,
       },
       saveUninitialized: false,

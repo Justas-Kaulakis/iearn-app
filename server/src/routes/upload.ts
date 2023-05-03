@@ -5,6 +5,7 @@ import shortid from "shortid";
 import { ProjectImage } from "../entities/ProjectImage";
 import { getConnection } from "typeorm";
 import { Article, Project } from "../entities/Project";
+import { __prod__ } from "../constants";
 
 const router = express.Router();
 
@@ -97,7 +98,8 @@ router.post("/article/upload", fileUpload(), check, async (req, res) => {
         projectId: intId,
         isFromHistory: fromHistory,
       }).save();
-      const url = `http://localhost:${process.env.SERVER_PORT}/api/images/${
+      const url = (__prod__ ? "" : `http://localhost:${process.env.SERVER_PORT}`) +
+          `/api/images/${
         fromHistory ? "history" : "project"
       }/${filename}`;
       console.log(" Stored Url: ", url);

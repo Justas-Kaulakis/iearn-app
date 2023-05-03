@@ -47,8 +47,11 @@ export const createUrqlClient = (ssrExchange: any, ctx: any): ClientOptions => {
         updates: {
           Mutation: {
             login: (_result, args, cache, _info) => {
-              cache.updateQuery({ query: IsLoggedInDocument }, () => {
-                return { isLoggedIn: !(_result.login as any).errors };
+            console.log("result: ", _result);  
+	    cache.updateQuery({ query: IsLoggedInDocument }, () => {
+                const isLoggedIn = !(_result.login as any).errors;
+		console.log({isLoggedIn});
+		return { isLoggedIn };
               });
             },
             logout: (_result, args, cache, _info) => {
