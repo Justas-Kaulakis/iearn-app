@@ -6,8 +6,8 @@ import express from "express";
 import session from "express-session";
 import { buildSchema } from "type-graphql";
 import path from "path";
-import { COOKIE_NAME, /*SERVER_URL,*/ __prod__ } from "./constants";
 import "dotenv-safe/config"; /// loads env variables
+import { COOKIE_NAME, /*SERVER_URL,*/ __prod__ } from "./constants";
 import { createConnection } from "typeorm";
 import { MemberResolver } from "./resolvers/member";
 import { Member } from "./entities/Member";
