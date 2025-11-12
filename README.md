@@ -2,6 +2,11 @@
 
 Meant for the "iearn Žiežmariai" club.
 
+Šis tinklapis nuvo sukurtas tinklalapių kūrimo mokinimosi tikslais, siekiant padaryti brandos darbą 11-12 klasėse. Taigi šisprojektas turėjo gana daug drąstiškų, keistų, per daug komplikuotų sprendimų vien dėl to, nes tuo metu atrodė super duper kietai ir efektyvu - lyg ši svetainė turės tūkstančius vartotojų kiekvieną dieną...  
+Taigi šią sveitainę per naują galimą padaryti naudojant per pus mažiau kodo ir kodas būtų daug labiau suprantamas, kadangi pagrindis šio projekto priešas yra - **GraphQL**. Buvo galima daryti paprast1 REST api, tačiau ne - pasirinkau patį pirmą YT pasitaikusį tutoria su daugiausiai peržiūrų ir iš jo viską mokinausi. Tokių video paskirtis yra - surinkti kuo daugiau peržiūrų naudojant naujas ir įmantrias technologjas - kurios greitai gali pasenti (kaip graphql).
+
+Taigi, kas norės pasileisti šį projektą - sėkmės!
+
 ---
 
 ## Requirements
