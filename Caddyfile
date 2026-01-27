@@ -1,0 +1,26 @@
+# COPY THIS TO /etc/caddy/Caddyfile
+# and run sudo service caddy restart
+:8080 {
+	# GraphQL
+	reverse_proxy /graphql localhost:4000 {
+		header_up X-Forwarded-Proto https
+	}
+
+	# REST / uploads
+	reverse_proxy /api/* localhost:4000 {
+		header_up X-Forwarded-Proto https
+	}
+
+	# Frontend (Next.js)
+	reverse_proxy localhost:3000 {
+		header_up X-Forwarded-Proto https
+	}
+
+	# Increase upload size if needed
+	request_body {
+		max_size 100MB
+	}
+}
+
+# Refer to the Caddy docs for more information:
+# https://caddyserver.com/docs/caddyfile

@@ -87,7 +87,7 @@ export class ProjectResolver {
 
   @FieldResolver(() => [BodyImage])
   async bodyImages(@Root() { id }: Project): Promise<BodyImage[]> {
-    console.log("Query ID: ", id);
+    // console.log("Query ID: ", id);
     // const data = await ProjectImage.find({ where: { projectId: id } });
     return getConnection()
       .createQueryBuilder()
@@ -100,7 +100,7 @@ export class ProjectResolver {
   @Query(() => ProjectRes, { nullable: true })
   async project(
     @Arg("id", () => Int) id: number,
-    @Ctx() { req }: MyContext
+    @Ctx() { req }: MyContext,
   ): Promise<ProjectRes> {
     const project = await Project.findOne({ id });
     if (project === undefined) {
@@ -127,7 +127,7 @@ export class ProjectResolver {
   @Query(() => ProjectsRes)
   async projects(
     @Arg("offset", () => Int) offset: number,
-    @Arg("limit", () => Int) limit: number
+    @Arg("limit", () => Int) limit: number,
   ): Promise<ProjectsRes | undefined> {
     const projects = await Project.find({
       where: {
@@ -168,7 +168,7 @@ export class ProjectResolver {
       FROM project
       WHERE \`isPublished\` = true
       ORDER BY \`createdAt\` DESC;
-      `
+      `,
       );
     });
     return data;
@@ -185,7 +185,7 @@ export class ProjectResolver {
   @Mutation(() => Project)
   @UseMiddleware(isAuth)
   async createProject(
-    @Arg("input") { image, ...input }: ProjectInput
+    @Arg("input") { image, ...input }: ProjectInput,
   ): Promise<Project> {
     let imageUrl = "";
     if (image) {
@@ -208,7 +208,7 @@ export class ProjectResolver {
   @UseMiddleware(isAuth)
   async updateProject(
     @Arg("id", () => Int) id: number,
-    @Arg("input") { image, ...input }: ProjectInput
+    @Arg("input") { image, ...input }: ProjectInput,
   ): Promise<boolean> {
     let imageUrl = "";
 
@@ -239,8 +239,8 @@ export class ProjectResolver {
             ? { imageUrl, wasPublished, publishedAt: firstPublished, ...input }
             : { wasPublished, publishedAt: firstPublished, ...input }
           : image
-          ? { imageUrl, wasPublished, ...input }
-          : { wasPublished, ...input }
+            ? { imageUrl, wasPublished, ...input }
+            : { wasPublished, ...input },
       )
       .where("id = :id", {
         id,

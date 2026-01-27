@@ -22,18 +22,18 @@ import { SocialLinks } from "./entities/SocialLinks";
 import { Contacts } from "./entities/Contacts";
 import {
   ContactsResolver,
-  //createContacts,
-  //createLinks,
+  // createContacts,
+  // createLinks,
   SocialLinksResolver,
 } from "./resolvers/footer";
 import { GalleryImage } from "./entities/GalleryImage";
 import { GalleryResolver } from "./resolvers/gallery";
 import { About } from "./entities/About";
-import { AboutResolver /*createAbout*/ } from "./resolvers/about";
+import { AboutResolver /* createAbout*/ } from "./resolvers/about";
 import { Generation } from "./entities/Generation";
 import { GenerationImage } from "./entities/GenerationImage";
 import { GenerationResolver } from "./resolvers/generation";
-import { /*createHistory,*/ HistoryResolver } from "./resolvers/history";
+import { /* createHistory, */ HistoryResolver } from "./resolvers/history";
 //import { sendEmail } from "./utils/sendEmail";
 
 const main = async () => {
@@ -67,6 +67,7 @@ const main = async () => {
   //await Generation.delete({});
   //await GenerationImage.delete({});
 
+  // SEED DATABASE
   // createLinks();
   // createContacts();
   // createAbout();
@@ -79,15 +80,17 @@ const main = async () => {
 
   // Tell the server that there is a proxy
   // in front to let cookies work
-  app.set("trust proxy", 1);
+  app.set("trust proxy", 2);
 
   /// EXPRESS MIDLEWARE
 
   app.use(
     cors({
-      origin: process.env.CORS_ORIGIN,
+      origin: __prod__
+        ? process.env.CORS_ORIGIN
+        : ["http://localhost:8080", "http://localhost:3000"],
       credentials: true,
-    })
+    }),
   );
 
   app.use(
@@ -98,23 +101,20 @@ const main = async () => {
         disableTouch: true,
       }),
       cookie: {
-        //maxAge: 1000 * 10,
-        maxAge: 1000 * 60 * 60 * 3, /// 3 hours
-        //maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
-        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 8, /// 8 hours
+        httpOnly: true, // security for XSS attacks
         sameSite: "lax", // csrf
-        secure: false, // SUTVARKYTI ->__prod__ <-, // cookie only works in https
-        domain: __prod__ ? process.env.DOMAIN : undefined,
+        secure: __prod__, // cookie only works in https in production
       },
       saveUninitialized: false,
       secret: process.env.SESSION_SECRET as string,
       resave: false,
-    })
+    }),
   );
 
   app.use(
     "/graphql",
-    graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 })
+    graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   );
 
   app.use("/api", express.static("api"));
@@ -137,8 +137,8 @@ const main = async () => {
       ],
       validate: false,
     }),
-    playground: !__prod__,
-    introspection: !__prod__,
+    playground: __prod__,
+    introspection: __prod__,
     context: ({ req, res }) => ({
       req,
       res,

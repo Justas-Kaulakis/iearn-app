@@ -61,7 +61,7 @@ const ApieMus: FC<ApieMusProps> = ({}) => {
                   }
                 }}
                 onSubmit={async (values, { setErrors, resetForm }) => {
-                  console.log(values);
+                  // console.log(values);
                   const { error } = await updateAbout({
                     id: data?.getAbout.id,
                     input: values,
@@ -90,7 +90,7 @@ const ApieMus: FC<ApieMusProps> = ({}) => {
                           name="image"
                           component={DropzoneField}
                           imageUrl={data?.getAbout.imageUrl}
-			  dim={{x: 1000, y: 1000}}
+                          dim={{ x: 1000, y: 1000 }}
                         />
                       </Box>
                       <Flex mt="1em" justifyContent="end">

@@ -16,7 +16,7 @@ export const errorExchange: Exchange =
         if (error?.message.includes("not authenticated")) {
           Router.replace("/admin/login");
         }
-      })
+      }),
     );
   };
 const invalidateProjects = (cache: Cache) => {
@@ -30,8 +30,16 @@ const invalidateProjects = (cache: Cache) => {
 };
 
 export const createUrqlClient = (ssrExchange: any, ctx: any): ClientOptions => {
+  const isServer = typeof window === "undefined";
+
+  const GRAPHQL_URL = isServer
+    ? "http://localhost:4000/graphql" // SSR (Node.js)
+    : "/graphql"; // Browser (via Caddy)
+
+  // console.log("isServer:", isServer);
+  // console.log("GRAPHQL_URL:", GRAPHQL_URL);
   return {
-    url: (process.env.NEXT_PUBLIC_BE_URL_BASE || "") + "/graphql",
+    url: GRAPHQL_URL,
     fetchOptions: {
       credentials: "include" as const,
     },
@@ -47,11 +55,11 @@ export const createUrqlClient = (ssrExchange: any, ctx: any): ClientOptions => {
         updates: {
           Mutation: {
             login: (_result, args, cache, _info) => {
-            console.log("result: ", _result);  
-	    cache.updateQuery({ query: IsLoggedInDocument }, () => {
+              // console.log("result: ", _result);
+              cache.updateQuery({ query: IsLoggedInDocument }, () => {
                 const isLoggedIn = !(_result.login as any).errors;
-		console.log({isLoggedIn});
-		return { isLoggedIn };
+                // console.log({ isLoggedIn });
+                return { isLoggedIn };
               });
             },
             logout: (_result, args, cache, _info) => {

@@ -19,7 +19,6 @@ import { isAuth } from "../utils/isAuth";
 import { deleteFile } from "../utils/deleteFile";
 import { __prod__ } from "../constants";
 
-
 @InputType()
 class GenerationInput {
   @Field()
@@ -38,8 +37,9 @@ export class GenerationResolver {
   images(@Root() gen: Generation) {
     return gen.images.map((img) => ({
       ...img,
-      imageUrl: (__prod__ ? "" : `http://localhost:${process.env.SERVER_PORT}`) +
-          `/api/images/generation/${img.imageUrl}`,
+      imageUrl:
+        (__prod__ ? "" : `http://localhost:${process.env.SERVER_PORT}`) +
+        `/api/images/generation/${img.imageUrl}`,
     }));
   }
 
@@ -60,9 +60,9 @@ export class GenerationResolver {
   @Mutation(() => Int)
   @UseMiddleware(isAuth)
   async createGeneration(
-    @Arg("input") input: GenerationInput
+    @Arg("input") input: GenerationInput,
   ): Promise<number> {
-    console.log({ input });
+    // console.log({ input });
     let gen: Generation;
     let images: GenerationImage[];
     /// Save all images to folders
@@ -73,7 +73,7 @@ export class GenerationResolver {
           return await GenerationImage.create({
             imageUrl: await processUpload("generation", im),
           }).save();
-        })
+        }),
       );
       if (input.projectIds.length)
         gen = await Generation.create({
@@ -102,7 +102,7 @@ export class GenerationResolver {
           description: input.description,
         }).save();
       }
-      console.log(gen);
+      // console.log(gen);
     }
     return gen.id;
   }
@@ -111,7 +111,7 @@ export class GenerationResolver {
   @UseMiddleware(isAuth)
   async updateGeneration(
     @Arg("id", () => Int) id: number,
-    @Arg("input") input: GenerationInput
+    @Arg("input") input: GenerationInput,
   ): Promise<boolean> {
     //let images: GenerationImage[];
     /// Save all images to folders
@@ -125,7 +125,7 @@ export class GenerationResolver {
       });
 
     if (input.projectIds.length) {
-      console.log(input.projectIds);
+      // console.log(input.projectIds);
       await Generation.createQueryBuilder()
         .relation("projects")
         .of({ id })
@@ -139,7 +139,7 @@ export class GenerationResolver {
       {
         title: input.title,
         description: input.description,
-      }
+      },
     );
 
     return true;
@@ -168,7 +168,7 @@ export class GenerationResolver {
   @UseMiddleware(isAuth)
   async deleteGenImage(
     @Arg("genId", () => Int) genId: number,
-    @Arg("imgId", () => Int) imgId: number
+    @Arg("imgId", () => Int) imgId: number,
   ): Promise<boolean> {
     const img = await GenerationImage.findOne({ id: imgId });
 
@@ -186,7 +186,7 @@ export class GenerationResolver {
   @UseMiddleware(isAuth)
   async removeGenProject(
     @Arg("genId", () => Int) genId: number,
-    @Arg("projId", () => Int) projId: number
+    @Arg("projId", () => Int) projId: number,
   ): Promise<boolean> {
     genId;
     await Generation.createQueryBuilder()

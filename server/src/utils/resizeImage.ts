@@ -7,13 +7,13 @@ export const copyResizedImage = async (
   imgFolder: string,
   // srcPath: string,
   // dstPath: string,
-  maxW: number
+  maxW: number,
 ): Promise<void> => {
-  console.log("before");
+  // console.log("before");
   let buffer: Buffer | null = null;
   try {
     buffer = fs.readFileSync(
-      path.resolve(process.cwd(), `api/images/${imgFolder}/${filename}`)
+      path.resolve(process.cwd(), `api/images/${imgFolder}/${filename}`),
     );
   } catch (err) {
     console.log(err);
@@ -28,16 +28,16 @@ export const copyResizedImage = async (
         fs.writeFileSync(
           path.resolve(
             process.cwd(),
-            `api/images/${imgFolder}/${filename.replace(".", `-resized.`)}`
+            `api/images/${imgFolder}/${filename.replace(".", `-resized.`)}`,
           ),
-          image
+          image,
         );
     })
     .catch(console.log);
 
-  console.log("after");
+  // console.log("after");
 
-  console.log("After resizing");
+  // console.log("After resizing");
   // console.log(`resized \n${srcPath}:\nto fit within ${dim.x}x${dim.y}px`);
   // console.log("stored: ", dstPath);
   /*

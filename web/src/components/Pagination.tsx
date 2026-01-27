@@ -19,7 +19,7 @@ const Pagination: FC<PaginationProps> = ({
   if (totalPageCount <= 1) {
     return null;
   }
-  console.log({ totalPageCount });
+  // console.log({ totalPageCount });
   return (
     <Flex mt="1em" justifyContent="center" width="100%">
       <Flex

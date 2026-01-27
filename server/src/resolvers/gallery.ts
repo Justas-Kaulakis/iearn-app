@@ -62,13 +62,13 @@ export class GalleryResolver {
   @Mutation(() => Int)
   @UseMiddleware(isAuth)
   async createGalleryImage(
-    @Arg("input") { image, description, maxW }: GalleryInput
+    @Arg("input") { image, description, maxW }: GalleryInput,
   ): Promise<number> {
-    console.log(process.cwd());
+    // console.log(process.cwd());
     let imageUrl = "";
     if (image) {
       imageUrl = await processUpload("gallery", image, maxW);
-      console.log("Returned path in resolver: ", imageUrl);
+      // console.log("Returned path in resolver: ", imageUrl);
     }
 
     const { id } = await GalleryImage.create({
@@ -76,7 +76,7 @@ export class GalleryResolver {
       description,
     }).save();
 
-    console.log("created id: ", id);
+    // console.log("created id: ", id);
 
     return id;
   }
@@ -85,7 +85,7 @@ export class GalleryResolver {
   @UseMiddleware(isAuth)
   async updateGalleryImage(
     @Arg("id", () => Int) id: number,
-    @Arg("input") { image, description, maxW }: GalleryInput
+    @Arg("input") { image, description, maxW }: GalleryInput,
   ): Promise<boolean> {
     let imageUrl = "";
     if (image) {
@@ -104,7 +104,7 @@ export class GalleryResolver {
           }
         : {
             description,
-          }
+          },
     );
     return true;
   }

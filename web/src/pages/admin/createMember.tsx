@@ -18,7 +18,7 @@ const CreateMember: FC = () => {
     <Formik<FormInputType>
       initialValues={{ fullName: "", description: "", image: null }}
       onSubmit={async (values, { setSubmitting }) => {
-        console.log("Values:", values);
+        // console.log("Values:", values);
         if (values) {
           const { data, error } = await createMember({
             input: {

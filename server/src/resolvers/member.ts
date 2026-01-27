@@ -19,7 +19,6 @@ import { deleteFile } from "../utils/deleteFile";
 import { isAuth } from "../utils/isAuth";
 import { __prod__ } from "../constants";
 
-
 @InputType()
 class MemberInput {
   @Field()
@@ -53,14 +52,14 @@ export class MemberResolver {
   @Mutation(() => Member)
   @UseMiddleware(isAuth)
   async createMember(
-    @Arg("input") { image, ...input }: MemberInput
+    @Arg("input") { image, ...input }: MemberInput,
   ): Promise<Member> {
-    console.log("In resolver...");
+    // console.log("In resolver...");
     let imageUrl = "";
     if (image) {
       imageUrl = await processUpload("member", image);
     }
-    console.log("Saving to database...");
+    // console.log("Saving to database...");
 
     /*
     const result = await getConnection()
@@ -79,9 +78,9 @@ export class MemberResolver {
   @UseMiddleware(isAuth)
   async updateMember(
     @Arg("id", () => Int) id: number,
-    @Arg("input") { image, ...input }: MemberInput
+    @Arg("input") { image, ...input }: MemberInput,
   ): Promise<boolean> {
-    console.log("In resolver...");
+    // console.log("In resolver...");
     let imageUrl = "";
 
     if (image) {
@@ -116,7 +115,7 @@ export class MemberResolver {
       WHERE id = ?
       LIMIT 1;
       `,
-        [id]
+        [id],
       );
     });
     const avatarImage: string = data[0].imageUrl;

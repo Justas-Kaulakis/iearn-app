@@ -35,9 +35,9 @@ export const check: RequestHandler = (req, res, next) => {
 
 /// Stores image to api/temp/
 router.post("/article/upload", fileUpload(), check, async (req, res) => {
-  console.log("Express Id: ", req.query?.id);
-  console.log("Express isFromHistory: ", req.query?.fromHistory);
-  console.log(req.query);
+  // console.log("Express Id: ", req.query?.id);
+  // console.log("Express isFromHistory: ", req.query?.fromHistory);
+  // console.log(req.query);
 
   const intId = parseInt(req.query.id as string);
   const fromHistory = req.query?.fromHistory === "true";
@@ -61,7 +61,7 @@ router.post("/article/upload", fileUpload(), check, async (req, res) => {
       .from(Article, "article")
       .getRawOne();
 
-    console.log("Does exist from history: ", data[selectS]);
+    // console.log("Does exist from history: ", data[selectS]);
   }
 
   const exists = !!parseInt(data[selectS]);
@@ -98,13 +98,12 @@ router.post("/article/upload", fileUpload(), check, async (req, res) => {
         projectId: intId,
         isFromHistory: fromHistory,
       }).save();
-      const url = (__prod__ ? "" : `http://localhost:${process.env.SERVER_PORT}`) +
-          `/api/images/${
-        fromHistory ? "history" : "project"
-      }/${filename}`;
+      const url =
+        (__prod__ ? "" : `http://localhost:${process.env.SERVER_PORT}`) +
+        `/api/images/${fromHistory ? "history" : "project"}/${filename}`;
       console.log(" Stored Url: ", url);
       return res.json({ url });
-    }
+    },
   );
 });
 

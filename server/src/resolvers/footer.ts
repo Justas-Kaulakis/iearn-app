@@ -50,10 +50,10 @@ export class SocialLinksResolver {
   @UseMiddleware(isAuth)
   async updateLinks(
     @Arg("id", () => Int) id: number,
-    @Arg("input") input: SocialLinksInput
+    @Arg("input") input: SocialLinksInput,
   ) {
-    const result = await SocialLinks.update({ id }, { ...input });
-    console.log("Update reslut: ", result);
+    await SocialLinks.update({ id }, { ...input });
+    // console.log("Update reslut: ", result);
     return true;
   }
 }
@@ -62,7 +62,7 @@ export async function createLinks() {
   const count = await SocialLinks.count();
 
   if (count >= 1) return;
-  console.log("Created social links row");
+  // console.log("Created social links row");
 
   SocialLinks.create({
     facebook: "",
@@ -81,7 +81,7 @@ export class ContactsResolver {
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   updateContacts(
-    @Arg("contacts", () => [MyContact]) contacts: MyContact[]
+    @Arg("contacts", () => [MyContact]) contacts: MyContact[],
   ): boolean {
     contacts.forEach(async ({ id, contact }) => {
       await Contacts.update({ id }, { contact });
@@ -107,7 +107,7 @@ export async function createContacts() {
       INSERT INTO contacts (contact) 
       VALUES 
         ${defaultValues ? `${defaultValues.map(() => " ('')")}, ` : ""}('');
-    `
+    `,
     );
   });
 }

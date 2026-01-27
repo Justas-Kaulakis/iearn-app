@@ -61,9 +61,7 @@ const Editor: FC<EditorProps> = ({
           previewsInData: true,
         },
         simpleUpload: {
-          uploadUrl: `${
-            process.env.NEXT_PUBLIC_BE_URL_BASE
-          }/api/article/upload?id=${id}${
+          uploadUrl: `/api/article/upload?id=${id}${
             isFromHistory ? "&fromHistory=true" : ""
           }`,
           withCredentials: true,
