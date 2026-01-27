@@ -21,6 +21,8 @@ Caddy and Tailsale is a hack I put together to easily make the website accessabl
 
 ### NVM and Node ^12.0.0
 
+> USE version 12.0.0 because newer version will crash!
+
 ```bash
 # install script
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
@@ -90,7 +92,7 @@ git clone https://github.com/Justas-Kaulakis/iearn-app.git
 
 ### Configure env variables based on .example files
 
-- In [server/.env](server/.env) and in [web/.env.local](web/.env.local)
+- In [./server/.env.example](server/.env) and in [./web/.env.local.example](web/.env.local)
 
 - Set **NODE_ENV** in ./server/ to "production" or "develoment" accordingly.
 
@@ -103,29 +105,31 @@ yarn install
 
 - ### development
 
-  Automatically watch for each change in the src folder and recompile typesript to the "dist/" folder:
+> I suggest you do NOT develop this repositort any further. If you want to - DO NOT upgrade the **package.json** dependencies as the codebase is very old and the new versions will cause breakes - that's the whole deal with nodeJS - evverything evolves too fast...
 
-  ```bash
-  yarn watch
-  ```
+Automatically watch for each change in the src folder and recompile typesript to the "dist/" folder:
 
-  If you havent yet ran any migrations, then so far there are no tables created for the "iearn" database. To create them from the migration files int the src code do:
+```bash
+yarn watch
+```
 
-  ```bash
-  yarn run:mig
-  ```
+If you havent yet ran any migrations, then so far there are no tables created for the "iearn" database. To create them from the migration files int the src code do:
 
-  To revert the last migration do:
+```bash
+yarn run:mig
+```
 
-  ```bash
-  yarn rev:mig
-  ```
+To revert the last migration do:
 
-  Then run the server:
+```bash
+yarn rev:mig
+```
 
-  ```bash
-  yarn dev
-  ```
+Then run the server:
+
+```bash
+yarn dev
+```
 
 - ### production
 
@@ -179,7 +183,7 @@ yarn install
 
 ## CADDY proxy
 
-![proxy graph](./caddy_proxy_graph.png)
+<img style="width: 70%; display: block; margin: auto;" src="./caddy_proxy_graph.png" alt="image" />
 
 ### Install and setup caddy proxy.
 
